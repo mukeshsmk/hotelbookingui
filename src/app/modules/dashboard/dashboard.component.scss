@@ -1,0 +1,57 @@
+.dashboard-cards {
+  display: flex;
+  flex-wrap: wrap;   // allow wrapping on smaller screens
+  gap: 20px;
+  padding: 10px;
+}
+
+/* DESKTOP: 5 cards per row */
+.summary-card {
+  flex: 1 1 calc(20% - 20px);  // 5 cards per row
+  min-width: 200px;            // prevent too small shrinking
+}
+
+/* TABLET: 3 cards per row */
+@media (max-width: 1024px) {
+  .summary-card {
+  flex: 1 1 calc(20% - 20px);  // 5 cards per row
+  min-width: 200px;            // prevent too small shrinking
+}
+}
+
+/* MOBILE LARGE: 2 cards per row */
+@media (max-width: 768px) {
+ .summary-card {
+  flex: 1 1 calc(20% - 20px);  // 5 cards per row
+  min-width: 200px;            // prevent too small shrinking
+}
+}
+
+/* MOBILE SMALL: 1 card per row */
+@media (max-width: 480px) {
+  .summary-card {
+    flex: 1 1 100%;
+  }
+}
+
+.dashboard-cards::-webkit-scrollbar {
+  height: 6px;
+}
+
+.dashboard-cards::-webkit-scrollbar-thumb {
+  background: #c7c7c7;
+  border-radius: 4px;
+}
+
+/* MOBILE BREAKPOINT */
+@media (max-width: 900px) {
+  .dashboard-cards {
+    flex-wrap: wrap;      // now cards will stack
+    overflow-x: hidden;   // remove the horizontal scroll
+  }
+
+  .summary-card {
+    flex: 1 1 100%;       // take full width
+    min-width: 100%;      // single column layout
+  }
+}

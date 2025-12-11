@@ -1,0 +1,42 @@
+<mat-card class="room-card" (click)="onSelectRoom()" [ngClass]="getCardClass(room.status)">
+
+    <div class="room-header">
+        <h3 class="room-title">Room {{ room.number }}</h3>
+
+        <!-- STATUS BADGE -->
+        <span class="status-badge" [ngClass]="getStatusClass(room.status)">
+            {{ room.status }}
+        </span>
+    </div>
+
+    <div class="room-body">
+        <p class="guest-name" *ngIf="room.guestName">{{ room.guestName }}</p>
+        <p class="guest-name muted" *ngIf="!room.guestName">No guest assigned</p>
+
+        <p class="sub-text" *ngIf="room.checkOut">
+            Check-out: {{ room.checkOut | date:'dd/MM/yyyy' }}
+        </p>
+
+        <p class="sub-text" *ngIf="room.note">
+            {{ room.note }}
+        </p>
+    </div>
+
+    <!-- ⭐ HOVER OVERLAY BUTTON ⭐ -->
+    <div class="hover-overlay">
+
+        <button mat-flat-button class="hover-btn" [ngClass]="getButtonClass(room.status)"
+            (click)="onRoomAction(room); $event.stopPropagation()">
+            <ng-container [ngSwitch]="room.status">
+                <span *ngSwitchCase="'Available'">Check-in</span>
+                <span *ngSwitchCase="'Occupied'">Check-out</span>
+                <span *ngSwitchCase="'Needs Cleaning'">Mark Cleaned</span>
+                <span *ngSwitchCase="'Out of Order'">Repair Done</span>
+                <span *ngSwitchDefault>View Details</span>
+            </ng-container>
+        </button>
+
+    </div>
+
+
+</mat-card>

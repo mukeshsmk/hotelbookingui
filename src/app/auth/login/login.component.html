@@ -1,0 +1,58 @@
+<div class="login-container">
+
+    <!-- LEFT SECTION - IMAGE & TEXT -->
+    <div class="left-panel">
+        <div class="overlay">
+            <h1>Streamline Your<br>Operations, Delight Your Guests.</h1>
+            <p>
+                The all-in-one platform to manage bookings, staff and guest experiences with effortless efficiency.
+            </p>
+        </div>
+    </div>
+
+    <!-- RIGHT SECTION - LOGIN FORM -->
+    <div class="right-panel">
+        <div class="login-section">
+
+            <div class="logo">
+                <mat-icon class="bed-icon">bed</mat-icon> Stay<span>Well</span>
+            </div>
+
+            <h2>Welcome Back</h2>
+            <p class="subtitle">Sign in to access your hotel dashboard</p>
+
+            <form (ngSubmit)="login()" [formGroup]="loginForm">
+
+                <!-- Email -->
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Email Address</mat-label>
+                    <input matInput placeholder="Enter your email" formControlName="email">
+                    <mat-icon matSuffix>email</mat-icon>
+                </mat-form-field>
+
+                <!-- Password -->
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Password</mat-label>
+                    <input matInput type="password" placeholder="Enter your password" formControlName="password">
+                    <mat-icon matSuffix>lock</mat-icon>
+                </mat-form-field>
+
+                <!-- Remember + Forgot -->
+                <div class="form-options">
+                    <mat-checkbox>Remember Me</mat-checkbox>
+                    <a routerLink="/forgot">Forgot Password?</a>
+                </div>
+
+                <!-- Button -->
+                <button mat-raised-button color="primary" class="login-btn">
+                    Sign In
+                </button>
+            </form>
+
+            <footer>
+                © 2025 StayWell. All rights reserved.
+            </footer>
+        </div>
+
+    </div>
+</div>

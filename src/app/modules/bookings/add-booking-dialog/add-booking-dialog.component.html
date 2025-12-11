@@ -1,0 +1,86 @@
+<div class="dialog-header">
+    <h2>Add Booking</h2>
+    <button mat-icon-button class="close-btn" (click)="close()">
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+
+<div class="dialog-content">
+    <form>
+
+        <div class="row">
+
+            <!-- Left Column -->
+            <div class="column">
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Guest Name</mat-label>
+                    <input matInput [(ngModel)]="newBooking.guestName" name="guestName" placeholder="Enter guest name"
+                        required>
+                </mat-form-field>
+
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Guest Name</mat-label>
+                    <input matInput [(ngModel)]="newBooking.guestName" name="guestName" placeholder="Enter guest name"
+                        required>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Room</mat-label>
+                    <input matInput type="number" [(ngModel)]="newBooking.room" name="room"
+                        placeholder="Enter room number" required>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Check-in</mat-label>
+                    <input matInput [(ngModel)]="newBooking.checkIn" name="checkIn" [matDatepicker]="picker1" required>
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+            <!-- Right Column -->
+            <div class="column">
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Guest Name</mat-label>
+                    <input matInput [(ngModel)]="newBooking.guestName" name="guestName" placeholder="Enter guest name"
+                        required>
+                </mat-form-field>
+
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Check-out</mat-label>
+                    <input matInput [(ngModel)]="newBooking.checkOut" name="checkOut" [matDatepicker]="picker2"
+                        required>
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Status</mat-label>
+                    <mat-select [(ngModel)]="newBooking.status" name="status">
+                        <mat-option value="Pending">Pending</mat-option>
+                        <mat-option value="Checked-in">Checked-in</mat-option>
+                        <mat-option value="Checked-out">Checked-out</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Payment</mat-label>
+                    <mat-select [(ngModel)]="newBooking.payment" name="payment">
+                        <mat-option value="Due">Due</mat-option>
+                        <mat-option value="Paid">Paid</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+        </div>
+    </form>
+</div>
+
+<div class="action-btn" mat-dialog-actions align="end">
+    <button mat-stroked-button (click)="close()">Cancel</button>
+    <button mat-raised-button color="primary" (click)="saveBooking()">Save</button>
+</div>

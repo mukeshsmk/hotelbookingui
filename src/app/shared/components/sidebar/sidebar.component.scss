@@ -1,0 +1,179 @@
+/* -----------------------------
+   Sidebar Container
+--------------------------------*/
+.sidebar {
+    width: 180px;
+    height: 100vh;
+    background: #ffffff;
+    border-right: 1px solid #eaeaea;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+
+    display: flex;
+    flex-direction: column;
+
+    /* Hidden by default on mobile */
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+}
+
+.sidebar.open {
+    transform: translateX(0);
+}
+
+/* Desktop: always visible */
+@media (min-width: 992px) {
+    .sidebar {
+        transform: translateX(0);
+        position: fixed;
+    }
+}
+
+/* -----------------------------
+   User Profile
+--------------------------------*/
+.user-profile {
+    text-align: center;
+    margin-bottom: 30px;
+
+    .avatar {
+        width: 65px;
+        height: 65px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 8px;
+    }
+
+    h4 {
+        margin: 5px 0 2px;
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    p {
+        font-size: 13px;
+        color: #777;
+        margin: 0;
+    }
+}
+
+/* -----------------------------
+   Navigation Menu
+--------------------------------*/
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-grow: 1;
+
+    a {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 10px;
+        border-radius: 10px;
+        text-decoration: none;
+        color: #333;
+        font-size: 15px;
+        cursor: pointer;
+        transition: 0.2s ease;
+
+        mat-icon {
+            font-size: 20px;
+        }
+
+        &:hover {
+            background: #f2f6ff;
+        }
+
+        &.active {
+            background: #e5f0ff;
+            color: #0055d9;
+
+            mat-icon {
+                color: #0055d9;
+            }
+        }
+    }
+}
+
+/* -----------------------------
+   Settings at Bottom
+--------------------------------*/
+.settings {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 10px;
+    border-radius: 10px;
+    font-size: 15px;
+    cursor: pointer;
+    color: #333;
+    text-decoration: none;
+    transition: 0.2s;
+    position: relative;
+    bottom: 40px;
+    mat-icon {
+        font-size: 20px;
+    }
+
+    &:hover {
+        background: #f2f6ff;
+    }
+
+    &.active {
+        background: #e5f0ff;
+        color: #0055d9;
+
+        mat-icon {
+            color: #0055d9;
+        }
+    }
+}
+
+/* -----------------------------
+   Mobile Menu Toggle Button
+--------------------------------*/
+.menu-toggle {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 2000;
+
+    mat-icon {
+        font-size: 28px;
+    }
+}
+
+@media (min-width: 992px) {
+    .menu-toggle {
+        display: none;
+    }
+}
+
+/* -----------------------------
+   Mobile Overlay
+--------------------------------*/
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 900;
+    display: block;
+}
+
+@media (min-width: 992px) {
+    .sidebar-overlay {
+        display: none;
+    }
+}

@@ -1,0 +1,139 @@
+/* .bookings-page {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.add-btn {
+  background: #ffb000;
+  color: #fff;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.filters {
+  display: flex;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.filters input,
+.filters select {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  flex: 1;
+}
+
+.bookings-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.bookings-table th,
+.bookings-table td {
+  padding: 16px;
+  border-bottom: 1px solid #eee;
+}
+
+.bookings-table th {
+  color: #777;
+  text-align: left;
+}
+
+.options {
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.status {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  color: white;
+}
+
+.confirmed {
+  background: #4caf50;
+}
+
+.checked-in {
+  background: #2196f3;
+}
+
+.checked-out {
+  background: #777;
+}
+
+.canceled {
+  background: #e53935;
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  color: #666;
+}
+
+.controls button {
+  border: 1px solid #ccc;
+  background: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+ */
+
+.badge {
+    display: inline-block;
+    min-width: 18px;
+    padding: 4px 10px;
+    font-size: 13px;
+    line-height: 20px;
+    background-color: #757575;
+    border-radius: 4px;
+}
+
+.status-checked-in {
+    color: #198754;
+    background-color: #19875426;
+    font-weight: 500;
+}
+.status-pending {
+    color: #fd7e14 !important;
+    background-color: #fd7e1426 !important;
+    font-weight: 500;
+}
+.status-booked {
+    color: #0d6efd !important;
+    background-color: #0d6efd26 !important;
+    font-weight: 500;
+}
+.status-checked-out {
+    color: gray;
+    font-weight: bold;
+     background-color: #0d6efd26 !important;
+}
+
+.payment-paid {
+    color: #198754;
+    background-color: #19875426;
+    font-weight: 500;
+}
+.payment-due {
+    color: red;
+    font-weight: 500;
+    background: #e7707057;
+}
