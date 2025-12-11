@@ -1,0 +1,147 @@
+.room-card {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    border-top: 5px solid transparent;
+    border-radius: 14px;
+    transition: 0.3s ease;
+}
+
+/* Dark semi-transparent overlay */
+.room-card:hover {
+    background: rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Fade card content */
+.room-card:hover .room-header,
+.room-card:hover .room-body {
+    opacity: 0.1;
+}
+
+/* Overlay container */
+.hover-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+/* Show overlay on hover */
+.room-card:hover .hover-overlay {
+    opacity: 1;
+}
+
+.hover-btn {
+    padding: 6px 15px;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 12px;
+    color: white !important;
+}
+
+/* Dynamic classes */
+.btn-checkin {
+    background: #4caf50 !important;
+} /* green */
+.btn-checkout {
+    background: #f44336 !important;
+} /* red */
+.btn-clean {
+    background: #ffc107 !important;
+} /* yellow */
+.btn-repair {
+    background: #9c27b0 !important;
+} /* purple */
+.btn-default {
+    background: #4f6cf8 !important;
+} /* blue */
+
+.border-available {
+    border-color: #4caf50 !important; /* Green */
+}
+
+.border-occupied {
+    border-color: #f44336 !important; /* Red */
+}
+
+.border-cleaning {
+    border-color: #ffc107 !important; /* Yellow */
+}
+
+.border-outoforder {
+    border-color: #3949ab !important; /* Purple */
+}
+
+.border-default {
+    border-color: #4f6cf8 !important; /* Blue */
+}
+
+.room-card {
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+    transition: 0.2s ease;
+    cursor: pointer;
+}
+
+.room-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.room-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.status-badge {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: capitalize;
+
+    &.available {
+        background: #d4f8e8;
+        color: #0b8f43;
+    }
+
+    &.occupied {
+        background: #ffe0e0;
+        color: #ca2b2b;
+    }
+
+    &.needs-cleaning {
+        background: #fff4d4;
+        color: #c18a00;
+    }
+
+    &.out-of-order {
+        background: #e1e7ff;
+        color: #3949ab;
+    }
+}
+
+.room-body {
+    margin-top: 15px;
+}
+
+.guest-name {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.muted {
+    color: #777;
+}
+
+.sub-text {
+    font-size: 14px;
+    color: #777;
+}

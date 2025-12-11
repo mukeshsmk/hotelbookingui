@@ -1,0 +1,31 @@
+<header class="topbar">
+    <div class="welcome"></div>
+
+    <div class="logout-section">
+        <ul class="actions">
+            <li [matMenuTriggerFor]="appMenu">
+                <a mat-button class="username-container">
+                    <div class="avatar-button-wrapper">
+                        <span class="profile-name">{{ curentUser.charAt(0) | uppercase }}</span>
+                        <span class="username">{{ curentUser }}</span>
+                        <mat-icon>keyboard_arrow_down</mat-icon>
+                    </div>
+                </a>
+            </li>
+        </ul>
+
+        <!-- MATERIAL MENU -->
+        <mat-menu #appMenu="matMenu"  class="custom-context-menu">
+            <button mat-menu-item>
+                <mat-icon>vpn_key</mat-icon>
+                Change Password
+            </button>
+            <button mat-menu-item (click)="logout()">
+                <mat-icon>logout</mat-icon>
+                Logout
+            </button>
+
+        </mat-menu>
+
+    </div>
+</header>

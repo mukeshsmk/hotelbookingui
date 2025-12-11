@@ -1,0 +1,45 @@
+<div class="status-header">
+
+    <!-- Left SIDE -->
+    <div class="left-section">
+        <h1 class="title">Room Status</h1>
+
+        <div class="date-controls">
+            <button mat-icon-button (click)="previousDay()">
+                <mat-icon>chevron_left</mat-icon>
+            </button>
+
+            <div class="date-text">
+                {{ selectedDate | date:'MMMM d, yyyy' }}
+            </div>
+
+            <button mat-icon-button (click)="nextDay()">
+                <mat-icon>chevron_right</mat-icon>
+            </button>
+
+            <button mat-stroked-button color="primary" (click)="goToday()">
+                Today
+            </button>
+
+            <mat-form-field appearance="outline" class="date-picker">
+                <input matInput [matDatepicker]="datePicker" (ngModel)="selectedDate" />
+                <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+                <mat-datepicker #datePicker></mat-datepicker>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <!-- Right SIDE -->
+    <div class="right-section">
+        <button mat-flat-button color="primary" class="booking-btn">
+            <mat-icon>add</mat-icon> New Booking
+        </button>
+    </div>
+
+</div>
+
+
+<div class="room-grid">
+    <app-room-details *ngFor="let room of roomDetails" [room]="room">
+    </app-room-details>
+</div>

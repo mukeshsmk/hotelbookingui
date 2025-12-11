@@ -1,0 +1,25 @@
+<div class="layout" *ngIf="!isLoginPage(); else loginLayout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar" [class.closed]="!sidebarOpen">
+    <app-sidebar></app-sidebar>
+  </aside>
+
+  <!-- Main content section -->
+  <main class="main">
+
+    <!-- Topbar -->
+    <app-navbar (toggleSidebar)="toggleSidebar()"></app-navbar>
+
+    <!-- Routed content -->
+    <section class="content">
+      <router-outlet></router-outlet>
+    </section>
+
+  </main>
+
+</div>
+
+<ng-template #loginLayout>
+  <router-outlet></router-outlet>
+</ng-template>

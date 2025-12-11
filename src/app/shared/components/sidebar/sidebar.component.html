@@ -1,0 +1,45 @@
+<button class="menu-toggle" (click)="toggleSidebar()">
+    <mat-icon>menu</mat-icon>
+</button>
+
+<div class="sidebar-overlay" *ngIf="isSidebarOpen" (click)="toggleSidebar()"></div>
+
+<aside class="sidebar" [class.open]="isSidebarOpen">
+
+    <!-- User Profile -->
+    <div class="user-profile">
+        <img src="assets/user.jpg" alt="User" class="avatar" />
+        <h4>John Doe</h4>
+        <p>The Grand Hotel</p>
+    </div>
+
+    <!-- Menu -->
+    <nav class="menu">
+        <a routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <mat-icon>dashboard</mat-icon>
+            <span>Dashboard</span>
+        </a>
+
+        <a routerLink="/bookings" routerLinkActive="active">
+            <mat-icon>event_note</mat-icon>
+            <span>Bookings</span>
+        </a>
+
+        <a routerLink="/rooms" routerLinkActive="active">
+            <mat-icon>bed</mat-icon>
+            <span>Rooms</span>
+        </a>
+
+        <a routerLink="/reports" routerLinkActive="active">
+            <mat-icon>analytics</mat-icon>
+            <span>Reports</span>
+        </a>
+    </nav>
+
+    <!-- Bottom Settings -->
+    <a class="settings" routerLink="/settings" routerLinkActive="active">
+        <mat-icon>settings</mat-icon>
+        <span>Settings</span>
+    </a>
+
+</aside>
