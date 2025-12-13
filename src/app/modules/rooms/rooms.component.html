@@ -39,7 +39,22 @@
 </div>
 
 
-<div class="room-grid">
+<!-- <div class="room-grid">
     <app-room-details *ngFor="let room of roomDetails" [room]="room">
     </app-room-details>
+</div> -->
+
+<div *ngFor="let floor of roomDetails" class="floor-section">
+
+    <!-- FLOOR HEADER -->
+    <h2 class="floor-title">
+        {{ floor.floorName }}
+    </h2>
+
+    <!-- ROOMS GRID -->
+    <div class="room-grid">
+        <app-room-details *ngFor="let room of floor.rooms" [room]="room">
+        </app-room-details>
+    </div>
+
 </div>

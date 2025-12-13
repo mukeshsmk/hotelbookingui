@@ -15,42 +15,63 @@
 
                 <mat-form-field appearance="outline" class="full-width">
                     <mat-label>Guest Name</mat-label>
-                    <input matInput [(ngModel)]="newBooking.guestName" name="guestName" placeholder="Enter guest name"
-                        required>
-                </mat-form-field>
-
-
-                <mat-form-field appearance="outline" class="full-width">
-                    <mat-label>Guest Name</mat-label>
-                    <input matInput [(ngModel)]="newBooking.guestName" name="guestName" placeholder="Enter guest name"
+                    <input matInput [(ngModel)]="newBooking.guestName" name="guestName" placeholder="Guest Name"
                         required>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="full-width">
-                    <mat-label>Room</mat-label>
-                    <input matInput type="number" [(ngModel)]="newBooking.room" name="room"
-                        placeholder="Enter room number" required>
+                    <mat-label>Phone Number</mat-label>
+                    <input matInput type="number" [(ngModel)]="newBooking.room" name="room" placeholder="Phone Number"
+                        required>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Address</mat-label>
+                    <input matInput type="number" [(ngModel)]="newBooking.room" name="room" placeholder="Address"
+                        required>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>State</mat-label>
+                    <input matInput type="number" [(ngModel)]="newBooking.room" name="room" placeholder="State"
+                        required>
+                </mat-form-field>
+
+                <!-- <mat-form-field appearance="outline" class="full-width">
                     <mat-label>Check-in</mat-label>
                     <input matInput [(ngModel)]="newBooking.checkIn" name="checkIn" [matDatepicker]="picker1" required>
                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                     <mat-datepicker #picker1></mat-datepicker>
-                </mat-form-field>
+                </mat-form-field> -->
             </div>
 
             <!-- Right Column -->
             <div class="column">
 
                 <mat-form-field appearance="outline" class="full-width">
-                    <mat-label>Guest Name</mat-label>
-                    <input matInput [(ngModel)]="newBooking.guestName" name="guestName" placeholder="Enter guest name"
+                    <mat-label>Age</mat-label>
+                    <input matInput [(ngModel)]="newBooking.guestName" name="guestName" placeholder="Age" required>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>ID Number</mat-label>
+                    <input matInput [(ngModel)]="newBooking.guestName" name="guestName" placeholder="ID Number"
                         required>
                 </mat-form-field>
 
+                 <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>State</mat-label>
+                    <input matInput type="number" [(ngModel)]="newBooking.room" name="room" placeholder="State"
+                        required>
+                </mat-form-field>
 
                 <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Pincode</mat-label>
+                    <input matInput type="number" [(ngModel)]="newBooking.room" name="room" placeholder="Pincode"
+                        required>
+                </mat-form-field>
+
+                <!-- <mat-form-field appearance="outline" class="full-width">
                     <mat-label>Check-out</mat-label>
                     <input matInput [(ngModel)]="newBooking.checkOut" name="checkOut" [matDatepicker]="picker2"
                         required>
@@ -73,7 +94,7 @@
                         <mat-option value="Due">Due</mat-option>
                         <mat-option value="Paid">Paid</mat-option>
                     </mat-select>
-                </mat-form-field>
+                </mat-form-field> -->
             </div>
 
         </div>

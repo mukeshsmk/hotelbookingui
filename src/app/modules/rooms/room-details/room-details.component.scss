@@ -8,18 +8,18 @@
 }
 
 /* Dark semi-transparent overlay */
-.room-card:hover {
+/* .room-card:hover {
     background: rgba(0, 0, 0, 0.5) !important;
-}
+} */
 
 /* Fade card content */
-.room-card:hover .room-header,
+/* .room-card:hover .room-header,
 .room-card:hover .room-body {
     opacity: 0.1;
-}
+} */
 
 /* Overlay container */
-.hover-overlay {
+/* .hover-overlay {
     position: absolute;
     inset: 0;
     display: flex;
@@ -28,7 +28,7 @@
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
-}
+} */
 
 /* Show overlay on hover */
 .room-card:hover .hover-overlay {

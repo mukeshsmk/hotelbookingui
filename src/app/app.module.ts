@@ -7,11 +7,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
 import { MatIconModule } from '@angular/material/icon';
 import { AuthModule } from './auth/auth.module';
+import { NotFoundComponent } from './shared/components/not-found/not-found.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
