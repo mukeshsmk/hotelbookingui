@@ -9,10 +9,12 @@ export class AuthRepository {
 
   constructor(private http: HttpClient) {}
 
-  login(username: string, password: string) {
-    return this.http.post(this.apiUrl, {
-      username,
-      password
+  login(username: string, password: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'username': username,
+      'password': password
     });
+
+    return this.http.get(this.apiUrl, { headers });
   }
 }

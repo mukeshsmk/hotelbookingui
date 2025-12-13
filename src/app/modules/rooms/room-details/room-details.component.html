@@ -17,8 +17,8 @@
             Check-out: {{ room.checkOut | date:'dd/MM/yyyy' }}
         </p>
 
-        <p class="sub-text" *ngIf="room.note">
-            {{ room.note }}
+        <p class="sub-text" *ngIf="room.roomType">
+            {{ room.roomType }}
         </p>
     </div>
 

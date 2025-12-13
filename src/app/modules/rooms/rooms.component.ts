@@ -26,29 +26,11 @@ export class RoomsComponent {
     this.selectedDate = new Date();
   }
 
-  /* roomDetails = [
-    { number: 1, status: 'Available', guestName: null, note: 'Ready for Check-in' },
-    { number: 2, status: 'Occupied', guestName: 'John Doe', checkOut: '2024-10-24' },
-    { number: 3, status: 'Needs Cleaning', guestName: 'Jane Smith', note: 'Departed: 23/10/2024' },
-    { number: 4, status: 'Out of Order', note: 'Maintenance Required' },
-    { number: 1, status: 'Available', guestName: null, note: 'Ready for Check-in' },
-    { number: 2, status: 'Occupied', guestName: 'John Doe', checkOut: '2024-10-24' },
-    { number: 3, status: 'Needs Cleaning', guestName: 'Jane Smith', note: 'Departed: 23/10/2024' },
-    { number: 4, status: 'Out of Order', note: 'Maintenance Required' }
-  ]; */
-
   constructor(private roomsRepo: RoomsRepository) { }
 
   ngOnInit() {
     this.loadRooms();
   }
-
-  /* loadRooms() {
-    this.roomsRepo.getRooms().subscribe({
-      next: (data) => this.roomDetails = data,
-      error: () => console.error('Failed to load rooms')
-    });
-  } */
 
   loadRooms() {
     this.roomsRepo.getRooms().subscribe({
@@ -70,12 +52,19 @@ export class RoomsComponent {
           rooms: []
         });
       }
+
       map.get(room.floorNumber).rooms.push(room);
     });
 
-    return Array.from(map.values()).sort(
-      (a, b) => a.floorNumber - b.floorNumber
-    );
+    // ✅ Convert to array + sort floors
+    return Array.from(map.values())
+      .map(floor => ({
+        ...floor,
+        // ✅ sort rooms by ID
+        rooms: floor.rooms.sort((a: any, b: any) => a.id - b.id)
+      }))
+      .sort((a, b) => a.floorNumber - b.floorNumber);
   }
+
 
 }
