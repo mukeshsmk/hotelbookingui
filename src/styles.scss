@@ -9,6 +9,113 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+.float-left {
+    float: left;
+}
+.float-right {
+    float: right;
+}
+/* Set of Margins and Paddings */
+@for $i from 1 through 100 {
+    .mar-rgt-#{$i} {
+        margin-right: $i + px !important;
+    }
+    .mar-btm-#{$i} {
+        margin-bottom: $i + px !important;
+    }
+    .mar-top-#{$i} {
+        margin-top: $i + px !important;
+    }
+    .mar-lft-#{$i} {
+        margin-left: $i + px !important;
+    }
+    .mar-all-#{$i} {
+        margin: $i + px !important;
+    }
+
+    .pad-rgt-#{$i} {
+        padding-right: $i + px !important;
+    }
+    .pad-btm-#{$i} {
+        padding-bottom: $i + px !important;
+    }
+    .pad-top-#{$i} {
+        padding-top: $i + px !important;
+    }
+    .pad-lft-#{$i} {
+        padding-left: $i + px !important;
+    }
+    .pad-all-#{$i} {
+        padding: $i + px !important;
+    }
+    .line-height-#{$i} {
+        line-height: $i + px !important;
+    }
+    .grid-row-gap-#{$i} {
+        grid-row-gap: $i + px !important;
+    }
+}
+
+@for $i from 1 through 100 {
+    .mar-rgt-#{$i} {
+        margin-right: $i + px !important;
+    }
+    .mar-btm-#{$i} {
+        margin-bottom: $i + px !important;
+    }
+    .mar-top-#{$i} {
+        margin-top: $i + px !important;
+    }
+    .mar-lft-#{$i} {
+        margin-left: $i + px !important;
+    }
+    .mar-all-#{$i} {
+        margin: $i + px !important;
+    }
+
+    .pad-rgt-#{$i} {
+        padding-right: $i + px !important;
+    }
+    .pad-btm-#{$i} {
+        padding-bottom: $i + px !important;
+    }
+    .pad-top-#{$i} {
+        padding-top: $i + px !important;
+    }
+    .pad-lft-#{$i} {
+        padding-left: $i + px !important;
+    }
+    .pad-all-#{$i} {
+        padding: $i + px !important;
+    }
+    .line-height-#{$i} {
+        line-height: $i + px !important;
+    }
+    .grid-column-gap-#{$i} {
+        grid-column-gap: $i + px !important;
+    }
+}
+
+.p-0 {
+    padding: 0 !important;
+}
+.m-0 {
+    margin: 0 !important;
+}
+
+/* Width from 1 to 100 */
+@for $i from 1 through 100 {
+    .width-#{$i} {
+        width: $i * 1% !important;
+    }
+}
+
+@for $i from 1 through 100 {
+    .min-width-#{$i} {
+        min-width: $i * 1rem !important;
+    }
+}
+
 .custom-context-menu {
     min-width: 140px;
     margin-top: 12px;

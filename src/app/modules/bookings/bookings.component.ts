@@ -1,71 +1,66 @@
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+
+import { Client } from './client.model';
+import { BookingsRepository } from './bookings-repository';
 import { AddBookingDialogComponent } from './add-booking-dialog/add-booking-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 
-interface Booking {
-  id: number;
-  guestName: string;
-  room: number;
-  checkIn: string;   // stored as 'YYYY-MM-DD' or date string
-  checkOut: string;
-  status: string;
-  payment: string;
-}
 
 @Component({
   selector: 'app-bookings',
   templateUrl: './bookings.component.html',
   styleUrls: ['./bookings.component.scss']
 })
-export class BookingsComponent implements AfterViewInit {
+export class BookingsComponent implements OnInit, AfterViewInit {
 
-  displayedColumns: string[] = ['id', 'guestName', 'room', 'checkIn', 'checkOut', 'status', 'payment'];
-  dataSource = new MatTableDataSource<Booking>([
-    { id: 101, guestName: 'John Doe', room: 101, checkIn: '2025-11-23', checkOut: '2025-11-25', status: 'Checked-in', payment: 'Paid' },
-    { id: 102, guestName: 'Jane Smith', room: 102, checkIn: '2025-11-23', checkOut: '2025-11-24', status: 'Pending', payment: 'Due' },
-    { id: 103, guestName: 'Bob Johnson', room: 103, checkIn: '2025-11-22', checkOut: '2025-11-24', status: 'Checked-out', payment: 'Paid' },
-  ]);
+  displayedColumns: string[] = [
+    'id',
+    'name',
+    'mobileNumber',
+    'idNumber',
+    'address',
+    'pinCode',
+    'status',
+    'actions'
+  ];
 
-  filterGuestName: string = '';
-  filterCheckInStart!: Date | null;
-  filterCheckOutEnd!: Date | null;
+  dataSource = new MatTableDataSource<Client>([]);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog, private bookingRepo: BookingsRepository) { }
+
+  ngOnInit() {
+    this.loadClients();
+  }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-
-    // Custom filter logic
-    this.dataSource.filterPredicate = (data: Booking, filter: string) => {
-      const guestMatch = this.filterGuestName
-        ? data.guestName.toLowerCase().includes(this.filterGuestName.toLowerCase())
-        : true;
-
-      const checkInDate = new Date(data.checkIn);
-      const checkOutDate = new Date(data.checkOut);
-
-      const startValid = this.filterCheckInStart ? checkInDate >= this.filterCheckInStart : true;
-      const endValid = this.filterCheckOutEnd ? checkOutDate <= this.filterCheckOutEnd : true;
-
-      return guestMatch && startValid && endValid;
-    };
+    this.paginator.pageSize = 10;
   }
 
-  applyFilters() {
-    // Trigger filtering
-    this.dataSource.filter = '' + Math.random();
+  loadClients() {
+    this.bookingRepo.getClientList().subscribe({
+      next: (res: any[]) => {
+        this.dataSource.data = res;
+      },
+      error: (err) => {
+        console.error('Failed to load clients', err);
+      }
+    });
   }
 
-  applyGuestFilter(event: Event) {
-    this.filterGuestName = (event.target as HTMLInputElement).value;
-    this.applyFilters();
+  getFullName(client: Client): string {
+    return `${client.firstName} ${client.lastName}`;
+  }
+
+  getStatusLabel(status: number): string {
+    return status === 1 ? 'Active' : 'Inactive';
   }
 
   openAddBookingModal() {
@@ -73,11 +68,39 @@ export class BookingsComponent implements AfterViewInit {
       width: '950px'
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      /* if (result) {
+    dialogRef.afterClosed().subscribe((result: Client) => {
+      if (result) {
         // Add new booking to the table
-        this.dataSource.data = [...this.dataSource.data, result];
-      } */
+        this.loadClients()
+      }
     });
   }
+
+  viewClient(row: any) {
+    console.log('View:', row);
+  }
+
+  editClient(client: Client) {
+    const dialogRef = this.dialog.open(AddBookingDialogComponent, {
+      width: '950px',
+      data: {
+        mode: 'edit',
+        client: client
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.loadClients(); // refresh table
+      }
+    });
+  }
+
+
+  deleteClient(row: any) {
+    if (confirm('Are you sure you want to delete?')) {
+      console.log('Delete:', row);
+    }
+  }
+
 }

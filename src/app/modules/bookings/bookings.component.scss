@@ -96,44 +96,156 @@
 }
  */
 
+/* TABLE WRAPPER */
+.table-wrapper {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* HEADER */
+.mat-header-row {
+  background-color: #f5f7fb;
+}
+
+.mat-header-cell {
+  font-weight: 600;
+  color: #444;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+
+/* ROWS */
+.mat-row {
+  transition: background-color 0.2s ease;
+}
+
+.mat-row:hover {
+  background-color: #f9fafc;
+}
+
+/* CELLS */
+.mat-cell {
+  font-size: 14px;
+  color: #333;
+  padding: 14px 16px;
+}
+
+/* REMOVE BORDER LAST ROW */
+.mat-row:last-child .mat-cell {
+  border-bottom: none;
+}
+
+/* STATUS CHIP */
+.status-chip {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  background: #ffeaea;
+  color: #c62828;
+}
+
+.status-chip.active {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+/* PAGINATOR */
+::ng-deep .mat-paginator {
+  border-top: 1px solid #e0e0e0;
+  background: #fafafa;
+  padding: 8px 12px;
+}
+
+/* SORT ICON */
+::ng-deep .mat-sort-header-arrow {
+  color: #3f51b5;
+}
+
 .badge {
-    display: inline-block;
-    min-width: 18px;
-    padding: 4px 10px;
-    font-size: 13px;
-    line-height: 20px;
-    background-color: #757575;
-    border-radius: 4px;
+  display: inline-block;
+  min-width: 18px;
+  padding: 4px 10px;
+  font-size: 13px;
+  line-height: 20px;
+  background-color: #757575;
+  border-radius: 4px;
 }
 
 .status-checked-in {
-    color: #198754;
-    background-color: #19875426;
-    font-weight: 500;
+  color: #198754;
+  background-color: #19875426;
+  font-weight: 500;
 }
 .status-pending {
-    color: #fd7e14 !important;
-    background-color: #fd7e1426 !important;
-    font-weight: 500;
+  color: #fd7e14 !important;
+  background-color: #fd7e1426 !important;
+  font-weight: 500;
 }
 .status-booked {
-    color: #0d6efd !important;
-    background-color: #0d6efd26 !important;
-    font-weight: 500;
+  color: #0d6efd !important;
+  background-color: #0d6efd26 !important;
+  font-weight: 500;
 }
 .status-checked-out {
-    color: gray;
-    font-weight: bold;
-     background-color: #0d6efd26 !important;
+  color: gray;
+  font-weight: bold;
+  background-color: #0d6efd26 !important;
 }
 
 .payment-paid {
-    color: #198754;
-    background-color: #19875426;
-    font-weight: 500;
+  color: #198754;
+  background-color: #19875426;
+  font-weight: 500;
 }
 .payment-due {
-    color: red;
-    font-weight: 500;
-    background: #e7707057;
+  color: red;
+  font-weight: 500;
+  background: #e7707057;
+}
+
+.filters {
+  text-align: end;
+  margin-bottom: 15px;
+}
+::ng-deep .mat-paginator {
+  background: #fafafa;
+  border-top: 1px solid #e0e0e0;
+  font-size: 13px;
+}
+
+::ng-deep .mat-paginator-page-size {
+  align-items: center;
+}
+
+::ng-deep .mat-paginator-range-label {
+  margin: 0 12px;
+  font-weight: 500;
+  color: #555;
+}
+
+::ng-deep .mat-paginator-navigation-button {
+  border-radius: 50%;
+}
+
+::ng-deep .mat-paginator-icon {
+  color: #3f51b5;
+}
+
+::ng-deep .mat-paginator-page-size-select {
+  width: 70px;
+}
+
+.mat-icon-button {
+  width: 36px;
+  height: 36px;
+}
+
+::ng-deep .mat-menu-item {
+  font-size: 14px;
+}
+
+::ng-deep .mat-menu-item mat-icon {
+  margin-right: 8px;
 }
