@@ -20,6 +20,18 @@
         <p class="sub-text" *ngIf="room.roomType">
             {{ room.roomType }}
         </p>
+
+        <!-- <div class="room-footer">
+            <button class="custom-btn add-btn" *ngIf="room.status === 'Available'" (click)="addGuest(room)">
+                Add Guest
+            </button>
+            <button class="custom-btn view-btn" *ngIf="room.status === 'Occupied'" (click)="viewDetails(room)">
+                View Guest
+            </button>
+            <button *ngIf="room.status !== 'Available' && room.status !== 'Occupied'" disabled>
+                {{ room.status }}
+            </button>
+        </div> -->
     </div>
 
     <!-- ⭐ HOVER OVERLAY BUTTON ⭐ -->

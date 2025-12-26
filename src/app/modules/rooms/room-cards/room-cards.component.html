@@ -1,0 +1,60 @@
+<div class="rooms-grid">
+    <div class="room-card" *ngFor="let room of rooms">
+
+        <div class="room-header" [ngClass]="getStatusClass(room.statusName)">
+            <div>
+                <small>Room</small>
+                <h2>{{ room.roomNumber }}</h2>
+                <span class="floor">{{ room.floorName }}</span>
+            </div>
+            <span class="status-badge" [ngClass]="getStatusClass(room.statusName)">
+                {{ room.statusName }}
+            </span>
+        </div>
+
+        <div class="room-body">
+            <div class="people-details">
+                <mat-icon matSuffix>bed</mat-icon> {{ room.roomTypeName }}
+            </div>
+            <div class="people-details">
+                <mat-icon matSuffix>people</mat-icon> 2 Adults, 1 Children (Max: 3)
+            </div>
+            <div class="people-details">
+                <mat-icon matSuffix>currency_rupee</mat-icon> {{ room.roomRent }} <span>/ Night</span>
+            </div>
+            <div *ngIf="room.firstName" class="people-details">
+                <mat-icon matSuffix>person</mat-icon> <span>{{ room.firstName }} {{ room.lastName }}</span>
+            </div>
+            <div class="people-details">
+                <mat-icon matSuffix>star</mat-icon> <span>Amenities :</span>
+                <mat-icon class="color-icon">wifi</mat-icon>
+                <mat-icon class="color-icon">tv</mat-icon>
+                <mat-icon class="color-icon">elevator</mat-icon>
+                <mat-icon class="color-icon">ac_unit</mat-icon>
+            </div>
+
+            <div *ngIf="room.checkinDts" class="checkin-section">
+                <p class="checkin">
+                    <mat-icon matSuffix>login</mat-icon>
+                    <span>Check-in : {{ room.checkinDts | date:'dd/mm/yyyy'}}</span>
+                </p>
+                <p class="checkin">
+                    <mat-icon matSuffix>logout</mat-icon>
+                    <span>Check-out : {{ room.checkoutDts | date:'dd/mm/yyyy' }}</span>
+                </p>
+            </div>
+        </div>
+
+
+
+        <div class="room-footer">
+            <button class="custom-btn add-btn" *ngIf="room.statusName === 'Available'" (click)="addGuest(room)">
+                <mat-icon matSuffix>person</mat-icon> Add Guest
+            </button>
+            <button class="custom-btn view-btn" *ngIf="room.statusName === 'Checked-in'" (click)="viewDetails(room)">
+                <mat-icon matSuffix>visibility</mat-icon> View Guest
+            </button>
+        </div>
+
+    </div>
+</div>

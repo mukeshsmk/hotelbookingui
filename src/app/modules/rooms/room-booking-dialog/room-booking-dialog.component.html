@@ -1,0 +1,221 @@
+<div class="dialog-header" [ngClass]="statusClass">
+    <div>
+        <h3>New Booking</h3>
+    </div>
+
+    <button mat-icon-button (click)="close()">
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+
+<mat-tab-group class="custom-mat-group">
+
+    <!-- PERSONAL -->
+    <mat-tab label="Personal Information">
+        <div class="tab-body">
+
+            <h4 class="section-title">
+                <mat-icon>person</mat-icon>
+                Personal Details
+            </h4>
+
+            <form #personalForm="ngForm">
+
+                <div class="two-cols">
+                    <mat-form-field appearance="outline">
+                        <mat-label>FirstName</mat-label>
+                        <input matInput [(ngModel)]="model.clientObject.firstName" name="firstName" required />
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>LastName</mat-label>
+                        <input matInput [(ngModel)]="model.clientObject.lastName" name="lastName" required />
+                    </mat-form-field>
+                </div>
+
+                <div class="two-cols">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Phone Number</mat-label>
+                        <input type="number" matInput [(ngModel)]="model.clientObject.mobileNumber" name="mobileNumber"
+                            required />
+                        <mat-icon matSuffix>phone</mat-icon>
+                    </mat-form-field>
+
+
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Email Address</mat-label>
+                        <input matInput [(ngModel)]="model.clientObject.email" name="email" type="email" />
+                        <mat-icon matSuffix>mail</mat-icon>
+                    </mat-form-field>
+                </div>
+
+                <mat-form-field class="full" appearance="outline">
+                    <mat-label>ID Number</mat-label>
+                    <input matInput [(ngModel)]="model.clientObject.idNumber" name="idNumber" required />
+                    <mat-icon matSuffix>credit_card</mat-icon>
+                </mat-form-field>
+
+                <div class="two-cols">
+                    <mat-form-field appearance="outline">
+                        <mat-label>City</mat-label>
+                        <input matInput [(ngModel)]="model.clientObject.city" name="city" />
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>State</mat-label>
+                        <input matInput [(ngModel)]="model.clientObject.state" name="state" />
+                    </mat-form-field>
+                </div>
+
+                <mat-form-field appearance="outline" class="full">
+                    <mat-label>Address</mat-label>
+                    <textarea matInput rows="3" [(ngModel)]="model.clientObject.address1" name="address1"
+                        required></textarea>
+                    <mat-icon matSuffix>location_on</mat-icon>
+                </mat-form-field>
+
+            </form>
+        </div>
+    </mat-tab>
+
+    <!-- RESERVATION -->
+    <mat-tab label="Reservation Details">
+        <div class="tab-body">
+
+            <h4 class="section-title">
+                <mat-icon>event</mat-icon>
+                Reservation Details
+            </h4>
+
+            <div class="two-cols">
+                <mat-form-field appearance="outline">
+                    <mat-label>Check-in</mat-label>
+                    <input matInput [matDatepicker]="inPicker" [(ngModel)]="model.bookingObject.checkinDts"
+                        name="checkinDts" [min]="today" [max]="model.bookingObject.checkoutDts">
+                    <mat-datepicker-toggle matSuffix [for]="inPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #inPicker></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Check-out</mat-label>
+                    <input matInput [matDatepicker]="outPicker" [(ngModel)]="model.bookingObject.checkoutDts"
+                        name="checkoutDts" [min]="today">
+                    <mat-datepicker-toggle matSuffix [for]="outPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #outPicker></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+            <div class="two-cols">
+                <mat-form-field appearance="outline">
+                    <mat-label>Adults</mat-label>
+                    <input matInput type="number" [(ngModel)]="model.bookingObject.adultCount" name="adults" required>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Children</mat-label>
+                    <input matInput type="number" [(ngModel)]="model.bookingObject.childrenCount" name="children">
+                </mat-form-field>
+            </div>
+
+            <div class="two-cols">
+                <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Room</mat-label>
+
+                    <mat-select [(ngModel)]="model.bookingObject.roomType" name="roomType" required
+                        (selectionChange)="selectRoomType($event.value)">
+                        <mat-option value="" disabled>Select a room</mat-option>
+                        <mat-option *ngFor="let r of rooms" [value]="r.id">
+                            {{ r.name }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-full" [ngClass]="{ 'custom-disabled': isNewBooking }">
+                    <mat-label>Room No</mat-label>
+
+                    <mat-select [(ngModel)]="model.bookingObject.roomNumber" name="roomId" required
+                        (selectionChange)="onRoomSelect($event.value)">
+                        <mat-option value="" disabled>Select a room</mat-option>
+                        <mat-option *ngFor="let item of roomDetails" [value]="item.roomNumber">
+                            {{ item.roomNumber }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+            </div>
+
+            <div class="two-cols">
+                <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Payment Type</mat-label>
+                    <mat-select [(ngModel)]="model.bookingObject.paymentType" name="paymentType" required>
+                        <mat-option value="" disabled>Select payment type</mat-option>
+                        <mat-option value="Cash">Cash</mat-option>
+                        <mat-option value="online">Online</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Amount</mat-label>
+                    <input matInput [(ngModel)]="model.bookingObject.amount" name="amount" required />
+                </mat-form-field>
+            </div>
+
+        </div>
+    </mat-tab>
+
+    <!-- ADDITIONAL -->
+    <mat-tab label="Additional Details">
+        <div class="tab-body">
+
+            <h4 class="section-title">
+                <mat-icon>info</mat-icon>
+                Additional Notes
+            </h4>
+
+
+
+            <mat-form-field appearance="outline" class="full">
+                <mat-label>Notes</mat-label>
+                <textarea matInput rows="4" [(ngModel)]="model.bookingObject.notes" name="notes"></textarea>
+            </mat-form-field>
+
+
+            <h3 class="attachments-title">
+                <mat-icon>attachments</mat-icon>
+                Attachments
+            </h3>
+
+            <div>
+                <div class="upload-line" (click)="fileInput.click()" (dragover)="onDragOver($event)"
+                    (dragleave)="onDragLeave($event)" (drop)="onDrop($event)" [class.dragging]="isDragging">
+                    <mat-icon>upload</mat-icon>
+                    <span>Drag & drop image or click to upload (PNG/JPG · Max 1MB)</span>
+
+                    <input #fileInput type="file" hidden accept="image/png,image/jpeg"
+                        (change)="onFileSelect($event)" />
+                </div>
+
+                <div *ngIf="previewUrl" class="preview">
+                    <img [src]="previewUrl" />
+
+                    <button mat-icon-button class="remove-btn" (click)="removeFile()">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </mat-tab>
+
+</mat-tab-group>
+
+<div class="dialog-footer">
+
+    <span class="spacer"></span>
+
+    <button mat-button (click)="close()">Cancel</button>
+
+    <button mat-flat-button color="primary" [disabled]="!isFormValid()" (click)="save()">
+        Save
+    </button>
+</div>

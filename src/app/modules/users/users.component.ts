@@ -3,36 +3,35 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 
-import { Client } from './client.model';
-import { BookingsRepository } from './bookings-repository';
-import { AddBookingDialogComponent } from './add-booking-dialog/add-booking-dialog.component';
+
 import { MatDialog } from '@angular/material/dialog';
 import { RoomBookingDialogComponent } from '../rooms/room-booking-dialog/room-booking-dialog.component';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { ViewBookingDialogComponent } from '../rooms/view-booking-dialog/view-booking-dialog.component';
-
+import { Client } from '../bookings/client.model';
+import { BookingsRepository } from '../bookings/bookings-repository';
 
 @Component({
-  selector: 'app-bookings',
-  templateUrl: './bookings.component.html',
-  styleUrls: ['./bookings.component.scss']
+  selector: 'app-users',
+  templateUrl: './users.component.html',
+  styleUrls: ['./users.component.scss']
 })
-export class BookingsComponent implements OnInit, AfterViewInit {
+export class UsersComponent implements OnInit, AfterViewInit {
 
   displayedColumns = [
     'bookingId',
     'name',
     'email',
     'mobileNumber',
-    'checkinDts',
-    'checkoutDts',
-    'room',
-    'payment',
+    'idNumber',
+    'city',
+    'state',
+    'address1',
     'actions'
   ];
 
   dataSource = new MatTableDataSource<Client>([]);
-
+  inputValue: any;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -40,11 +39,21 @@ export class BookingsComponent implements OnInit, AfterViewInit {
 
   contextMenuPosition = { x: '0px', y: '0px' };
   rowContext: any;
-  inputValue: any;
+
   constructor(private dialog: MatDialog, private bookingRepo: BookingsRepository) { }
 
   ngOnInit() {
     this.loadClients();
+  }
+
+  applyFilter(event: Event) {
+    const value = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = value.trim().toLowerCase();
+  }
+
+  clear() {
+    this.inputValue = '';
+    this.dataSource.filter = '';
   }
 
   ngAfterViewInit() {
@@ -132,15 +141,4 @@ export class BookingsComponent implements OnInit, AfterViewInit {
   delete(data: any) {
 
   }
-
-  applyFilter(event: Event) {
-    const value = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = value.trim().toLowerCase();
-  }
-
-  clear() {
-    this.inputValue = '';
-    this.dataSource.filter = '';
-  }
-
 }

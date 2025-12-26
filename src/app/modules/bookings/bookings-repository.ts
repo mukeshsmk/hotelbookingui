@@ -18,4 +18,8 @@ export class BookingsRepository {
     getClientList(): Observable<any[]> {
         return this.http.get<any[]>(`${this.baseUrl}/getClientList`);
     }
+
+    getBookingList(): Observable<any[]> {
+        return this.http.get<any[]>(`${this.baseUrl}/getBookings`);
+    }
 }

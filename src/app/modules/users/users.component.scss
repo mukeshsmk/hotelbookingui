@@ -1,0 +1,191 @@
+.filters {
+    text-align: end;
+    margin-bottom: 15px;
+}
+
+.table-card {
+    padding: 10px 15px;
+    background: #fff;
+    border-radius: 10px;
+}
+.pos-relative {
+    position: relative;
+}
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 24px 15px 24px;
+    background: #3f51b5;
+    border-radius: 10px 10px 0 0;
+    h3 {
+        margin: 0;
+        color: #fff;
+        font-size: 18px;
+        font-weight: 500;
+    }
+}
+
+.custom-search {
+    .custom-search-box {
+        border-width: 0;
+        border-radius: 4px;
+        padding: 10px 30px 10px 35px;
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 18px;
+        color: #6f6f6f;
+        width: 275px;
+        outline: 0;
+    }
+    .prefix-search-icon {
+        color: #474747;
+        position: relative;
+        left: 30px;
+        top: 8px;
+        cursor: pointer;
+        font-size: 22px;
+        z-index: 1;
+    }
+    .suffix-search-icon {
+        cursor: pointer;
+        color: #474747;
+        position: absolute;
+        right: 3px;
+        top: 10px;
+        cursor: pointer;
+        z-index: 1;
+        font-size: 18px;
+    }
+    .search-icon {
+        cursor: pointer;
+        color: #474747;
+        position: absolute;
+        left: 10px;
+        top: 7px;
+        cursor: pointer;
+        z-index: 1;
+        font-size: 26px;
+    }
+    .uni-search-btn {
+        background: #489ba3;
+        color: #fff;
+        position: absolute;
+        cursor: pointer;
+        padding: 2px 8px;
+        border-radius: 4px;
+        right: 12px;
+        top: 6px;
+        font-size: 12px;
+    }
+}
+.search-box {
+    width: 260px;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.search-box {
+    width: 260px;
+}
+
+.guest-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+
+.icon {
+    font-size: 16px;
+    position: relative;
+    top: 11px;
+}
+.icon.phone {
+    color: #4caf50;
+}
+.icon.mail {
+    color: #3f51b5;
+}
+
+.chip {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    text-transform: capitalize;
+}
+
+.chip.male {
+    background: #e6f4ea;
+    color: #1b5e20;
+}
+.chip.female {
+    background: #f3e8ff;
+    color: #6a1b9a;
+}
+
+.chip.paid {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+.chip.unpaid {
+    background: #fff3e0;
+    color: #e65100;
+}
+
+.status-paid {
+    background: #e7f6e9;
+    color: #1e7b34;
+    padding: 4px 8px;
+    border-radius: 6px;
+}
+
+.status-unpaid {
+    background: #ffe5e5;
+    color: #b30000;
+    padding: 4px 8px;
+    border-radius: 6px;
+}
+
+.status-partial {
+    background: #fff7d6;
+    color: #a88700;
+    padding: 4px 8px;
+    border-radius: 6px;
+}
+/* Menu panel */
+.booking-actions-menu {
+    padding: 4px 0;
+    min-width: 180px;
+}
+
+/* Every item */
+.booking-actions-menu .mat-mdc-menu-item {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Icon spacing */
+.booking-actions-menu .mat-icon {
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+/* Hover effect */
+.booking-actions-menu .mat-mdc-menu-item:hover {
+    background: #f4433610; /* light red tint */
+}
+
+/* Divider-like borders (optional) */
+.booking-actions-menu .mat-mdc-menu-item + .mat-mdc-menu-item {
+    border-top: 1px solid #eee;
+}
