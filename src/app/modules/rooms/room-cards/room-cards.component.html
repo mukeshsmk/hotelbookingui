@@ -6,9 +6,11 @@
 
         <div class="room-header" [ngClass]="getStatusClass(room.statusName)">
             <div>
-                <small>Room</small>
-                <h2>{{ room.roomNumber }}</h2>
-                <span class="floor">{{ room.floorName }}</span>
+                <small>{{ room.floorName }}</small>
+                <h2>Room {{ room.roomNumber }}</h2>
+                <div class="people-details">
+                    <mat-icon matSuffix>bed</mat-icon> {{ room.roomTypeName }}
+                </div>
             </div>
             <span class="status-badge" [ngClass]="getStatusClass(room.statusName)">
                 {{ room.statusName }}
@@ -16,25 +18,7 @@
         </div>
 
         <div class="room-body">
-            <div class="people-details">
-                <mat-icon matSuffix>bed</mat-icon> {{ room.roomTypeName }}
-            </div>
-            <div class="people-details">
-                <mat-icon matSuffix>people</mat-icon> 2 Adults, 1 Children (Max: 3)
-            </div>
-            <div class="people-details">
-                <mat-icon matSuffix>currency_rupee</mat-icon> {{ room.roomRent }} <span>/ Night</span>
-            </div>
-            <div *ngIf="room.firstName" class="people-details">
-                <mat-icon matSuffix>person</mat-icon> <span>{{ room.firstName }} {{ room.lastName }}</span>
-            </div>
-            <div class="people-details">
-                <mat-icon matSuffix>star</mat-icon> <span>Amenities :</span>
-                <mat-icon class="color-icon" matTooltip="wiFi" matTooltipPosition="above">wifi</mat-icon>
-                <mat-icon class="color-icon" matTooltip="TV" matTooltipPosition="above">tv</mat-icon>
-                <mat-icon class="color-icon" matTooltip="Lift" matTooltipPosition="above">elevator</mat-icon>
-                <mat-icon class="color-icon" matTooltip="AC" matTooltipPosition="above">ac_unit</mat-icon>
-            </div>
+
 
             <div *ngIf="room.checkinDts" class="checkin-section">
                 <p class="checkin">
