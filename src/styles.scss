@@ -178,3 +178,7 @@ body {
         -webkit-transform: translateY(-50%);
     }
 }
+.dialog-body {
+    max-height: calc(100vh - 240px);
+    overflow: auto;
+}
