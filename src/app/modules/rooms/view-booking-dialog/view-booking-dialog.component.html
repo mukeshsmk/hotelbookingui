@@ -104,20 +104,26 @@
 
             <div class="two-cols">
                 <div class="view-field">
-                    <span class="label">Room</span>
-                    <span class="value">{{ bookingDetails?.roomName || '-' }}</span>
+                    <span class="label">Room Type</span>
+                    <span class="value">{{ bookingDetails?.roomTypeName || '-' }}</span>
                 </div>
 
                 <div class="view-field">
-                    <span class="label">Payment Type</span>
-                    <span class="value">{{ bookingDetails?.paymentType || '-' }}</span>
+                    <span class="label">Room Number</span>
+                    <span class="value">{{ bookingDetails?.roomNumber || '-' }}</span>
                 </div>
+
             </div>
 
             <div class="two-cols">
                 <div class="view-field">
-                    <span class="label">Amount</span>
-                    <span class="value">{{ bookingDetails?.amount || '-' }}</span>
+                    <span class="label">Payment Type</span>
+                    <span class="value">{{ bookingDetails?.paymentType || '-' }}</span>
+                </div>
+
+                <div class="view-field">
+                    <span class="label">Amount Paid</span>
+                    <span class="value">{{ bookingDetails?.amountPaid || '-' }}</span>
                 </div>
             </div>
 

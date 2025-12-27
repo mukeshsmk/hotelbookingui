@@ -40,7 +40,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
   contextMenuPosition = { x: '0px', y: '0px' };
   rowContext: any;
-
+  isLoading: boolean = false
   constructor(private dialog: MatDialog, private bookingRepo: BookingsRepository) { }
 
   ngOnInit() {
@@ -64,11 +64,14 @@ export class UsersComponent implements OnInit, AfterViewInit {
   }
 
   loadClients() {
+    this.isLoading = true;
     this.bookingRepo.getBookingList().subscribe({
       next: (res: any[]) => {
+        this.isLoading = false;
         this.dataSource.data = res;
       },
       error: (err) => {
+        this.isLoading = false;
         console.error('Failed to load clients', err);
       }
     });

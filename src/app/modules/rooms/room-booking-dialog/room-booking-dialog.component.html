@@ -9,7 +9,7 @@
     </button>
 </div>
 
-<mat-tab-group class="custom-mat-group">
+<mat-tab-group [selectedIndex]="selectedTabIndex" class="custom-mat-group">
 
     <!-- PERSONAL -->
     <mat-tab label="Personal Information">
@@ -121,7 +121,7 @@
 
             <div class="two-cols">
                 <mat-form-field appearance="outline" class="w-full">
-                    <mat-label>Room</mat-label>
+                    <mat-label>Room Type</mat-label>
 
                     <mat-select [(ngModel)]="model.bookingObject.roomType" name="roomType" required
                         (selectionChange)="selectRoomType($event.value)">

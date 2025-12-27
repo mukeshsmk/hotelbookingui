@@ -84,6 +84,7 @@ export class RoomBookingDialogComponent {
   isEditMode: boolean = false;
   isNewBooking: boolean = false;
   roomDetails: any;
+  selectedTabIndex = 0;
   constructor(
     private dialogRef: MatDialogRef<RoomBookingDialogComponent>, private repository: RoomsRepository,
     @Inject(MAT_DIALOG_DATA) public data: any, private toastr: ToastrService
@@ -92,6 +93,7 @@ export class RoomBookingDialogComponent {
   ngOnInit(): void {
     if (this.data?.mode === 'edit') {
       this.isEditMode = true;
+      this.selectedTabIndex = 1;
       this.model = {
         clientObject: {
           firstName: this.data.data.firstName,
@@ -209,14 +211,12 @@ export class RoomBookingDialogComponent {
       )
     );
 
-    console.log("this.model.clientObject", this.model.clientObject)
-    console.log("this.model.bookingObject", this.model.bookingObject)
-
     this.repository.addBooking(formData).subscribe({
       next: (res: any) => {
         console.log("res", res)
         if (res?.status === '200 OK' || res.message === 'Success') {
-          this.toastr.success('Booking added successfully', 'Success');
+          const message = this.isEditMode ? 'Booking updated successfully' : 'Booking added successfully';
+          this.toastr.success(message, 'Success');
           this.dialogRef.close(true);
         } else {
           this.toastr.error('Booking failed', 'Error');

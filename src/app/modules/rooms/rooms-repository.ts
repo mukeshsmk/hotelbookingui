@@ -38,4 +38,8 @@ export class RoomsRepository {
         return this.http.get(`${this.baseUrl}/getRoomUserDetails`);
     }
 
+    updateCustomer(formData: FormData): Observable<any> {
+        return this.http.post(`${this.baseUrl}/addClient`, formData);
+    }
+
 }

@@ -13,17 +13,21 @@ import { RoomsRepository } from '../rooms-repository';
 })
 export class RoomCardsComponent {
   rooms: any;
+  isLoading: boolean = false;
   constructor(private dialog: MatDialog, private repository: RoomsRepository) { }
   ngOnInit() {
     this.fetchRoomDetails();
   }
 
   fetchRoomDetails() {
+    this.isLoading = true;
     this.repository.getRoomUserDetails().subscribe({
       next: (res: any[]) => {
+        this.isLoading = false;
         this.rooms = res;
       },
       error: (err) => {
+        this.isLoading = false;
         console.error('Failed to load clients', err);
       }
     });
@@ -55,7 +59,7 @@ export class RoomCardsComponent {
   }
 
   viewDetails(data: any) {
-    const dialogRef = this.dialog.open(ViewBookingDialogComponent, {
+    this.dialog.open(ViewBookingDialogComponent, {
       width: '950px',
       data: data
     });

@@ -13,11 +13,10 @@ export class EditUsersDialogComponent {
   isDragging = false;
   selectedFile!: File;
   previewUrl: string | ArrayBuffer | null = null;
-
   MAX_SIZE = 1 * 1024 * 1024; // 1MB
   room = this.data;
   today = new Date();
-  model: any = { 
+  model: any = {
     clientObject: {
       firstName: '',
       lastName: '',
@@ -27,26 +26,8 @@ export class EditUsersDialogComponent {
       city: '',
       state: '',
       status: '',
-      address2: '',
-      address1: ''
-    },
-    bookingObject: {
-      id: '',
-      roomId: '',
-      roomNumber: '',
-      roomType: '',
       clientId: '',
-      totalAmount: '',
-      amountPaid: '',
-      amountRemaining: '',
-      adultCount:'',
-      childrenCount: '',
-      paymentType: '',
-      transactionStatus: 22,
-      checkinDts: new Date(),
-      checkoutDts: '',
-      comments: '',
-      status: ''
+      address1: ''
     },
     files: ''
   };
@@ -55,7 +36,7 @@ export class EditUsersDialogComponent {
     { id: 1, name: 'AC' },
     { id: 2, name: 'Non AC' },
   ];
-  loading: boolean = false;
+  isLoading: boolean = false;
   isEditMode: boolean = false;
   isNewBooking: boolean = false;
   roomDetails: any;
@@ -77,53 +58,11 @@ export class EditUsersDialogComponent {
           city: this.data.data.city,
           state: this.data.data.state,
           address1: this.data.data.address1,
-        },
-        bookingObject: {
-          id: this.data.data.id,
-          roomId: this.data.data.roomId,
-          roomNumber: this.data.data.roomNumber,
           clientId: this.data.data.clientId,
-          totalAmount: this.data.data.totalAmount,
-          amountPaid: this.data.data.amountPaid,
-          amountRemaining: this.data.data.amountRemaining,
-          paymentType: this.data.data.paymentType,
-          transactionStatus: 22,
-          checkinDts: this.data.data.checkinDts,
-          checkoutDts: this.data.data.checkoutDts,
-          comments: this.data.data.comments,
         }
       }
-    } else if (this.data?.mode === 'booking') {
-      this.isNewBooking = true;
-      this.model.bookingObject.roomNumber = this.data.data.roomNumber;
-      this.model.bookingObject.roomType = this.data.data.roomType;
     }
-    this.fetchRoomDetails();
   }
-
-  fetchRoomDetails() {
-    this.loading = true;
-    const formatted = this.formatDateForApi(this.model.bookingObject.checkinDts);
-    this.repository.getRoomDetails(formatted).subscribe({
-      next: (res) => {
-        this.roomDetails = res;
-        this.loading = false;
-      },
-      error: (err) => {
-        console.error(err);
-        this.loading = false;
-      }
-    });
-  }
-
-  formatDateForApi(date: any): string {
-    const d = new Date(date);
-    const year = d.getFullYear();
-    const month = String(d.getMonth() + 1).padStart(2, '0');
-    const day = String(d.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;   // yyyy-MM-dd
-  }
-
 
   get statusClass() {
     return this.room?.status?.toLowerCase();   // e.g. available / occupied / reserved
@@ -131,20 +70,13 @@ export class EditUsersDialogComponent {
 
   isFormValid() {
     const client = this.model.clientObject;
-    const booking = this.model.bookingObject;
 
     return (
       client.firstName &&
       client.lastName &&
       client.mobileNumber &&
       client.idNumber &&
-      client.address1 &&
-      booking.checkinDts &&
-      booking.checkoutDts &&
-      booking.adultCount &&
-      booking.roomType &&
-      booking.paymentType &&
-      booking.amount
+      client.address1
     );
   }
 
@@ -153,9 +85,8 @@ export class EditUsersDialogComponent {
   }
 
   save() {
-
+    this.isLoading = false;
     const formData = new FormData();
-
     if (this.selectedFile) {
       formData.append('files', this.selectedFile);
     } else {
@@ -169,27 +100,19 @@ export class EditUsersDialogComponent {
         { type: 'application/json' }
       )
     );
-
-    formData.append(
-      'bookingObject',
-      new Blob(
-        [JSON.stringify(this.model.bookingObject)],
-        { type: 'application/json' }
-      )
-    );
-
-    this.repository.addBooking(formData).subscribe({
+    console.log("this.model.clientObject",this.model.clientObject)
+    this.repository.updateCustomer(formData).subscribe({
       next: (res: any) => {
-        console.log("res", res)
+        this.isLoading = false;
         if (res?.status === '200 OK' || res.message === 'Success') {
-          this.toastr.success('Booking added successfully', 'Success');
+          this.toastr.success('Customer updated successfully', 'Success');
           this.dialogRef.close(true);
         } else {
           this.toastr.error('Booking failed', 'Error');
         }
       },
       error: (err) => {
-        console.error('Booking failed', err);
+        this.isLoading = false;
         if (err.status === 400) {
           this.toastr.warning('Invalid booking data', 'Warning');
         } else if (err.status === 500) {
@@ -208,8 +131,8 @@ export class EditUsersDialogComponent {
       this.model.bookingObject.roomId = room.id;
     }
   }
-  selectRoomType(item:any) {
-   this.model.bookingObject.roomType = item;
+  selectRoomType(item: any) {
+    this.model.bookingObject.roomType = item;
   }
   onDragOver(event: DragEvent) {
     event.preventDefault();
