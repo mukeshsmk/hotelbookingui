@@ -43,7 +43,7 @@ const routes: Routes = [
         .then(m => m.ReportsModule)
   },
   {
-    path: 'users',
+    path: 'customers',
     canActivate: [AuthGuard],
     loadChildren: () =>
       import('./modules/users/users.module')

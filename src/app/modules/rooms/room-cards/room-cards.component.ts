@@ -61,7 +61,9 @@ export class RoomCardsComponent {
   viewDetails(data: any) {
     this.dialog.open(ViewBookingDialogComponent, {
       width: '950px',
-      data: data
+      data: {
+        data: data
+      }
     });
   }
 }
