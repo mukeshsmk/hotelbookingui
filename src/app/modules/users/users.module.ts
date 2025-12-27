@@ -4,11 +4,13 @@ import { UsersRoutingModule } from './users-routing.module';;
 import { MaterialCollectionModule } from 'src/app/shared/material-collection.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UsersComponent } from './users.component';
+import { EditUsersDialogComponent } from './edit-users-dialog/edit-users-dialog.component';
 
 
 @NgModule({
   declarations: [
     UsersComponent,
+    EditUsersDialogComponent
   ],
   imports: [
     CommonModule,

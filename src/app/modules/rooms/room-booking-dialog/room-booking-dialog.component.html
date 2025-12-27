@@ -1,6 +1,7 @@
-<div class="dialog-header" [ngClass]="statusClass">
+<div class="dialog-header">
     <div>
-        <h3>New Booking</h3>
+        <h3 *ngIf="!isEditMode">New Booking</h3>
+        <h3 *ngIf="isEditMode">Edit Booking</h3>
     </div>
 
     <button mat-icon-button (click)="close()">
@@ -12,7 +13,7 @@
 
     <!-- PERSONAL -->
     <mat-tab label="Personal Information">
-        <div class="tab-body">
+        <div class="tab-body" [ngClass]="{ 'custom-disabled': isEditMode }">
 
             <h4 class="section-title">
                 <mat-icon>person</mat-icon>
@@ -131,11 +132,11 @@
                     </mat-select>
                 </mat-form-field>
 
-                <mat-form-field appearance="outline" class="w-full" [ngClass]="{ 'custom-disabled': isNewBooking }">
+                <mat-form-field *ngIf="!isEditMode" appearance="outline" class="w-full"
+                    [ngClass]="{ 'custom-disabled': isNewBooking }">
                     <mat-label>Room No</mat-label>
-
                     <mat-select [(ngModel)]="model.bookingObject.roomNumber" name="roomId" required
-                        (selectionChange)="onRoomSelect($event.value)">
+                        (selectionChange)="onRoomSelect($event.value)" (openedChange)="onDropdownOpen($event)">
                         <mat-option value="" disabled>Select a room</mat-option>
                         <mat-option *ngFor="let item of roomDetails" [value]="item.roomNumber">
                             {{ item.roomNumber }}
@@ -143,6 +144,11 @@
                     </mat-select>
                 </mat-form-field>
 
+                <mat-form-field *ngIf="isEditMode" appearance="outline" [ngClass]="{ 'custom-disabled': isEditMode }">
+                    <mat-label>Room No</mat-label>
+                    <input matInput type="number" [(ngModel)]="model.bookingObject.roomNumber" name="roomNumber"
+                        required>
+                </mat-form-field>
             </div>
 
             <div class="two-cols">
@@ -156,7 +162,7 @@
                 </mat-form-field>
                 <mat-form-field appearance="outline">
                     <mat-label>Amount</mat-label>
-                    <input matInput [(ngModel)]="model.bookingObject.amount" name="amount" required />
+                    <input matInput [(ngModel)]="model.bookingObject.amountPaid" name="amountPaid" required />
                 </mat-form-field>
             </div>
 

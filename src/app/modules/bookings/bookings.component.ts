@@ -123,7 +123,10 @@ export class BookingsComponent implements OnInit, AfterViewInit {
   view(data: any) {
     const dialogRef = this.dialog.open(ViewBookingDialogComponent, {
       width: '950px',
-      data: data
+      data: {
+        data: data,
+        mode: 'view-booking'
+      }
     });
   }
   edit(data: any) {

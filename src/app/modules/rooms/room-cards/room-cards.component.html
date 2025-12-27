@@ -27,10 +27,10 @@
             </div>
             <div class="people-details">
                 <mat-icon matSuffix>star</mat-icon> <span>Amenities :</span>
-                <mat-icon class="color-icon">wifi</mat-icon>
-                <mat-icon class="color-icon">tv</mat-icon>
-                <mat-icon class="color-icon">elevator</mat-icon>
-                <mat-icon class="color-icon">ac_unit</mat-icon>
+                <mat-icon class="color-icon" matTooltip="wiFi" matTooltipPosition="above">wifi</mat-icon>
+                <mat-icon class="color-icon" matTooltip="TV" matTooltipPosition="above">tv</mat-icon>
+                <mat-icon class="color-icon" matTooltip="Lift" matTooltipPosition="above">elevator</mat-icon>
+                <mat-icon class="color-icon" matTooltip="AC" matTooltipPosition="above">ac_unit</mat-icon>
             </div>
 
             <div *ngIf="room.checkinDts" class="checkin-section">

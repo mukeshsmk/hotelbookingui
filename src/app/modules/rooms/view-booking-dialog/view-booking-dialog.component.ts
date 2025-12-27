@@ -10,6 +10,7 @@ import { RoomsRepository } from '../rooms-repository';
 export class ViewBookingDialogComponent {
   loading: boolean = false;
   bookingDetails: any;
+  isFromUser: boolean = false;
   constructor(
     private dialogRef: MatDialogRef<ViewBookingDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, private repository: RoomsRepository,
@@ -17,11 +18,14 @@ export class ViewBookingDialogComponent {
 
   ngOnInit(): void {
     this.getBookingDetails();
+    if(this.data.mode === 'view-user'){
+      this.isFromUser = true
+    }
   }
 
   getBookingDetails() {
     this.loading = true;
-    this.repository.getBookingDetails(this.data.bookingId).subscribe({
+    this.repository.getBookingDetails(this.data.data.bookingId).subscribe({
       next: (res) => {
         this.bookingDetails = res;
         this.loading = false;

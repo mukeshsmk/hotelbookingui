@@ -10,6 +10,7 @@ import { MatMenuTrigger } from '@angular/material/menu';
 import { ViewBookingDialogComponent } from '../rooms/view-booking-dialog/view-booking-dialog.component';
 import { Client } from '../bookings/client.model';
 import { BookingsRepository } from '../bookings/bookings-repository';
+import { EditUsersDialogComponent } from './edit-users-dialog/edit-users-dialog.component';
 
 @Component({
   selector: 'app-users',
@@ -99,7 +100,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
   }
 
   editClient(item: any) {
-    const dialogRef = this.dialog.open(RoomBookingDialogComponent, {
+    const dialogRef = this.dialog.open(EditUsersDialogComponent, {
       width: '950px',
       data: {
         mode: 'edit',
@@ -132,7 +133,10 @@ export class UsersComponent implements OnInit, AfterViewInit {
   view(data: any) {
     const dialogRef = this.dialog.open(ViewBookingDialogComponent, {
       width: '950px',
-      data: data
+      data: {
+        data: data,
+        mode: 'view-user'
+      }
     });
   }
   edit(data: any) {

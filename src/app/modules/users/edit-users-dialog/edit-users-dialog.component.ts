@@ -1,48 +1,23 @@
 import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { RoomsRepository } from '../rooms-repository';
 import { ToastrService } from 'ngx-toastr';
-import { DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter } from '@angular/material/core';
-
-export class MyDateAdapter extends NativeDateAdapter {
-  override format(date: Date, displayFormat: Object): string {
-    const day = ('0' + date.getDate()).slice(-2);
-    const month = ('0' + (date.getMonth() + 1)).slice(-2);
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
-  }
-}
-
-export const MY_DATE_FORMATS = {
-  parse: { dateInput: 'DD/MM/YYYY' },
-  display: {
-    dateInput: 'DD/MM/YYYY',
-    monthYearLabel: 'MMM YYYY',
-    dateA11yLabel: 'DD/MM/YYYY',
-    monthYearA11yLabel: 'MMMM YYYY',
-  },
-};
+import { RoomsRepository } from '../../rooms/rooms-repository';
 
 @Component({
-  selector: 'app-room-booking-dialog',
-  templateUrl: './room-booking-dialog.component.html',
-  styleUrls: ['./room-booking-dialog.component.scss'],
-  providers: [
-    { provide: DateAdapter, useClass: MyDateAdapter },
-    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS }
-  ]
+  selector: 'app-edit-users-dialog',
+  templateUrl: './edit-users-dialog.component.html',
+  styleUrls: ['./edit-users-dialog.component.scss']
 })
-
-export class RoomBookingDialogComponent {
+export class EditUsersDialogComponent {
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
   isDragging = false;
   selectedFile!: File;
   previewUrl: string | ArrayBuffer | null = null;
-  roomsLoaded = false;
+
   MAX_SIZE = 1 * 1024 * 1024; // 1MB
   room = this.data;
   today = new Date();
-  model: any = {
+  model: any = { 
     clientObject: {
       firstName: '',
       lastName: '',
@@ -64,7 +39,7 @@ export class RoomBookingDialogComponent {
       totalAmount: '',
       amountPaid: '',
       amountRemaining: '',
-      adultCount: '',
+      adultCount:'',
       childrenCount: '',
       paymentType: '',
       transactionStatus: 22,
@@ -85,7 +60,7 @@ export class RoomBookingDialogComponent {
   isNewBooking: boolean = false;
   roomDetails: any;
   constructor(
-    private dialogRef: MatDialogRef<RoomBookingDialogComponent>, private repository: RoomsRepository,
+    private dialogRef: MatDialogRef<EditUsersDialogComponent>, private repository: RoomsRepository,
     @Inject(MAT_DIALOG_DATA) public data: any, private toastr: ToastrService
   ) { }
 
@@ -104,13 +79,10 @@ export class RoomBookingDialogComponent {
           address1: this.data.data.address1,
         },
         bookingObject: {
-          id: this.data.data.bookingId,
+          id: this.data.data.id,
           roomId: this.data.data.roomId,
           roomNumber: this.data.data.roomNumber,
-          roomType: this.data.data.roomType,
           clientId: this.data.data.clientId,
-          adultCount: this.data.data.adultCount,
-          childrenCount: this.data.data.childrenCount,
           totalAmount: this.data.data.totalAmount,
           amountPaid: this.data.data.amountPaid,
           amountRemaining: this.data.data.amountRemaining,
@@ -129,16 +101,9 @@ export class RoomBookingDialogComponent {
     this.fetchRoomDetails();
   }
 
-  onDropdownOpen(opened: boolean) {
-    if (opened && !this.roomsLoaded) {
-      this.fetchRoomDetails();
-    }
-  }
-
   fetchRoomDetails() {
     this.loading = true;
     const formatted = this.formatDateForApi(this.model.bookingObject.checkinDts);
-
     this.repository.getRoomDetails(formatted).subscribe({
       next: (res) => {
         this.roomDetails = res;
@@ -159,6 +124,11 @@ export class RoomBookingDialogComponent {
     return `${year}-${month}-${day}`;   // yyyy-MM-dd
   }
 
+
+  get statusClass() {
+    return this.room?.status?.toLowerCase();   // e.g. available / occupied / reserved
+  }
+
   isFormValid() {
     const client = this.model.clientObject;
     const booking = this.model.bookingObject;
@@ -173,9 +143,8 @@ export class RoomBookingDialogComponent {
       booking.checkoutDts &&
       booking.adultCount &&
       booking.roomType &&
-      booking.roomNumber &&
       booking.paymentType &&
-      booking.amountPaid
+      booking.amount
     );
   }
 
@@ -200,7 +169,7 @@ export class RoomBookingDialogComponent {
         { type: 'application/json' }
       )
     );
-    this.model.bookingObject.amountRemaining = this.model.bookingObject.totalAmount - this.model.bookingObject.amountPaid
+
     formData.append(
       'bookingObject',
       new Blob(
@@ -208,9 +177,6 @@ export class RoomBookingDialogComponent {
         { type: 'application/json' }
       )
     );
-
-    console.log("this.model.clientObject", this.model.clientObject)
-    console.log("this.model.bookingObject", this.model.bookingObject)
 
     this.repository.addBooking(formData).subscribe({
       next: (res: any) => {
@@ -242,12 +208,8 @@ export class RoomBookingDialogComponent {
       this.model.bookingObject.roomId = room.id;
     }
   }
-  selectRoomType(item: any) {
-    console.log("item", item)
-    this.model.bookingObject.roomType = item;
-    if (item) {
-      this.model.bookingObject.totalAmount = (item === 1 ? 1500 : 1200);
-    }
+  selectRoomType(item:any) {
+   this.model.bookingObject.roomType = item;
   }
   onDragOver(event: DragEvent) {
     event.preventDefault();
