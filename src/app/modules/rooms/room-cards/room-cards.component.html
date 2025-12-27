@@ -36,10 +36,13 @@
 
         <div class="room-footer">
             <button class="custom-btn add-btn" *ngIf="room.statusName === 'Available'" (click)="addGuest(room)">
-                <mat-icon matSuffix>person</mat-icon> Add Guest
+                <mat-icon matSuffix>person</mat-icon> Check In
             </button>
             <button class="custom-btn view-btn" *ngIf="room.statusName === 'Checked-in'" (click)="viewDetails(room)">
                 <mat-icon matSuffix>visibility</mat-icon> View Guest
+            </button>
+            <button class="custom-btn add-btn mar-lft-10" *ngIf="room.statusName === 'Checked-in'" (click)="checkOut()">
+                <mat-icon matSuffix>person</mat-icon> Check Out
             </button>
         </div>
 
