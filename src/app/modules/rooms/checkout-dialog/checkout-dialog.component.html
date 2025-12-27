@@ -1,0 +1,53 @@
+<div class="dialog-header">
+    <div>
+        <h3>Check Out</h3>
+    </div>
+
+    <button mat-icon-button (click)="close()">
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+
+<div class="dialog-body">
+
+    <div class="two-cols">
+        <div class="view-field">
+            <span class="label">Name</span>
+            <span class="value">{{ data?.firstName }} {{ data?.lastName }}</span>
+        </div>
+
+        <div class="view-field">
+            <span class="label">Room Number</span>
+            <span class="value">{{ data?.roomNumber }}</span>
+        </div>
+    </div>
+    <div class="two-cols">
+        <div class="view-field">
+            <span class="label">Checkin Date</span>
+            <span class="value">{{ data?.checkinDateString }}</span>
+        </div>
+
+        <div class="view-field">
+            <span class="label">Checkout Date</span>
+            <span class="value">{{ data?.checkoutDateString }}</span>
+        </div>
+    </div>
+    <div class="two-cols">
+        <div class="view-field">
+            <span class="label">Amount Paid</span>
+            <span class="value">{{ data?.amountPaid }}</span>
+        </div>
+
+        <div class="view-field">
+            <span class="label">Remaining Amount</span>
+            <span class="value">{{ data?.amountRemaining }}</span>
+        </div>
+    </div>
+
+</div>
+<div class="dialog-footer">
+    <button mat-button (click)="close()">Cancel</button>
+    <button class="custom-btn btn-secondary mar-lft-10" (click)="checkout()">
+        Checkout
+    </button>
+</div>

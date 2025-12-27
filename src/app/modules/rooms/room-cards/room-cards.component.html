@@ -17,31 +17,17 @@
             </span>
         </div>
 
-        <div class="room-body">
-
-
-            <div *ngIf="room.checkinDts" class="checkin-section">
-                <p class="checkin">
-                    <mat-icon matSuffix>login</mat-icon>
-                    <span>Check-in : {{ room.checkinDts | date:'dd/mm/yyyy'}}</span>
-                </p>
-                <p class="checkin">
-                    <mat-icon matSuffix>logout</mat-icon>
-                    <span>Check-out : {{ room.checkoutDts | date:'dd/mm/yyyy' }}</span>
-                </p>
-            </div>
-        </div>
-
-
-
         <div class="room-footer">
-            <button class="custom-btn add-btn" *ngIf="room.statusName === 'Available'" (click)="addGuest(room)">
+            <button class="custom-btn btn-primary" *ngIf="room.statusName === 'Available'"
+                (click)="addGuest(room)">
                 <mat-icon matSuffix>person</mat-icon> Check In
             </button>
-            <button class="custom-btn view-btn" *ngIf="room.statusName === 'Checked-in'" (click)="viewDetails(room)">
+            <button class="custom-btn btn-primary" *ngIf="room.statusName === 'Checked-in'"
+                (click)="viewDetails(room)">
                 <mat-icon matSuffix>visibility</mat-icon> View Guest
             </button>
-            <button class="custom-btn add-btn mar-lft-10" *ngIf="room.statusName === 'Checked-in'" (click)="checkOut()">
+            <button class="custom-btn btn-secondary mar-lft-10" *ngIf="room.statusName === 'Checked-in'"
+                (click)="checkOut(room)">
                 <mat-icon matSuffix>person</mat-icon> Check Out
             </button>
         </div>

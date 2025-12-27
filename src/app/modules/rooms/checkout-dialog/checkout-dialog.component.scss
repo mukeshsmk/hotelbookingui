@@ -1,0 +1,97 @@
+.dialog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 15px;
+    color: #fff;
+    background-color: #3f51b5;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    h3 {
+        font-size: 22px;
+        font-weight: 500;
+        margin: 0;
+    }
+    &.available {
+        background: #28a745;
+    }
+    &.occupied {
+        background: #dc3545;
+    }
+    &.reserved {
+        background: #ff9800;
+    }
+    &.cleaning {
+        background: #1e88e5;
+    }
+}
+.dialog-body {
+    padding: 24px 24px !important;
+}
+
+.view-field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px;
+}
+
+.view-field .label {
+    font-size: 12px;
+    color: #777;
+}
+
+.view-field .value {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.full {
+    width: 100%;
+}
+
+.two-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.dialog-footer {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding: 10px 14px;
+    border-top: 1px solid #e5e5e5;
+}
+
+.custom-btn {
+    border-radius: 4px;
+    font-weight: 500;
+    text-transform: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1019607843);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    padding: 6px 10px;
+    color: #fff;
+    font-size: 13px;
+    border: none;
+    cursor: pointer;
+    cursor: pointer;
+    mat-icon {
+        position: relative;
+        font-size: 16px;
+        top: 3px;
+    }
+}
+
+.btn-primary {
+    background: #ffffff;
+    border: 1px solid #4a6cf7;
+    color: #4a6cf7;
+}
+
+.btn-secondary {
+    background: #ffffff;
+    border: 1px solid #ff0000;
+    color: #ff0000;
+}

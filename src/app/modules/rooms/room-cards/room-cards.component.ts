@@ -4,6 +4,7 @@ import { RoomBookingDialogComponent } from '../room-booking-dialog/room-booking-
 import { MatDialog } from '@angular/material/dialog';
 import { ViewBookingDialogComponent } from '../view-booking-dialog/view-booking-dialog.component';
 import { RoomsRepository } from '../rooms-repository';
+import { CheckoutDialogComponent } from '../checkout-dialog/checkout-dialog.component';
 
 
 @Component({
@@ -66,7 +67,10 @@ export class RoomCardsComponent {
       }
     });
   }
-  checkOut() {
-
+  checkOut(data: any) {
+    this.dialog.open(CheckoutDialogComponent, {
+      width: '600px',
+      data: data
+    });
   }
 }

@@ -10,6 +10,7 @@ import { RoomCardsComponent } from './room-cards/room-cards.component';
 import { RoomBookingDialogComponent } from './room-booking-dialog/room-booking-dialog.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ViewBookingDialogComponent } from './view-booking-dialog/view-booking-dialog.component';
+import { CheckoutDialogComponent } from './checkout-dialog/checkout-dialog.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { ViewBookingDialogComponent } from './view-booking-dialog/view-booking-d
     RoomDetailsComponent,
     RoomCardsComponent,
     RoomBookingDialogComponent,
-    ViewBookingDialogComponent
+    ViewBookingDialogComponent,
+    CheckoutDialogComponent
   ],
   imports: [
     CommonModule,
