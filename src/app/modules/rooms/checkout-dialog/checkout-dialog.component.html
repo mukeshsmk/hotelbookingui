@@ -13,35 +13,41 @@
     <div class="two-cols">
         <div class="view-field">
             <span class="label">Name</span>
-            <span class="value">{{ data?.firstName }} {{ data?.lastName }}</span>
+            <span class="value">Mukesh Kumar</span>
         </div>
 
         <div class="view-field">
             <span class="label">Room Number</span>
-            <span class="value">{{ data?.roomNumber }}</span>
+            <span class="value">101</span>
         </div>
     </div>
     <div class="two-cols">
         <div class="view-field">
             <span class="label">Checkin Date</span>
-            <span class="value">{{ data?.checkinDateString }}</span>
+            <span class="value">22/12/2025</span>
         </div>
 
         <div class="view-field">
             <span class="label">Checkout Date</span>
-            <span class="value">{{ data?.checkoutDateString }}</span>
+            <span class="value">22/12/2025</span>
         </div>
     </div>
     <div class="two-cols">
         <div class="view-field">
             <span class="label">Amount Paid</span>
-            <span class="value">{{ data?.amountPaid }}</span>
+            <span class="value">1000</span>
         </div>
 
         <div class="view-field">
             <span class="label">Remaining Amount</span>
-            <span class="value">{{ data?.amountRemaining }}</span>
+            <span class="value">500</span>
         </div>
+    </div>
+    <div class="two-cols full">
+        <mat-form-field appearance="outline">
+            <mat-label>Amount</mat-label>
+            <input matInput type="number" [(ngModel)]="amount" name="amount" required>
+        </mat-form-field>
     </div>
 
 </div>

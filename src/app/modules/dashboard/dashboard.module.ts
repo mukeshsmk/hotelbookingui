@@ -5,18 +5,20 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 import { DashboardCardComponent } from './dashboard-card/dashboard-card.component';
 import { MaterialCollectionModule } from 'src/app/shared/material-collection.module';
-
-
+import { BookingsModule } from '../bookings/bookings.module';
+import { DashboardRoomsComponent } from './dashboard-rooms/dashboard-rooms.component';
 
 @NgModule({
   declarations: [
     DashboardComponent,
-    DashboardCardComponent
+    DashboardCardComponent,
+    DashboardRoomsComponent
   ],
   imports: [
     CommonModule,
     DashboardRoutingModule,
-   MaterialCollectionModule
+    MaterialCollectionModule,
+    BookingsModule,
   ]
 })
 export class DashboardModule { }

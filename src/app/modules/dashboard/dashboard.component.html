@@ -26,3 +26,18 @@
         </app-dashboard-card>
     </div>
 </div>
+
+<div class="dashboard-charts">
+  <div class="left">
+    <app-dashboard-rooms></app-dashboard-rooms>
+  </div>
+
+  <div class="right">
+    <app-dashboard-rooms></app-dashboard-rooms>
+  </div>
+</div>
+
+
+<div>
+    <app-bookings [isViewOnly]="true"></app-bookings>
+</div>

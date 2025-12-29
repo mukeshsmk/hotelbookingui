@@ -1,30 +1,30 @@
 .dashboard-cards {
   display: flex;
-  flex-wrap: wrap;   // allow wrapping on smaller screens
+  flex-wrap: wrap; // allow wrapping on smaller screens
   gap: 20px;
   padding: 10px;
 }
 
 /* DESKTOP: 5 cards per row */
 .summary-card {
-  flex: 1 1 calc(20% - 20px);  // 5 cards per row
-  min-width: 200px;            // prevent too small shrinking
+  flex: 1 1 calc(20% - 20px); // 5 cards per row
+  min-width: 200px; // prevent too small shrinking
 }
 
 /* TABLET: 3 cards per row */
 @media (max-width: 1024px) {
   .summary-card {
-  flex: 1 1 calc(20% - 20px);  // 5 cards per row
-  min-width: 200px;            // prevent too small shrinking
-}
+    flex: 1 1 calc(20% - 20px); // 5 cards per row
+    min-width: 200px; // prevent too small shrinking
+  }
 }
 
 /* MOBILE LARGE: 2 cards per row */
 @media (max-width: 768px) {
- .summary-card {
-  flex: 1 1 calc(20% - 20px);  // 5 cards per row
-  min-width: 200px;            // prevent too small shrinking
-}
+  .summary-card {
+    flex: 1 1 calc(20% - 20px); // 5 cards per row
+    min-width: 200px; // prevent too small shrinking
+  }
 }
 
 /* MOBILE SMALL: 1 card per row */
@@ -46,12 +46,36 @@
 /* MOBILE BREAKPOINT */
 @media (max-width: 900px) {
   .dashboard-cards {
-    flex-wrap: wrap;      // now cards will stack
-    overflow-x: hidden;   // remove the horizontal scroll
+    flex-wrap: wrap;
+    overflow-x: hidden;
   }
 
   .summary-card {
-    flex: 1 1 100%;       // take full width
-    min-width: 100%;      // single column layout
+    flex: 1 1 100%;
+    min-width: 100%;
+  }
+}
+
+.dashboard-charts {
+  display: flex;
+  gap: 16px; /* spacing between blocks */
+}
+
+.dashboard-charts .left {
+  flex: 0 0 40%;
+}
+
+.dashboard-charts .right {
+  flex: 0 0 60%;
+}
+
+@media (max-width: 768px) {
+  .dashboard-charts {
+    flex-direction: column;
+  }
+
+  .dashboard-charts .left,
+  .dashboard-charts .right {
+    flex: 0 0 100%;
   }
 }

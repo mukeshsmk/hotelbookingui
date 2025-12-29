@@ -21,6 +21,7 @@ import { BookingsRepository } from './bookings-repository';
     BookingsRoutingModule,
     MaterialCollectionModule
   ],
+  exports: [BookingsComponent],
   providers: [BookingsRepository]
 })
 export class BookingsModule { }

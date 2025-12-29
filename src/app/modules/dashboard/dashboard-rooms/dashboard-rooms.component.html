@@ -1,0 +1,6 @@
+<div class="room-container">
+    <div *ngFor="let room of rooms" class="room" [ngClass]="room.status"
+        [title]="'Room ' + room.number + ' — ' + room.status">
+        {{ room.number }}
+    </div>
+</div>
