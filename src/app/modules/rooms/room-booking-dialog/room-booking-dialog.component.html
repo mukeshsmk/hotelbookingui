@@ -31,19 +31,17 @@
 
                         <mat-form-field appearance="outline">
                             <mat-label>LastName</mat-label>
-                            <input matInput [(ngModel)]="model.clientObject.lastName" name="lastName" required />
+                            <input matInput [(ngModel)]="model.clientObject.lastName" name="lastName" />
                         </mat-form-field>
                     </div>
 
                     <div class="two-cols">
                         <mat-form-field appearance="outline">
                             <mat-label>Phone Number</mat-label>
-                            <input type="number" matInput [(ngModel)]="model.clientObject.mobileNumber" name="mobileNumber"
-                                required />
+                            <input type="number" matInput [(ngModel)]="model.clientObject.mobileNumber"
+                                name="mobileNumber" required />
                             <mat-icon matSuffix>phone</mat-icon>
                         </mat-form-field>
-
-
 
                         <mat-form-field appearance="outline">
                             <mat-label>Email Address</mat-label>
@@ -54,7 +52,7 @@
 
                     <mat-form-field class="full" appearance="outline">
                         <mat-label>ID Number</mat-label>
-                        <input matInput [(ngModel)]="model.clientObject.idNumber" name="idNumber" required />
+                        <input matInput [(ngModel)]="model.clientObject.idNumber" name="idNumber" />
                         <mat-icon matSuffix>credit_card</mat-icon>
                     </mat-form-field>
 
@@ -72,8 +70,8 @@
 
                     <mat-form-field appearance="outline" class="full">
                         <mat-label>Address</mat-label>
-                        <textarea matInput rows="3" [(ngModel)]="model.clientObject.address1" name="address1"
-                            required></textarea>
+                        <textarea matInput rows="3" [(ngModel)]="model.clientObject.address1"
+                            name="address1"></textarea>
                         <mat-icon matSuffix>location_on</mat-icon>
                     </mat-form-field>
 
@@ -94,7 +92,8 @@
                     <mat-form-field appearance="outline">
                         <mat-label>Check-in</mat-label>
                         <input matInput [matDatepicker]="inPicker" [(ngModel)]="model.bookingObject.checkinDts"
-                            name="checkinDts" [min]="today" [max]="model.bookingObject.checkoutDts">
+                            name="checkinDts" [min]="today" [max]="model.bookingObject.checkoutDts"
+                            (dateChange)="onCheckinChange($event.value)">
                         <mat-datepicker-toggle matSuffix [for]="inPicker"></mat-datepicker-toggle>
                         <mat-datepicker #inPicker></mat-datepicker>
                     </mat-form-field>
@@ -111,7 +110,7 @@
                 <div class="two-cols">
                     <mat-form-field appearance="outline">
                         <mat-label>Adults</mat-label>
-                        <input matInput type="number" [(ngModel)]="model.bookingObject.adultCount" name="adults" required>
+                        <input matInput type="number" [(ngModel)]="model.bookingObject.adultCount" name="adults">
                     </mat-form-field>
 
                     <mat-form-field appearance="outline">
@@ -145,7 +144,8 @@
                         </mat-select>
                     </mat-form-field>
 
-                    <mat-form-field *ngIf="isEditMode" appearance="outline" [ngClass]="{ 'custom-disabled': isEditMode }">
+                    <mat-form-field *ngIf="isEditMode" appearance="outline"
+                        [ngClass]="{ 'custom-disabled': isEditMode }">
                         <mat-label>Room No</mat-label>
                         <input matInput type="number" [(ngModel)]="model.bookingObject.roomNumber" name="roomNumber"
                             required>
@@ -155,7 +155,7 @@
                 <div class="two-cols">
                     <mat-form-field appearance="outline" class="w-full">
                         <mat-label>Payment Type</mat-label>
-                        <mat-select [(ngModel)]="model.bookingObject.paymentType" name="paymentType" required>
+                        <mat-select [(ngModel)]="model.bookingObject.paymentType" name="paymentType">
                             <mat-option value="" disabled>Select payment type</mat-option>
                             <mat-option value="Cash">Cash</mat-option>
                             <mat-option value="online">Online</mat-option>
@@ -163,7 +163,7 @@
                     </mat-form-field>
                     <mat-form-field appearance="outline">
                         <mat-label>Amount</mat-label>
-                        <input matInput [(ngModel)]="model.bookingObject.amountPaid" name="amountPaid" required />
+                        <input matInput [(ngModel)]="model.bookingObject.amountPaid" name="amountPaid" />
                     </mat-form-field>
                 </div>
 

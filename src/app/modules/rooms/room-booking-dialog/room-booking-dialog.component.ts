@@ -69,7 +69,7 @@ export class RoomBookingDialogComponent {
       paymentType: '',
       transactionStatus: 22,
       checkinDts: new Date(),
-      checkoutDts: '',
+      checkoutDts: new Date(new Date().setDate(new Date().getDate() + 1)),
       comments: '',
       status: ''
     },
@@ -126,6 +126,7 @@ export class RoomBookingDialogComponent {
     } else if (this.data?.mode === 'booking') {
       this.isNewBooking = true;
       this.model.bookingObject.roomNumber = this.data.data.roomNumber;
+      this.model.bookingObject.roomId = this.data.data.roomId;
       this.model.bookingObject.roomType = this.data.data.roomType;
     }
     this.fetchRoomDetails();
@@ -167,18 +168,25 @@ export class RoomBookingDialogComponent {
 
     return (
       client.firstName &&
-      client.lastName &&
+      // client.lastName &&
       client.mobileNumber &&
-      client.idNumber &&
-      client.address1 &&
+      // client.idNumber &&
+      // client.address1 &&
       booking.checkinDts &&
       booking.checkoutDts &&
-      booking.adultCount &&
+      // booking.adultCount &&
       booking.roomType &&
-      booking.roomNumber &&
-      booking.paymentType &&
-      booking.amountPaid
+      booking.roomNumber
+      // booking.paymentType &&
+      // booking.amountPaid
     );
+  }
+
+  onCheckinChange(checkinDate: Date) {
+    if (!checkinDate) return;
+    const checkout = new Date(checkinDate);
+    checkout.setDate(checkout.getDate() + 1);
+    this.model.bookingObject.checkoutDts = checkout;
   }
 
   close() {
