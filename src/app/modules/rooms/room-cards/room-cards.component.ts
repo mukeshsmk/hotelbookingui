@@ -15,7 +15,10 @@ import { CheckoutDialogComponent } from '../checkout-dialog/checkout-dialog.comp
 export class RoomCardsComponent {
   rooms: any;
   isLoading: boolean = false;
-  selectedDate: Date | null = new Date();
+  // selected date (normalized to midnight)
+  selectedDate: Date | null = (() => { const d = new Date(); d.setHours(0,0,0,0); return d; })();
+  // minimum allowed date (today at midnight)
+  minDate: Date = (() => { const d = new Date(); d.setHours(0,0,0,0); return d; })();
 
   constructor(private dialog: MatDialog, private repository: RoomsRepository) { }
   ngOnInit() {
@@ -96,28 +99,57 @@ export class RoomCardsComponent {
   }
 
   onSelectedDateChange(val: Date | null) {
-    this.selectedDate = val;
+    if (!val) {
+      this.selectedDate = null;
+      this.fetchRoomDetails(null);
+      return;
+    }
+
+    const d = new Date(val);
+    d.setHours(0,0,0,0);
+
+    if (d < this.minDate) {
+      // clamp to minDate
+      this.selectedDate = new Date(this.minDate);
+    } else {
+      this.selectedDate = d;
+    }
+
     this.applyDateFilter();
   }
 
+  isPrevDisabled(): boolean {
+    if (!this.selectedDate) { return false; }
+    const sd = new Date(this.selectedDate);
+    sd.setHours(0,0,0,0);
+    return sd <= this.minDate;
+  }
+
   previousDay() {
-    if (!this.selectedDate) { this.selectedDate = new Date(); }
+    if (!this.selectedDate) { this.selectedDate = new Date(this.minDate); this.applyDateFilter(); return; }
     const d = new Date(this.selectedDate);
     d.setDate(d.getDate() - 1);
-    this.selectedDate = d;
+    d.setHours(0,0,0,0);
+
+    if (d < this.minDate) {
+      this.selectedDate = new Date(this.minDate);
+    } else {
+      this.selectedDate = d;
+    }
+
     this.applyDateFilter();
   }
 
   nextDay() {
-    if (!this.selectedDate) { this.selectedDate = new Date(); }
-    const d = new Date(this.selectedDate);
+    const d = this.selectedDate ? new Date(this.selectedDate) : new Date(this.minDate);
     d.setDate(d.getDate() + 1);
+    d.setHours(0,0,0,0);
     this.selectedDate = d;
     this.applyDateFilter();
   }
 
   goToday() {
-    this.selectedDate = new Date();
+    this.selectedDate = new Date(this.minDate);
     this.applyDateFilter();
   }
 }
