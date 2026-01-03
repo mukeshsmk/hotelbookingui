@@ -34,8 +34,9 @@ export class RoomsRepository {
         return this.http.get(`${this.baseUrl}/getRoomDetails`, { headers });
     }
 
-    getRoomUserDetails(): Observable<any> {
-        return this.http.get(`${this.baseUrl}/getRoomUserDetails`);
+    getRoomUserDetails(date: string): Observable<any> {
+        const headers = new HttpHeaders({ 'date-filter': date });
+        return this.http.get(`${this.baseUrl}/getRoomUserDetails`, { headers });
     }
 
     updateCustomer(formData: FormData): Observable<any> {

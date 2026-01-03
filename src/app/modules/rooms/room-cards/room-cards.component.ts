@@ -15,23 +15,31 @@ import { CheckoutDialogComponent } from '../checkout-dialog/checkout-dialog.comp
 export class RoomCardsComponent {
   rooms: any;
   isLoading: boolean = false;
+  selectedDate: Date | null = new Date();
+
   constructor(private dialog: MatDialog, private repository: RoomsRepository) { }
   ngOnInit() {
-    this.fetchRoomDetails();
+    // Load rooms for the selected date by default
+    this.applyDateFilter();
+    /* this.fetchRoomDetails(); */
   }
 
-  fetchRoomDetails() {
+  fetchRoomDetails(date?: Date | null) {
     this.isLoading = true;
-    this.repository.getRoomUserDetails().subscribe({
-      next: (res: any[]) => {
-        this.isLoading = false;
-        this.rooms = res;
-      },
-      error: (err) => {
-        this.isLoading = false;
-        console.error('Failed to load clients', err);
-      }
-    });
+    const targetDate = date ?? this.selectedDate;
+    if (targetDate) {
+      const dateStr = this.formatDate(targetDate);
+      this.repository.getRoomUserDetails(dateStr).subscribe({
+        next: (res: any[]) => {
+          this.isLoading = false;
+          this.rooms = res;
+        },
+        error: (err) => {
+          this.isLoading = false;
+          console.error('Failed to load clients', err);
+        }
+      });
+    }
   }
 
   getStatusClass(status: string) {
@@ -72,5 +80,44 @@ export class RoomCardsComponent {
       width: '600px',
       data: data
     });
+  }
+
+  formatDate(d: Date | null): string {
+    if (!d) { return ''; }
+    const date = new Date(d);
+    const yyyy = date.getFullYear();
+    const mm = String(date.getMonth() + 1).padStart(2, '0');
+    const dd = String(date.getDate()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd}`;
+  }
+
+  applyDateFilter() {
+    this.fetchRoomDetails(this.selectedDate);
+  }
+
+  onSelectedDateChange(val: Date | null) {
+    this.selectedDate = val;
+    this.applyDateFilter();
+  }
+
+  previousDay() {
+    if (!this.selectedDate) { this.selectedDate = new Date(); }
+    const d = new Date(this.selectedDate);
+    d.setDate(d.getDate() - 1);
+    this.selectedDate = d;
+    this.applyDateFilter();
+  }
+
+  nextDay() {
+    if (!this.selectedDate) { this.selectedDate = new Date(); }
+    const d = new Date(this.selectedDate);
+    d.setDate(d.getDate() + 1);
+    this.selectedDate = d;
+    this.applyDateFilter();
+  }
+
+  goToday() {
+    this.selectedDate = new Date();
+    this.applyDateFilter();
   }
 }

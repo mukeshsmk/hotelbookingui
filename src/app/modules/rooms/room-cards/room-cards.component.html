@@ -1,6 +1,31 @@
 <div class="ft-container-spinner" *ngIf="isLoading">
     <mat-spinner></mat-spinner>
 </div>
+
+<div class="date-controls">
+    <button mat-icon-button (click)="previousDay()">
+        <mat-icon>chevron_left</mat-icon>
+    </button>
+
+    <div class="date-text">
+        {{ selectedDate | date:'MMMM d, yyyy' }}
+    </div>
+
+    <button mat-icon-button (click)="nextDay()">
+        <mat-icon>chevron_right</mat-icon>
+    </button>
+
+    <button class="custom-btn btn-primary" (click)="goToday()">
+        Today
+    </button>
+
+    <mat-form-field appearance="outline" class="date-picker">
+        <input matInput [matDatepicker]="picker" [(ngModel)]="selectedDate" (ngModelChange)="onSelectedDateChange($event)" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+</div>
+
 <div class="rooms-grid">
     <div class="room-card" *ngFor="let room of rooms">
 

@@ -105,3 +105,48 @@
     border: 1px solid #ff0000;
     color: #ff0000;
 }
+
+/* Date controls (same look as Rooms page) */
+.date-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+
+.date-controls .date-text {
+    font-weight: 700;
+    font-size: 14px;
+    margin: 0 6px;
+}
+
+.date-controls .date-picker {
+    min-width: 220px;
+    width: 280px;
+}
+
+.date-controls .custom-btn {
+    height: 36px;
+    padding: 6px 12px;
+    font-size: 13px;
+}
+
+.custom-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 18px #0000001a;
+}
+
+@media (max-width: 480px) {
+    .rooms-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    }
+
+    .date-controls .date-picker {
+        width: 100%;
+    }
+
+    .date-controls {
+        gap: 8px;
+    }
+}
