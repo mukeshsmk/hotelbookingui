@@ -1,6 +1,19 @@
-<div class="room-container">
-    <div *ngFor="let room of rooms" class="room" [ngClass]="room.status"
-        [title]="'Room ' + room.number + ' — ' + room.status">
-        {{ room.number }}
+<div class="room-section">
+    <h4>Available Rooms</h4>
+    <div class="room-container">
+        <div *ngFor="let room of rooms" class="room" [ngClass]="room.status">
+            {{ room.number }}
+        </div>
+    </div>
+    <div class="legend">
+        <div class="legend-item">
+            <span class="legend-box available"></span>
+            <span>Available</span>
+        </div>
+
+        <div class="legend-item">
+            <span class="legend-box booked"></span>
+            <span>Booked</span>
+        </div>
     </div>
 </div>

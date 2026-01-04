@@ -1,0 +1,113 @@
+<!-- PRINT TEMPLATE -->
+<div id="bill-print" #billTemplate>
+
+    <div class="bill-container">
+
+        <div class="bill-header">
+            <div>
+                <p><strong>GSTIN</strong>: 33ACKFS7564HZZP</p>
+                <p><strong>Ph</strong> : 04636 222 220</p>
+            </div>
+
+            <div class="right">
+                <span class="cash-bill">CASH BILL</span>
+                <p>Subject to Sankarankovil <br> Jurisdiction</p>
+            </div>
+        </div>
+
+        <div class="title">
+            <h2>Sri Sudharsana Residency</h2>
+            <h3>Boarding & Lodging</h3>
+            <p>6/1, 8/1, South Car Street, Sankarankovil - 627 756</p>
+        </div>
+
+
+        <hr />
+
+        <div class="bill-info-rows">
+            <div class="info-row">
+                <div class="left">
+                    <p><strong>Bill No:</strong> 12343455</p>
+                </div>
+                <div class="right">
+                    <p><strong>Bill Date:</strong> {{ today | date : 'dd-MM-yyyy'}}</p>
+                </div>
+            </div>
+
+            <div class="info-row">
+                <div class="left">
+                    <p><strong>Customer Name:</strong> {{ billData?.firstName | titlecase }} {{ billData?.lastName |
+                        titlecase }}</p>
+                </div>
+                <div class="right">
+                    <p><strong>No. of Days Stayed:</strong> 2 day(s)</p>
+                </div>
+            </div>
+
+            <div class="info-row">
+                <div class="left">
+                    <p><strong>Checkin Date:</strong> {{ billData?.checkinDts | date : 'dd-MM-yyyy' }}</p>
+                </div>
+                <div class="right">
+                    <p><strong>Checkin Out:</strong> {{ billData?.checkoutDts | date : 'dd-MM-yyyy' }}</p>
+                </div>
+            </div>
+
+            <div class="info-row">
+                <div class="left">
+                    <p><strong>Room No:</strong> {{ billData?.roomNumber }}</p>
+                </div>
+                <div class="right">
+                    <p><strong>Rate/day:</strong> 1500 </p>
+                </div>
+            </div>
+        </div>
+
+        <table class="bill-table" style="margin-top: 20px;">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th style="text-align:right">Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Room Rent</td>
+                    <td>{{ billData?.roomRent | number:'1.2-2' }}</td>
+                </tr>
+                <tr>
+                    <td>CGST</td>
+                    <td>{{ billData?.cgst | number:'1.2-2' }}</td>
+                </tr>
+                <tr>
+                    <td>SGST</td>
+                    <td>{{ billData?.sgst | number:'1.2-2' }}</td>
+                </tr>
+                <tr>
+                    <td>Miscellaneous / Other Specialities</td>
+                    <td>{{ billData?.misc | number:'1.2-2' }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="totals">
+            <p><strong>Advance:</strong> {{ billData?.advance | number:'1.2-2' }}</p>
+            <p><strong>Total:</strong> {{ billData?.total | number:'1.2-2' }}</p>
+            <p><strong>Balance:</strong> {{ billData?.balance | number:'1.2-2' }}</p>
+        </div>
+
+        <p class="words">
+            <strong>Amount in words:</strong> {{ billData?.amountWords }}
+        </p>
+
+        <div class="footer">
+            <span>Cheques are not accepted</span>
+            <span>Thank You</span>
+            <span>Come Again</span>
+        </div>
+
+        <p class="sign">For Sri Sudharshana Residency</p>
+
+    </div>
+
+</div>

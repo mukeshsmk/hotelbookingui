@@ -1,6 +1,7 @@
 <div class="table-container" style="display: block;">
     <div class="table-header">
-        <h3>All Bookings</h3>
+        <h3 *ngIf="!isViewOnly">All Bookings</h3>
+        <h3 *ngIf="isViewOnly">Today Bookings</h3>
         <div class="pos-relative custom-search">
             <mat-icon class="prefix-search-icon" matPrefix>search</mat-icon>
             <input class="custom-search-box" autocomplete="off" matInput placeholder="Search" [(ngModel)]="inputValue"
@@ -8,7 +9,7 @@
             <mat-icon class="suffix-search-icon" *ngIf="inputValue?.length;" (click)="clear()"
                 matSuffix>clear</mat-icon>
 
-            <button *ngIf="isViewOnly" class="mar-lft-18" mat-raised-button (click)="openAddBookingModal()">
+            <button *ngIf="!isViewOnly" class="mar-lft-18" mat-raised-button (click)="openAddBookingModal()">
                 Add Booking
             </button>
         </div>
@@ -104,8 +105,8 @@
                             <span>Edit</span>
                         </button>
 
-                        <button mat-menu-item (click)="printBill(row)">
-                            <mat-icon>visibility</mat-icon>
+                        <button *ngIf="getPaymentStatus(row) === 'Paid'" mat-menu-item (click)="onPrintClick(row)">
+                            <mat-icon>print</mat-icon>
                             <span>Print</span>
                         </button>
 
@@ -124,103 +125,4 @@
     </div>
 </div>
 
-
-<!-- PRINT TEMPLATE -->
-<div id="bill-print" #billTemplate>
-
-    <div class="bill-container">
-
-        <div class="bill-header">
-            <div>
-                <p><strong>GSTIN</strong>: 33ACKFS7564HZZP</p>
-                <p><strong>Ph</strong> : 04636 222 220</p>
-            </div>
-
-
-
-            <div class="right">
-                <span class="cash-bill">CASH BILL</span>
-                <p>Subject to Sankarankovil <br> Jurisdiction</p>
-            </div>
-        </div>
-
-        <div class="title">
-            <h2>Sri Sudharsana Residency</h2>
-            <h3>Boarding & Lodging</h3>
-            <p>6/1, 8/1, South Car Street, Sankarankovil - 627 756</p>
-        </div>
-
-
-        <hr />
-
-        <div class="bill-info">
-            <div>
-                <p><strong>Bill No:</strong> 12343455</p>
-                <p><strong>Customer Name:</strong> {{ billData?.firstName | titlecase }} {{ billData?.lastName |
-                    titlecase }}</p>
-                <p><strong>Checkin Date:</strong> {{ billData?.checkinDts | date }}</p>
-
-            </div>
-
-            <div>
-                <p><strong>Bill Date:</strong> {{ today | date }}</p>
-                <p style="color: transparent;"><strong>Date:</strong> {{ billData?.date | date }}</p>
-                <p><strong>Checkin Out:</strong> {{ billData?.checkoutDts | date }}</p>
-            </div>
-        </div>
-
-        <div class="bill-info-1">
-            <p><strong>Room No:</strong> {{ billData?.roomNumber }}</p>
-            <p><strong>No. of Days Stayed:</strong> 2 day(s)</p>
-            <p><strong>Rate/day:</strong> 1500</p>
-        </div>
-
-
-        <table class="bill-table" style="margin-top: 20px;">
-            <thead>
-                <tr>
-                    <th>Description</th>
-                    <th style="text-align:right">Amount</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Room Rent</td>
-                    <td>{{ billData?.roomRent | number:'1.2-2' }}</td>
-                </tr>
-                <tr>
-                    <td>CGST</td>
-                    <td>{{ billData?.cgst | number:'1.2-2' }}</td>
-                </tr>
-                <tr>
-                    <td>SGST</td>
-                    <td>{{ billData?.sgst | number:'1.2-2' }}</td>
-                </tr>
-                <tr>
-                    <td>Miscellaneous / Other Specialities</td>
-                    <td>{{ billData?.misc | number:'1.2-2' }}</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <div class="totals">
-            <p><strong>Advance:</strong> {{ billData?.advance | number:'1.2-2' }}</p>
-            <p><strong>Total:</strong> {{ billData?.total | number:'1.2-2' }}</p>
-            <p><strong>Balance:</strong> {{ billData?.balance | number:'1.2-2' }}</p>
-        </div>
-
-        <p class="words">
-            <strong>Amount in words:</strong> {{ billData?.amountWords }}
-        </p>
-
-        <div class="footer">
-            <span>Cheques are not accepted</span>
-            <span>Thank You</span>
-            <span>Come Again</span>
-        </div>
-
-        <p class="sign">For Sri Sudharshana Residency</p>
-
-    </div>
-
-</div>
+<!-- <app-bill-print #billPrintPage class="hidden-for-screen"></app-bill-print> -->

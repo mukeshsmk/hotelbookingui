@@ -13,39 +13,39 @@
     <div class="two-cols">
         <div class="view-field">
             <span class="label">Name</span>
-            <span class="value">Mukesh Kumar</span>
+            <span class="value">{{ data?.firstName  }} {{ data?.lastName }}</span>
         </div>
 
         <div class="view-field">
             <span class="label">Room Number</span>
-            <span class="value">101</span>
+            <span class="value">{{ data?.roomNumber }}</span>
         </div>
     </div>
     <div class="two-cols">
         <div class="view-field">
             <span class="label">Checkin Date</span>
-            <span class="value">22/12/2025</span>
+            <span class="value">{{ data?.checkinDts | date }}</span>
         </div>
 
         <div class="view-field">
             <span class="label">Checkout Date</span>
-            <span class="value">22/12/2025</span>
+            <span class="value">{{ data?.checkoutDts | date }}</span>
         </div>
     </div>
     <div class="two-cols">
         <div class="view-field">
             <span class="label">Total Amount</span>
-            <span class="value">1000</span>
+            <span class="value">{{ data?.totalAmount }}</span>
         </div>
         <div class="view-field">
             <span class="label">Amount Paid</span>
-            <span class="value">1000</span>
+            <span class="value">{{ data?.amountPaid }}</span>
         </div>
     </div>
     <div class="two-cols full">
         <div class="view-field">
             <span class="label">Remaining Amount</span>
-            <span class="value">500</span>
+            <span class="value">{{ data?.remainingAmount }}</span>
         </div>
         <mat-form-field appearance="outline">
             <mat-label>Amount</mat-label>

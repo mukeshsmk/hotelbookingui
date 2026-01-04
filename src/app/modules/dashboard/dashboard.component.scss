@@ -58,20 +58,39 @@
 
 .dashboard-charts {
   display: flex;
-  gap: 16px; /* spacing between blocks */
+  gap: 16px; 
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+
+.dashboard-charts .left,
+.dashboard-charts .right {
+  display: flex;
+  flex-direction: column; 
 }
 
 .dashboard-charts .left {
-  flex: 0 0 40%;
+  flex: 1 1 320px;
+  min-width: 260px;
 }
 
 .dashboard-charts .right {
-  flex: 0 0 60%;
+  flex: 2 1 520px;
+  min-width: 320px;
+}
+
+@media (max-width: 1024px) {
+  .dashboard-charts .left,
+  .dashboard-charts .right {
+    flex-basis: 100%;
+    min-width: 100%;
+  }
 }
 
 @media (max-width: 768px) {
   .dashboard-charts {
     flex-direction: column;
+    align-items: stretch;
   }
 
   .dashboard-charts .left,

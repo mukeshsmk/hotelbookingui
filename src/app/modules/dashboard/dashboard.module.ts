@@ -7,12 +7,15 @@ import { DashboardCardComponent } from './dashboard-card/dashboard-card.componen
 import { MaterialCollectionModule } from 'src/app/shared/material-collection.module';
 import { BookingsModule } from '../bookings/bookings.module';
 import { DashboardRoomsComponent } from './dashboard-rooms/dashboard-rooms.component';
+import { DashboardBookingsChartComponent } from './dashboard-bookings-chart/dashboard-bookings-chart.component';
+
 
 @NgModule({
   declarations: [
     DashboardComponent,
     DashboardCardComponent,
-    DashboardRoomsComponent
+    DashboardRoomsComponent,
+    DashboardBookingsChartComponent
   ],
   imports: [
     CommonModule,
