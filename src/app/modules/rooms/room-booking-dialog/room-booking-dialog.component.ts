@@ -51,7 +51,7 @@ export class RoomBookingDialogComponent {
       idNumber: '',
       city: '',
       state: '',
-      status: '',
+      status: 1,
       address2: '',
       address1: ''
     },
@@ -62,16 +62,16 @@ export class RoomBookingDialogComponent {
       roomType: '',
       clientId: '',
       totalAmount: '',
-      amountPaid: '',
-      amountRemaining: '',
-      adultCount: '',
-      childrenCount: '',
-      paymentType: '',
+      amountPaid: 0,
+      amountRemaining: 0,
+      adultCount: 0,
+      childrenCount: 0,
+      paymentType: 1,
       transactionStatus: 22,
       checkinDts: new Date(),
       checkoutDts: new Date(new Date().setDate(new Date().getDate() + 1)),
       comments: '',
-      status: ''
+      status: 1
     },
     files: ''
   };
