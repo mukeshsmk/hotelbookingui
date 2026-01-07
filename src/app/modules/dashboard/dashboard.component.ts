@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DashboardRepository } from './dashboard-repository';
 
 @Component({
   selector: 'app-dashboard',
@@ -6,5 +7,20 @@ import { Component } from '@angular/core';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
+  cardDetails: any;
+  constructor(private repo: DashboardRepository) { }
 
+  ngOnInit() {
+    this.fetchCardDetails();
+  }
+
+  fetchCardDetails() {
+    this.repo.getCardDetails().subscribe({
+      next: (res) => {
+        this.cardDetails = res;
+        console.log(res);
+      },
+      error: () => console.error('Failed to load Card Details')
+    });
+  }
 }

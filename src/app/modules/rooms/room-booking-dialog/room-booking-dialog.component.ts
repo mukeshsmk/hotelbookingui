@@ -210,7 +210,9 @@ export class RoomBookingDialogComponent {
         { type: 'application/json' }
       )
     );
-    this.model.bookingObject.amountRemaining = this.model.bookingObject.totalAmount - this.model.bookingObject.amountPaid
+    this.model.bookingObject.amountRemaining = this.model.bookingObject.totalAmount - this.model.bookingObject.amountPaid;
+    console.log("this.model.bookingObject.roomType;",this.model.bookingObject.roomType)
+    this.model.bookingObject.totalAmount =  this.model.bookingObject.roomType === 1 ? 1500 : 1200 ;
     formData.append(
       'bookingObject',
       new Blob(

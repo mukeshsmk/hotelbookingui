@@ -1,27 +1,27 @@
 <div class="dashboard-cards">
     <div class="summary-card">
-        <app-dashboard-card [title]="'Rooms Available'" [value]="20" [icon]="'description'" [color]="'#8e44ad'"
+        <app-dashboard-card [title]="'Rooms Available'" [value]="cardDetails?.noOfAvailableRooms || 0" [icon]="'description'" [color]="'#8e44ad'"
             [progress]="80" [progressColor]="'#9b59b6'">
         </app-dashboard-card>
     </div>
 
     <div class="summary-card">
-        <app-dashboard-card [title]="'Occupied Rooms'" [value]="35" [icon]="'hotel'" [color]="'#f39c12'" [progress]="50"
+        <app-dashboard-card [title]="'Occupied Rooms'" [value]="cardDetails?.noOfOccupiedRooms || 0" [icon]="'hotel'" [color]="'#f39c12'" [progress]="50"
             [progressColor]="'#f1c40f'">
         </app-dashboard-card>
     </div>
     <div class="summary-card">
-        <app-dashboard-card [title]="'Todays Check-ins'" [value]="12" [icon]="'group'" [color]="'#27ae60'"
+        <app-dashboard-card [title]="'Todays Check-ins'" [value]="cardDetails?.noOfCheckins || 0" [icon]="'group'" [color]="'#27ae60'"
             [progress]="30" [progressColor]="'#2ecc71'">
         </app-dashboard-card>
     </div>
     <div class="summary-card">
-        <app-dashboard-card [title]="'Todays Check-outs'" [value]="8" [icon]="'logout'" [color]="'#3498db'"
+        <app-dashboard-card [title]="'Todays Check-outs'" [value]="cardDetails?.noOfCheckouts || 0" [icon]="'logout'" [color]="'#3498db'"
             [progress]="40" [progressColor]="'#5dade2'">
         </app-dashboard-card>
     </div>
     <div class="summary-card">
-        <app-dashboard-card [title]="'Revenue Today'" [value]="5000" [icon]="'attach_money'" [color]="'#5678db'"
+        <app-dashboard-card [title]="'Revenue Today'" [value]="cardDetails?.revenueEarnedToday || 0" [icon]="'attach_money'" [color]="'#5678db'"
             [progress]="40" [progressColor]="'#5678db'">
         </app-dashboard-card>
     </div>

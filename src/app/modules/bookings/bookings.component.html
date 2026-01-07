@@ -105,7 +105,7 @@
                             <span>Edit</span>
                         </button>
 
-                        <button *ngIf="getPaymentStatus(row) === 'Paid'" mat-menu-item (click)="onPrintClick(row)">
+                        <button mat-menu-item (click)="onPrintClick(row)">
                             <mat-icon>print</mat-icon>
                             <span>Print</span>
                         </button>
@@ -125,4 +125,4 @@
     </div>
 </div>
 
-<!-- <app-bill-print #billPrintPage class="hidden-for-screen"></app-bill-print> -->
+<app-bill-print #billPrintPage class="hidden-for-screen"></app-bill-print>

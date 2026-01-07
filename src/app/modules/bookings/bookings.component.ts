@@ -46,6 +46,7 @@ export class BookingsComponent implements OnInit, AfterViewInit {
 
   billData: any;
   today = new Date();
+  isBillPrint = false
   constructor(private dialog: MatDialog, private bookingRepo: BookingsRepository) { }
 
   ngOnInit() {
@@ -152,7 +153,8 @@ export class BookingsComponent implements OnInit, AfterViewInit {
   }
 
   onPrintClick(booking: any) {
-    this.billPrintPage?.printBill(booking);
+    console.log("bookingId", booking?.bookingId)
+    this.billPrintPage?.printBill(booking?.bookingId);
   }
 
 }

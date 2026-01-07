@@ -3,44 +3,50 @@ import { ActivatedRoute } from '@angular/router';
 import { RoomsRepository } from '../../rooms/rooms-repository';
 
 @Component({
-  selector: 'app-bill-print',
-  templateUrl: './bill-print.component.html',
-  styleUrls: ['./bill-print.component.scss']
+    selector: 'app-bill-print',
+    templateUrl: './bill-print.component.html',
+    styleUrls: ['./bill-print.component.scss']
 })
 export class BillPrintComponent implements OnInit {
-  @ViewChild('billTemplate') billTemplate!: any;
-  today = new Date();
-  billData: any;
-  constructor(
-    private route: ActivatedRoute,
-    private repo: RoomsRepository
-  ) { }
-  ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id')!;
-    this.repo.getBookingDetails(id).subscribe(b => {
-      this.billData = b;
-      setTimeout(() => window.print(), 300);
-    });
-  }
+    @ViewChild('billTemplate') billTemplate!: any;
+    today = new Date();
+    billData: any;
+    constructor(
+        private route: ActivatedRoute,
+        private repo: RoomsRepository
+    ) { }
+    ngOnInit() {
+        const id = this.route.snapshot.paramMap.get('id')!;
 
-  printBill(booking: any) {
-    console.log('Printing bill for booking:', booking);
-    this.billData = booking;
+    }
 
-    const printContent = this.billTemplate.nativeElement.innerHTML;
-    const popup = window.open('', '_blank', 'width=900,height=650');
+    printBill(id: any) {
+        console.log("id", id)
+        this.repo.getBookingDetails(id).subscribe(data => {
+            console.log("data", data)
+            this.billData = data;
+            setTimeout(() => {
+                this.getPrintPage();
+            })
+        });
+    }
 
-    popup!.document.open();
-    popup!.document.write(`
-   <html>
-    <head>
-        <title>Cash Bill</title>
+    getPrintPage() {
 
-        <style>
-            .bill-container {
-                font-family: Arial;
-                width: 210mm;
-                /* A4 width */
+        const printContent = this.billTemplate.nativeElement.innerHTML;
+        const popup = window.open('', '_blank', 'width=900,height=650');
+
+        popup!.document.open();
+        popup!.document.write(`
+    <html>
+        <head>
+            <title>Cash Bill</title>
+
+            <style>
+                .bill-container {
+                    font-family: Arial;
+                    width: 210mm;
+                    /* A4 width */
                 margin: 0 auto;
             }
 
@@ -95,20 +101,37 @@ export class BillPrintComponent implements OnInit {
                 }
             }
 
-            .bill-info {
+            .bill-info-rows {
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+            }
+
+            .info-row {
                 display: flex;
                 justify-content: space-between;
-
+                align-items: flex-start;
+                gap: 12px;
                 p {
-                    margin: 8px 0;
+                    margin: 0;
                     font-size: 13px;
                 }
+            }
+
+            .info-row .left {
+                flex: 1 1 auto;
+            }
+
+            .info-row .right {
+                // width: 150px;
+                text-align: left;
+                // flex: 0 0 150px;
             }
 
             .bill-info-1 {
                 display: flex;
                 justify-content: space-between;
-
+                gap: 12px;
                 p {
                     margin: 0;
                     font-size: 13px;
@@ -153,16 +176,18 @@ export class BillPrintComponent implements OnInit {
                 }
             }
 
-            .bill-table {
-                width: 100%;
-                border-collapse: collapse;
-            }
-
             .bill-table th,
             .bill-table td {
-                border: 1px solid #000;
-                padding: 8px;
+                border: 0.5px solid #000;
+                padding: 5px;
                 text-align: left;
+            }
+
+            .bill-table th {
+                background-color: #f2f2f2;
+            }
+            .bill-table td {
+                font-size: 13px;
             }
 
             .bill-table th {
@@ -177,8 +202,8 @@ export class BillPrintComponent implements OnInit {
     </html>
   `);
 
-    popup!.document.close();
-    popup!.print();
-  }
+        popup!.document.close();
+        popup!.print();
+    }
 
 }

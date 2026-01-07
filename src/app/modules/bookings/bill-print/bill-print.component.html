@@ -58,7 +58,7 @@
                     <p><strong>Room No:</strong> {{ billData?.roomNumber }}</p>
                 </div>
                 <div class="right">
-                    <p><strong>Rate/day:</strong> 1500 </p>
+                    <p><strong>Rate/day:</strong> {{billData?.roomType === 1 ? 1500 : 1200 }} </p>
                 </div>
             </div>
         </div>
@@ -91,9 +91,9 @@
         </table>
 
         <div class="totals">
-            <p><strong>Advance:</strong> {{ billData?.advance | number:'1.2-2' }}</p>
-            <p><strong>Total:</strong> {{ billData?.total | number:'1.2-2' }}</p>
-            <p><strong>Balance:</strong> {{ billData?.balance | number:'1.2-2' }}</p>
+            <p><strong>Advance:</strong> {{ billData?.amountPaid }}</p>
+            <p><strong>Total:</strong> {{ billData?.totalAmount }}</p>
+            <p><strong>Balance:</strong> {{ billData?.amountRemaining }}</p>
         </div>
 
         <p class="words">
