@@ -22,4 +22,8 @@ export class BookingsRepository {
     getBookingList(): Observable<any[]> {
         return this.http.get<any[]>(`${this.baseUrl}/getBookings`);
     }
+
+    getTodayBookingList(): Observable<any[]> {
+        return this.http.get<any[]>(`${this.baseUrl}/getTodayBooking`);
+    }
 }

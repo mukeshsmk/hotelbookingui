@@ -50,7 +50,12 @@ export class BookingsComponent implements OnInit, AfterViewInit {
   constructor(private dialog: MatDialog, private bookingRepo: BookingsRepository) { }
 
   ngOnInit() {
-    this.loadClients();
+    if(this.isViewOnly){
+      this.loadTodayClients(); 
+    }else{
+      this.loadClients();  
+    }
+   
   }
 
   ngAfterViewInit() {
@@ -61,6 +66,17 @@ export class BookingsComponent implements OnInit, AfterViewInit {
 
   loadClients() {
     this.bookingRepo.getBookingList().subscribe({
+      next: (res: any[]) => {
+        this.dataSource.data = res;
+      },
+      error: (err) => {
+        console.error('Failed to load clients', err);
+      }
+    });
+  }
+
+  loadTodayClients(){
+    this.bookingRepo.getTodayBookingList().subscribe({
       next: (res: any[]) => {
         this.dataSource.data = res;
       },

@@ -79,10 +79,15 @@ export class RoomCardsComponent {
     });
   }
   checkOut(data: any) {
-    this.dialog.open(CheckoutDialogComponent, {
+    const dialogRef = this.dialog.open(CheckoutDialogComponent, {
       width: '600px',
       data: data
     });
+    dialogRef.afterClosed().subscribe(result => {
+    if (result === true) {
+      this.fetchRoomDetails();
+    }
+  });
   }
 
   formatDate(d: Date | null): string {

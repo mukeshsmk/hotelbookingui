@@ -27,7 +27,7 @@
         <div class="bill-info-rows">
             <div class="info-row">
                 <div class="left">
-                    <p><strong>Bill No:</strong> 12343455</p>
+                    <p><strong>Bill No:</strong> {{ billData?.bookingId }}</p>
                 </div>
                 <div class="right">
                     <p><strong>Bill Date:</strong> {{ today | date : 'dd-MM-yyyy'}}</p>
@@ -40,7 +40,7 @@
                         titlecase }}</p>
                 </div>
                 <div class="right">
-                    <p><strong>No. of Days Stayed:</strong> 2 day(s)</p>
+                    <p><strong>No. of Days Stayed:</strong> {{numberOfDayes}} : days</p>
                 </div>
             </div>
 
@@ -73,19 +73,15 @@
             <tbody>
                 <tr>
                     <td>Room Rent</td>
-                    <td>{{ billData?.roomRent | number:'1.2-2' }}</td>
+                    <td class="right-align">{{ billData?.totalAmount | number:'1.2-2' }}</td>
                 </tr>
                 <tr>
                     <td>CGST</td>
-                    <td>{{ billData?.cgst | number:'1.2-2' }}</td>
+                    <td class="right-align">{{ billData?.cgst ? billData?.cgst : 0 | number:'1.2-2' }}</td>
                 </tr>
                 <tr>
                     <td>SGST</td>
-                    <td>{{ billData?.sgst | number:'1.2-2' }}</td>
-                </tr>
-                <tr>
-                    <td>Miscellaneous / Other Specialities</td>
-                    <td>{{ billData?.misc | number:'1.2-2' }}</td>
+                    <td class="right-align">{{ billData?.sgst ? billData?.cgst : 0 | number:'1.2-2' }}</td>
                 </tr>
             </tbody>
         </table>
@@ -97,7 +93,7 @@
         </div>
 
         <p class="words">
-            <strong>Amount in words:</strong> {{ billData?.amountWords }}
+            <strong>Amount in words:</strong> {{ billData?.totalAmountInWords | titlecase }}
         </p>
 
         <div class="footer">

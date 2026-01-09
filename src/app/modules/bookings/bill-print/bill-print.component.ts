@@ -11,6 +11,7 @@ export class BillPrintComponent implements OnInit {
     @ViewChild('billTemplate') billTemplate!: any;
     today = new Date();
     billData: any;
+    numberOfDayes: any;
     constructor(
         private route: ActivatedRoute,
         private repo: RoomsRepository
@@ -23,13 +24,32 @@ export class BillPrintComponent implements OnInit {
     printBill(id: any) {
         console.log("id", id)
         this.repo.getBookingDetails(id).subscribe(data => {
-            console.log("data", data)
             this.billData = data;
+            this.numberOfDayes = this.getNumberOfDays();
             setTimeout(() => {
                 this.getPrintPage();
             })
         });
     }
+
+    getNumberOfDays(): number {
+        if (!this.billData?.checkinDts || !this.billData?.checkoutDts) {
+            return 0;
+        }
+
+        const checkin = new Date(this.billData.checkinDts);
+        const checkout = new Date(this.billData.checkoutDts);
+
+        // 🔑 remove time part
+        checkin.setHours(0, 0, 0, 0);
+        checkout.setHours(0, 0, 0, 0);
+
+        const diffTime = checkout.getTime() - checkin.getTime();
+        const diffDays = diffTime / (1000 * 60 * 60 * 24);
+
+        return Math.max(diffDays, 0);
+    }
+
 
     getPrintPage() {
 
@@ -188,6 +208,10 @@ export class BillPrintComponent implements OnInit {
             }
             .bill-table td {
                 font-size: 13px;
+            }
+
+            .bill-table .right-align {
+                text-align : right;
             }
 
             .bill-table th {

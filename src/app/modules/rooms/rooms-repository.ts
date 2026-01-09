@@ -42,5 +42,8 @@ export class RoomsRepository {
     updateCustomer(formData: FormData): Observable<any> {
         return this.http.post(`${this.baseUrl}/addClient`, formData);
     }
+    getCheckOut(id: string, payload: any): Observable<any> {
+        return this.http.patch(`${this.baseUrl}/checkout/${id}`, payload);
+    }
 
 }

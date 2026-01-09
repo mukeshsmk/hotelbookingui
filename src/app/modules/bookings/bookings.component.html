@@ -100,12 +100,12 @@
                             <span>View</span>
                         </button>
 
-                        <button *ngIf="isViewOnly" mat-menu-item (click)="editClient(row)">
+                        <!-- <button *ngIf="isViewOnly" mat-menu-item (click)="editClient(row)">
                             <mat-icon>edit</mat-icon>
                             <span>Edit</span>
-                        </button>
+                        </button> -->
 
-                        <button mat-menu-item (click)="onPrintClick(row)">
+                        <button *ngIf="getPaymentStatus(row) === 'Paid'" mat-menu-item (click)="onPrintClick(row)">
                             <mat-icon>print</mat-icon>
                             <span>Print</span>
                         </button>

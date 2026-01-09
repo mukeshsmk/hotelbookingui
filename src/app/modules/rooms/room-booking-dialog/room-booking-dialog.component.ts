@@ -125,6 +125,7 @@ export class RoomBookingDialogComponent {
       }
     } else if (this.data?.mode === 'booking') {
       this.isNewBooking = true;
+      this.model.bookingObject.paymentType = 'cash'
       this.model.bookingObject.roomNumber = this.data.data.roomNumber;
       this.model.bookingObject.roomId = this.data.data.roomId;
       this.model.bookingObject.roomType = this.data.data.roomType;
@@ -196,7 +197,7 @@ export class RoomBookingDialogComponent {
   save() {
 
     const formData = new FormData();
-
+    this.model.bookingObject.paymentType =  this.model.bookingObject.paymentType === 'cash' ? 1 : 2; 
     if (this.selectedFile) {
       formData.append('files', this.selectedFile);
     } else {

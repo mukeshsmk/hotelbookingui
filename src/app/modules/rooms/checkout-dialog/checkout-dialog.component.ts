@@ -20,8 +20,31 @@ export class CheckoutDialogComponent {
   }
 
   checkout() {
-
+    this.data.amountPaid = this.data?.amountRemaining;
+    this.data.amountRemaining = 0;
+    this.repository
+      .getCheckOut(this.data.bookingId, this.data)
+      .subscribe({
+        next: (data) => {
+          if (data?.status === 'Success') {
+            this.toastr.success('Checkout successfully', 'Success');
+            this.dialogRef.close(true);
+          } else {
+            this.toastr.error(
+              data?.message || 'Checkout failed',
+              'Error'
+            );
+          }
+        },
+        error: (err) => {
+          this.toastr.error(
+            err?.error?.message || 'Something went wrong. Please try again.',
+            'Error'
+          );
+        }
+      });
   }
+
   close() {
     this.dialogRef.close();
   }

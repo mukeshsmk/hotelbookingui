@@ -13,7 +13,7 @@
     <div class="two-cols">
         <div class="view-field">
             <span class="label">Name</span>
-            <span class="value">{{ data?.firstName  }} {{ data?.lastName }}</span>
+            <span class="value">{{ data?.firstName }} {{ data?.lastName }}</span>
         </div>
 
         <div class="view-field">
@@ -24,12 +24,12 @@
     <div class="two-cols">
         <div class="view-field">
             <span class="label">Checkin Date</span>
-            <span class="value">{{ data?.checkinDts | date }}</span>
+            <span class="value">{{ data?.checkinDts | date: 'dd-MM-yyyy' }}</span>
         </div>
 
         <div class="view-field">
             <span class="label">Checkout Date</span>
-            <span class="value">{{ data?.checkoutDts | date }}</span>
+            <span class="value">{{ data?.checkoutDts | date: 'dd-MM-yyyy' }}</span>
         </div>
     </div>
     <div class="two-cols">
@@ -45,12 +45,14 @@
     <div class="two-cols full">
         <div class="view-field">
             <span class="label">Remaining Amount</span>
-            <span class="value">{{ data?.amountRemaining }}</span>
+            <span class="value" [ngClass]="{'warning-text': data?.totalAmount !== data?.amountPaid}">{{ data?.amountRemaining }}</span>
         </div>
-        <mat-form-field appearance="outline">
-            <mat-label>Amount</mat-label>
-            <input matInput type="number" [(ngModel)]="amount" name="amount" required>
-        </mat-form-field>
+        <!-- <div *ngIf="data?.totalAmount === data?.amountRemaining" class="view-field">
+            <mat-form-field appearance="outline">
+                <mat-label>Amount</mat-label>
+                <input matInput type="number" [(ngModel)]="amount" name="amount" required>
+            </mat-form-field>
+        </div> -->
     </div>
 
 </div>
