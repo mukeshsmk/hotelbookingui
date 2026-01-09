@@ -50,6 +50,7 @@ export class EditUsersDialogComponent {
       this.isEditMode = true;
       this.model = {
         clientObject: {
+          id: this.data.data.clientId,
           firstName: this.data.data.firstName,
           lastName: this.data.data.lastName,
           email: this.data.data.email,
