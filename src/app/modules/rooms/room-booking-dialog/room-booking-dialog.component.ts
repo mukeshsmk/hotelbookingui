@@ -212,7 +212,6 @@ export class RoomBookingDialogComponent {
       )
     );
     this.model.bookingObject.amountRemaining = this.model.bookingObject.totalAmount - this.model.bookingObject.amountPaid;
-    console.log("this.model.bookingObject.roomType;",this.model.bookingObject.roomType)
     this.model.bookingObject.totalAmount =  this.model.bookingObject.roomType === 1 ? 1500 : 1200 ;
     formData.append(
       'bookingObject',
@@ -224,7 +223,6 @@ export class RoomBookingDialogComponent {
 
     this.repository.addBooking(formData).subscribe({
       next: (res: any) => {
-        console.log("res", res)
         if (res?.status === '200 OK' || res.message === 'Success') {
           const message = this.isEditMode ? 'Booking updated successfully' : 'Booking added successfully';
           this.toastr.success(message, 'Success');

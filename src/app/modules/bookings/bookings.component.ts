@@ -169,7 +169,6 @@ export class BookingsComponent implements OnInit, AfterViewInit {
   }
 
   onPrintClick(booking: any) {
-    console.log("bookingId", booking?.bookingId)
     this.billPrintPage?.printBill(booking?.bookingId);
   }
 

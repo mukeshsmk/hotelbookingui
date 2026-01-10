@@ -64,7 +64,6 @@ export class DashboardBookingsChartComponent implements AfterViewInit, OnDestroy
     private loadData() {
         const sub = this.repo.getBarChartData().subscribe({
             next: (res: any) => {
-                console.log("res",res)
                 this.applyChartData(res[0], res[1], res[2]);
             },
             error: () => console.error('Failed to bar char details')

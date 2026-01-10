@@ -23,7 +23,6 @@ export class DashboardRoomsComponent {
           number: room.roomNumber,
           status: room.statusName
         }));
-        console.log(this.rooms);
       },
       error: (err) => {
         /*  this.isLoading = false; */

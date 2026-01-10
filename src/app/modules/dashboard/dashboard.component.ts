@@ -19,7 +19,6 @@ export class DashboardComponent {
     this.repo.getCardDetails().subscribe({
       next: (res) => {
         this.cardDetails = res;
-        console.log(res);
       },
       error: () => console.error('Failed to load Card Details')
     });

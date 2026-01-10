@@ -99,7 +99,6 @@ export class EditUsersDialogComponent {
         { type: 'application/json' }
       )
     );
-    console.log("this.model.clientObject",this.model.clientObject)
     this.repository.updateCustomer(formData).subscribe({
       next: (res: any) => {
         this.isLoading = false;

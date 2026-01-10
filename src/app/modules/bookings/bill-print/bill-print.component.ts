@@ -22,7 +22,6 @@ export class BillPrintComponent implements OnInit {
     }
 
     printBill(id: any) {
-        console.log("id", id)
         this.repo.getBookingDetails(id).subscribe(data => {
             this.billData = data;
             this.numberOfDayes = this.getNumberOfDays();
