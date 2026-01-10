@@ -12,7 +12,11 @@ export class DashboardRepository {
     constructor(private http: HttpClient) { }
 
     getCardDetails(): Observable<any> {
-          return this.http.get<any[]>(`${this.baseUrl}/getDashboardservice`);
+        return this.http.get<any[]>(`${this.baseUrl}/getDashboardservice`);
     }
 
+    getBarChartData(): Observable<any> {
+        const headers = new HttpHeaders({ days: 7 });
+        return this.http.get<any[]>(`${this.baseUrl}/getBarChart`, { headers });
+    }
 }

@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild, Input } fro
 import { Chart, registerables } from 'chart.js';
 import { BookingsRepository } from '../../bookings/bookings-repository';
 import { Subscription } from 'rxjs';
+import { DashboardRepository } from '../dashboard-repository';
 
 Chart.register(...registerables);
 
@@ -18,13 +19,7 @@ export class DashboardBookingsChartComponent implements AfterViewInit, OnDestroy
 
     @Input() useSample = true;
 
-    private samplePayload = {
-        labels: ['29-12', '30-12', '31-12', '01-01', '02-01', '03-01', '04-01'],
-        checkins: [2, 1, 3, 0, 2, 4, 1],
-        checkouts: [1, 0, 2, 1, 3, 1, 0]
-    };
-
-    constructor(private bookingsRepo: BookingsRepository) { }
+    constructor(private repo: DashboardRepository) { }
 
     ngAfterViewInit(): void {
         this.initChart();
@@ -67,24 +62,12 @@ export class DashboardBookingsChartComponent implements AfterViewInit, OnDestroy
     }
 
     private loadData() {
-        const sub = this.bookingsRepo.getBookingList().subscribe({
-            next: (res: any[]) => {
-                const sample = {
-                    labels: ['29-12-2025', '30-12-2025', '31-12-2025', '01-01-2026', '02-01-2026', '03-01-2026', '04-01-2026'],
-                    checkins: [2, 1, 3, 1, 2, 4, 1],
-                    checkouts: [1, 11, 2, 2, 3, 1, 7]
-                };
-
-                this.applyChartData(sample.labels, sample.checkins, sample.checkouts);
+        const sub = this.repo.getBarChartData().subscribe({
+            next: (res: any) => {
+                console.log("res",res)
+                this.applyChartData(res[0], res[1], res[2]);
             },
-            error: () => {
-                // fallback sample if API fails
-                this.applyChartData(
-                    this.samplePayload.labels,
-                    this.samplePayload.checkins,
-                    this.samplePayload.checkouts
-                );
-            }
+            error: () => console.error('Failed to bar char details')
         });
 
         this.subs.push(sub);

@@ -8,6 +8,7 @@ import { DashboardRepository } from './dashboard-repository';
 })
 export class DashboardComponent {
   cardDetails: any;
+  barChartDetails: any;
   constructor(private repo: DashboardRepository) { }
 
   ngOnInit() {

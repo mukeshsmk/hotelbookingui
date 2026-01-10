@@ -75,9 +75,7 @@ export class EditUsersDialogComponent {
     return (
       client.firstName &&
       client.lastName &&
-      client.mobileNumber &&
-      client.idNumber &&
-      client.address1
+      client.mobileNumber
     );
   }
 
