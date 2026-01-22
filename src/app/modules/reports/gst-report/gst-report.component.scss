@@ -1,0 +1,99 @@
+.gst-report-container {
+    padding: 16px;
+}
+
+/* Filters */
+.filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: baseline;
+    background-color: #fff;
+    padding: 20px 1px 0 20px;
+    border-radius: 6px;
+}
+
+mat-form-field {
+    width: 180px;
+}
+
+/* Table */
+.table-wrapper {
+    overflow-x: auto;
+    background: #fff;
+    border-radius: 6px;
+    margin-top: 20px;
+}
+
+.gst-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.gst-table th,
+.gst-table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+.gst-table th:first-child,
+.gst-table td:first-child,
+.gst-table td:nth-child(2),
+.gst-table td:nth-child(3) {
+  text-align: left;
+}
+
+.grand-total {
+  font-weight: 700;
+  background: #f5f5f5;
+}
+
+
+.total {
+    // font-weight: 700;
+}
+
+.no-data {
+    text-align: center;
+    padding: 20px;
+    color: #888;
+}
+
+.print-title {
+    text-align: left;
+    font-weight: 600;
+    margin: 15px 10px 10px;
+}
+
+.print {
+    display: none;
+}
+.hotel-name {
+    text-align: center;
+    font-size: 24px;
+    margin: 0;
+}
+.hotel-address {
+    text-align: center;
+}
+/* Hide elements during print */
+@media print {
+    .no-print {
+        display: none !important;
+    }
+
+    .print {
+        display: block !important;
+    }
+
+    body {
+        margin: 0;
+    }
+
+    table {
+        width: 100%;
+        font-size: 12px;
+    }
+}

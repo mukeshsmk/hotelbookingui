@@ -1,0 +1,99 @@
+<div class="gst-report-container">
+
+    <!-- Filters -->
+    <div class="filter-bar mat-elevation-z2 no-print">
+
+        <!-- Report Type -->
+        <mat-form-field appearance="outline">
+            <mat-label>Report Type</mat-label>
+            <mat-select [(ngModel)]="reportType">
+                <mat-option value="monthly">Monthly</mat-option>
+                <mat-option value="quarterly">Quarterly</mat-option>
+                <mat-option value="yearly">Yearly</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <!-- From Date -->
+        <mat-form-field appearance="outline">
+            <mat-label>From Date</mat-label>
+            <input matInput [matDatepicker]="fromPicker" [(ngModel)]="fromDate">
+            <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+            <mat-datepicker #fromPicker></mat-datepicker>
+        </mat-form-field>
+
+        <!-- To Date -->
+        <mat-form-field appearance="outline">
+            <mat-label>To Date</mat-label>
+            <input matInput [matDatepicker]="toPicker" [(ngModel)]="toDate">
+            <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+            <mat-datepicker #toPicker></mat-datepicker>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" (click)="loadReport()">
+            Generate
+        </button>
+
+        <button mat-stroked-button color="secondary" (click)="resetFilters()">
+            Reset
+        </button>
+
+        <button mat-raised-button color="primary" (click)="printReport()" [disabled]="!reportData.length">
+            Print
+        </button>
+
+    </div>
+
+
+    <!-- Printable Area -->
+    <div id="print-section" class="table-wrapper mat-elevation-z2">
+
+        <div class="print">
+            <h3 class="hotel-name">Sri Sudharsana Residency</h3>
+            <p class="hotel-address">6/1, 8/1, South Car Street, Sankarankovil - 627 756</p>
+        </div>
+
+        <h3 class="print-title">{{ reportTitle }}</h3>
+
+        <table class="gst-table">
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>Bill No</th>
+                    <th>Room No</th>
+                    <th>Base Price</th>
+                    <th>GST</th>
+                    <th>SGST</th>
+                    <th>Total Amount</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let row of reportData; index as i">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ row.billNo }}</td>
+                    <td>{{ row.roomNo }}</td>
+                    <td>₹ {{ row.basePrice }}</td>
+                    <td>₹ {{ row.gst }}</td>
+                    <td>₹ {{ row.sgst }}</td>
+                    <td class="total">₹ {{ row.total }}</td>
+                </tr>
+
+                <!-- ✅ GRAND TOTAL -->
+                <tr class="grand-total" *ngIf="reportData.length">
+                    <td colspan="3" style="text-align: right;padding: 0 30px;">Grand Total</td>
+                    <td>{{ grandTotals.basePrice | number:'1.2-2' }}</td>
+                    <td>{{ grandTotals.gst | number:'1.2-2' }}</td>
+                    <td>{{ grandTotals.sgst | number:'1.2-2' }}</td>
+                    <td>{{ grandTotals.total | number:'1.2-2' }}</td>
+                </tr>
+            </tbody>
+
+        </table>
+        <div class="no-data" *ngIf="!reportData.length">
+            No records found
+        </div>
+    </div>
+
+
+
+</div>
