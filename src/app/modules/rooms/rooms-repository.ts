@@ -46,4 +46,9 @@ export class RoomsRepository {
         return this.http.post(`${this.baseUrl}/checkout`, payload);
     }
 
+        getBillingDetails(id: string): Observable<any> {
+        const headers = new HttpHeaders({ id: id });
+        return this.http.get(`${this.baseUrl}/getBillingDetailsById`, { headers });
+    }
+
 }

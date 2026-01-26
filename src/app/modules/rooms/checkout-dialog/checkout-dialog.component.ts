@@ -20,7 +20,7 @@ export class CheckoutDialogComponent {
   }
 
   checkout() {
-    this.data.amountPaid = this.data?.amountRemaining;
+    this.data.amountPaid = this.data?.amountPaid + this.data?.amountRemaining;
     this.data.amountRemaining = 0;
     this.repository
       .getCheckOut(this.data.bookingId, this.data)

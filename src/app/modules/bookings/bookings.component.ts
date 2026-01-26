@@ -23,11 +23,11 @@ export class BookingsComponent implements OnInit, AfterViewInit {
   displayedColumns = [
     'bookingId',
     'name',
-    'email',
     'mobileNumber',
+    'room',
     'checkinDts',
     'checkoutDts',
-    'room',
+    'billingNumber',
     'payment',
     'actions'
   ];

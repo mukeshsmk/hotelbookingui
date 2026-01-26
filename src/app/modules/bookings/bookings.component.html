@@ -32,14 +32,6 @@
                 </td>
             </ng-container>
 
-            <!-- Email -->
-            <ng-container matColumnDef="email">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
-                <td mat-cell *matCellDef="let row">
-                    <mat-icon *ngIf="row.email" class="icon mail">mail</mat-icon>
-                    {{ row.email }}
-                </td>
-            </ng-container>
 
             <!-- Mobile -->
             <ng-container matColumnDef="mobileNumber">
@@ -48,6 +40,12 @@
                     <mat-icon class="icon phone">phone</mat-icon>
                     {{ row.mobileNumber }}
                 </td>
+            </ng-container>
+
+              <!-- Room -->
+            <ng-container matColumnDef="room">
+                <th mat-header-cell *matHeaderCellDef>Room Number</th>
+                <td mat-cell *matCellDef="let row">{{ row.roomNumber }}</td>
             </ng-container>
 
             <!-- Checkin -->
@@ -66,11 +64,13 @@
                 </td>
             </ng-container>
 
-            <!-- Room -->
-            <ng-container matColumnDef="room">
-                <th mat-header-cell *matHeaderCellDef>Room Number</th>
-                <td mat-cell *matCellDef="let row">{{ row.roomNumber }}</td>
+          
+
+             <ng-container matColumnDef="billingNumber">
+                <th mat-header-cell *matHeaderCellDef>Billing Number</th>
+                <td mat-cell *matCellDef="let row">{{ row.billingNumber }}</td>
             </ng-container>
+
 
             <!-- Payment -->
             <ng-container matColumnDef="payment">
@@ -105,7 +105,7 @@
                             <span>Edit</span>
                         </button> -->
 
-                        <button *ngIf="getPaymentStatus(row) === 'Paid'" mat-menu-item (click)="onPrintClick(row)">
+                        <button *ngIf="getPaymentStatus(row) === 'Paid' && row.billingNumber" mat-menu-item (click)="onPrintClick(row)">
                             <mat-icon>print</mat-icon>
                             <span>Print</span>
                         </button>

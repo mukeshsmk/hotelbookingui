@@ -22,7 +22,7 @@ export class BillPrintComponent implements OnInit {
     }
 
     printBill(id: any) {
-        this.repo.getBookingDetails(id).subscribe(data => {
+        this.repo.getBillingDetails(id).subscribe(data => {
             this.billData = data;
             this.numberOfDayes = this.getNumberOfDays();
             setTimeout(() => {
@@ -46,7 +46,7 @@ export class BillPrintComponent implements OnInit {
         const diffTime = checkout.getTime() - checkin.getTime();
         const diffDays = diffTime / (1000 * 60 * 60 * 24);
 
-        return Math.max(diffDays, 0);
+        return Math.max(diffDays, 0) ==0? 1 : Math.max(diffDays, 0);
     }
 
 
