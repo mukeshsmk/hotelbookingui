@@ -1,5 +1,6 @@
 import { DatePipe, TitleCasePipe } from '@angular/common';
 import { Component } from '@angular/core';
+import { ReportRepository } from '../report-repository';
 
 @Component({
   selector: 'app-gst-report',
@@ -17,58 +18,12 @@ export class GstReportComponent {
     sgst: 0,
     total: 0
   };
-  reportData: any[] = [];
-  constructor(private datePipe: DatePipe, private titleCasePipe: TitleCasePipe) { }
+  reportData: any;
+  constructor(private datePipe: DatePipe, private titleCasePipe: TitleCasePipe, private repo: ReportRepository) { }
   loadReport() {
-    this.reportData = [
-      {
-        billNo: 'BILL-101',
-        roomNo: '101',
-        basePrice: 2000,
-        gst: 180,
-        sgst: 180,
-        total: 2360
-      },
-      {
-        billNo: 'BILL-102',
-        roomNo: '102',
-        basePrice: 3000,
-        gst: 270,
-        sgst: 270,
-        total: 3540
-      },
-      {
-        billNo: 'BILL-103',
-        roomNo: '103',
-        basePrice: 2000,
-        gst: 180,
-        sgst: 180,
-        total: 2360
-      },
-      {
-        billNo: 'BILL-104',
-        roomNo: '104',
-        basePrice: 3000,
-        gst: 270,
-        sgst: 270,
-        total: 3540
-      }, {
-        billNo: 'BILL-105',
-        roomNo: '105',
-        basePrice: 2000,
-        gst: 180,
-        sgst: 180,
-        total: 2360
-      },
-      {
-        billNo: 'BILL-106',
-        roomNo: '106',
-        basePrice: 3000,
-        gst: 270,
-        sgst: 270,
-        total: 3540
-      }
-    ];
+    this.repo.getBillingDetails(this.fromDate, this.toDate).subscribe((data: any) => {
+      this.reportData = data;
+    });
     this.calculateGrandTotal(this.reportData)
   }
 

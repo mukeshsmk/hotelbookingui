@@ -49,6 +49,7 @@ export class RoomBookingDialogComponent {
       email: '',
       mobileNumber: '',
       idNumber: '',
+      gstInNo: '',
       city: '',
       state: '',
       status: 1,
@@ -85,6 +86,7 @@ export class RoomBookingDialogComponent {
   isNewBooking: boolean = false;
   roomDetails: any;
   selectedTabIndex = 0;
+  totalTabs = 3;
   constructor(
     private dialogRef: MatDialogRef<RoomBookingDialogComponent>, private repository: RoomsRepository,
     @Inject(MAT_DIALOG_DATA) public data: any, private toastr: ToastrService
@@ -100,6 +102,7 @@ export class RoomBookingDialogComponent {
           lastName: this.data.data.lastName,
           email: this.data.data.email,
           mobileNumber: this.data.data.mobileNumber,
+          gstInNo: this.data.data.gstInNo,
           idNumber: this.data.data.idNumber,
           city: this.data.data.city,
           state: this.data.data.state,
@@ -197,7 +200,7 @@ export class RoomBookingDialogComponent {
   save() {
 
     const formData = new FormData();
-    this.model.bookingObject.paymentType =  this.model.bookingObject.paymentType === 'cash' ? 1 : 2; 
+    this.model.bookingObject.paymentType = this.model.bookingObject.paymentType === 'cash' ? 1 : 2;
     if (this.selectedFile) {
       formData.append('files', this.selectedFile);
     } else {
@@ -212,7 +215,7 @@ export class RoomBookingDialogComponent {
       )
     );
     this.model.bookingObject.amountRemaining = this.model.bookingObject.totalAmount - this.model.bookingObject.amountPaid;
-    this.model.bookingObject.totalAmount =  this.model.bookingObject.roomType === 1 ? 1500 : 1200 ;
+    this.model.bookingObject.totalAmount = this.model.bookingObject.roomType === 1 ? 1500 : 1300;
     formData.append(
       'bookingObject',
       new Blob(
@@ -255,7 +258,7 @@ export class RoomBookingDialogComponent {
     console.log("item", item)
     this.model.bookingObject.roomType = item;
     if (item) {
-      this.model.bookingObject.totalAmount = (item === 1 ? 1500 : 1200);
+      this.model.bookingObject.totalAmount = (item === 1 ? 1500 : 1300);
     }
   }
   onDragOver(event: DragEvent) {
@@ -316,5 +319,16 @@ export class RoomBookingDialogComponent {
     }
   }
 
+  nextTab() {
+    if (this.selectedTabIndex < this.totalTabs - 1) {
+      this.selectedTabIndex++;
+    }
+  }
+
+  prevTab() {
+    if (this.selectedTabIndex > 0) {
+      this.selectedTabIndex--;
+    }
+  }
 
 }

@@ -37,7 +37,8 @@
             Reset
         </button>
 
-        <button mat-raised-button color="primary" (click)="printReport()" [disabled]="!reportData.length">
+        <button mat-raised-button color="primary" (click)="printReport()"
+            [disabled]="!reportData?.bookingDTOList.length">
             Print
         </button>
 
@@ -59,6 +60,7 @@
                 <tr>
                     <th>S.No</th>
                     <th>Bill No</th>
+                    <th>Customer Name</th>
                     <th>Room No</th>
                     <th>Base Price</th>
                     <th>GST</th>
@@ -68,28 +70,29 @@
             </thead>
 
             <tbody>
-                <tr *ngFor="let row of reportData; index as i">
+                <tr *ngFor="let row of reportData?.bookingDTOList; index as i">
                     <td>{{ i + 1 }}</td>
-                    <td>{{ row.billNo }}</td>
-                    <td>{{ row.roomNo }}</td>
-                    <td>₹ {{ row.basePrice }}</td>
-                    <td>₹ {{ row.gst }}</td>
+                    <td>{{ row.billingNumber }}</td>
+                    <td>{{ row.firstName }} {{row.lastName}}</td>
+                    <td>{{ row.roomNumber }} ({{row.roomTypeName}})</td>
+                    <td>₹ {{ row.baseFare }}</td>
+                    <td>₹ {{ row.cgst }}</td>
                     <td>₹ {{ row.sgst }}</td>
-                    <td class="total">₹ {{ row.total }}</td>
+                    <td class="total">₹ {{ row.totalAmount }}</td>
                 </tr>
 
                 <!-- ✅ GRAND TOTAL -->
-                <tr class="grand-total" *ngIf="reportData.length">
-                    <td colspan="3" style="text-align: right;padding: 0 30px;">Grand Total</td>
-                    <td>{{ grandTotals.basePrice | number:'1.2-2' }}</td>
-                    <td>{{ grandTotals.gst | number:'1.2-2' }}</td>
-                    <td>{{ grandTotals.sgst | number:'1.2-2' }}</td>
-                    <td>{{ grandTotals.total | number:'1.2-2' }}</td>
+                <tr class="grand-total" *ngIf="reportData?.bookingDTOList.length">
+                    <td colspan="4" style="text-align: right;padding: 0 30px;">Grand Total</td>
+                    <td>{{ reportData?.baseFareTotal | number:'1.2-2' }}</td>
+                    <td>{{ reportData?.cgstTotal | number:'1.2-2' }}</td>
+                    <td>{{ reportData?.sgstTotal | number:'1.2-2' }}</td>
+                    <td>{{ reportData?.grantTotal | number:'1.2-2' }}</td>
                 </tr>
             </tbody>
 
         </table>
-        <div class="no-data" *ngIf="!reportData.length">
+        <div class="no-data" *ngIf="!reportData?.bookingDTOList?.length">
             No records found
         </div>
     </div>

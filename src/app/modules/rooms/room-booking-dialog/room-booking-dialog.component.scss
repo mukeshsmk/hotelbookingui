@@ -59,8 +59,9 @@
 .dialog-footer {
     display: flex;
     align-items: center;
-    padding: 10px 14px;
+    padding: 0 24px 16px;
     border-top: 1px solid #e5e5e5;
+    gap: 12px;
 }
 
 .room-chip {
@@ -139,4 +140,9 @@
         overflow: hidden;
         font-size: 16px;
     }
+}
+.next-btn {
+    border: 1px solid #3f51b5;
+    background: transparent;
+    color: #3f51b5;
 }

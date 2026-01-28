@@ -50,11 +50,19 @@
                         </mat-form-field>
                     </div>
 
-                    <mat-form-field class="full" appearance="outline">
-                        <mat-label>ID Number</mat-label>
-                        <input matInput [(ngModel)]="model.clientObject.idNumber" name="idNumber" />
-                        <mat-icon matSuffix>credit_card</mat-icon>
-                    </mat-form-field>
+                    <div class="two-cols">
+                        <mat-form-field appearance="outline">
+                            <mat-label>ID Number</mat-label>
+                            <input matInput [(ngModel)]="model.clientObject.idNumber" name="idNumber" />
+                            <mat-icon matSuffix>credit_card</mat-icon>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>GSTIN Number</mat-label>
+                            <input matInput [(ngModel)]="model.clientObject.gstInNo" name="gstInNo" />
+                        </mat-form-field>
+                    </div>
+
 
                     <div class="two-cols">
                         <mat-form-field appearance="outline">
@@ -221,6 +229,14 @@
     <span class="spacer"></span>
 
     <button mat-button (click)="close()">Cancel</button>
+
+    <button class="next-btn" mat-stroked-button (click)="prevTab()" *ngIf="selectedTabIndex === 0">
+        Back
+    </button>
+
+    <button class="next-btn" mat-raised-button color="primary" (click)="nextTab()" *ngIf="selectedTabIndex < totalTabs - 1">
+        Next
+    </button>
 
     <button mat-flat-button color="primary" [disabled]="!isFormValid()" (click)="save()">
         Save
