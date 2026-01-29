@@ -26,12 +26,12 @@
         <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
 
-    <mat-form-field appearance="outline">
+    <mat-form-field class="room-dropdown" appearance="outline">
         <mat-label>Rooms</mat-label>
         <mat-select [(ngModel)]="roomsType">
-            <mat-option value="All Rooms">All Rooms</mat-option>
-            <mat-option value="Available Rooms">Available Rooms</mat-option>
-            <mat-option value="Booked Rooms">Booked Rooms</mat-option>
+            <mat-option value="all">All Rooms</mat-option>
+            <mat-option value="available">Available Rooms</mat-option>
+            <mat-option value="booked">Booked Rooms</mat-option>
         </mat-select>
     </mat-form-field>
 
@@ -68,3 +68,5 @@
 
     </div>
 </div>
+
+<app-bill-print #billPrintPage class="hidden-for-screen"></app-bill-print>

@@ -23,7 +23,7 @@ import { BillPrintComponent } from './bill-print/bill-print.component';
     BookingsRoutingModule,
     MaterialCollectionModule
   ],
-  exports: [BookingsComponent],
+  exports: [BookingsComponent,BillPrintComponent],
   providers: [BookingsRepository]
 })
 export class BookingsModule { }

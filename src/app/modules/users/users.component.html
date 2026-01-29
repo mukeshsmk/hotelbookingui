@@ -1,6 +1,36 @@
 <div class="ft-container-spinner" *ngIf="isLoading">
     <mat-spinner></mat-spinner>
 </div>
+
+<div class="filter-bar mat-elevation-z2 no-print">
+    <div class="date-filter">
+        <mat-form-field appearance="outline">
+            <mat-label>From Date</mat-label>
+            <input matInput [matDatepicker]="fromPicker" [(ngModel)]="fromDate">
+            <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+            <mat-datepicker #fromPicker></mat-datepicker>
+        </mat-form-field>
+
+        <!-- To Date -->
+        <mat-form-field appearance="outline">
+            <mat-label>To Date</mat-label>
+            <input matInput [matDatepicker]="toPicker" [(ngModel)]="toDate">
+            <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+            <mat-datepicker #toPicker></mat-datepicker>
+        </mat-form-field>
+    </div>
+
+    <div class="search-btns">
+        <button mat-raised-button color="primary" (click)="loadClients()">
+            Search
+        </button>
+
+        <button mat-stroked-button color="secondary" (click)="resetFilters()">
+            Reset
+        </button>
+    </div>
+</div>
+
 <div class="table-container">
     <div class="table-header">
         <h3>Customers</h3>
@@ -8,7 +38,8 @@
             <mat-icon class="prefix-search-icon" matPrefix>search</mat-icon>
             <input class="custom-search-box" autocomplete="off" matInput placeholder="Search" [(ngModel)]="inputValue"
                 (keyup)="applyFilter($event)" />
-            <mat-icon class="suffix-search-icon"  *ngIf="inputValue?.length;" (click)="clear()" matSuffix>clear</mat-icon>
+            <mat-icon class="suffix-search-icon" *ngIf="inputValue?.length;" (click)="clear()"
+                matSuffix>clear</mat-icon>
         </div>
     </div>
 

@@ -31,7 +31,8 @@ export class BookingsComponent implements OnInit, AfterViewInit {
     'payment',
     'actions'
   ];
-
+  fromDate!: Date | null;
+  toDate!: Date | null;
   dataSource = new MatTableDataSource<Client>([]);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -50,12 +51,25 @@ export class BookingsComponent implements OnInit, AfterViewInit {
   constructor(private dialog: MatDialog, private bookingRepo: BookingsRepository) { }
 
   ngOnInit() {
-    if(this.isViewOnly){
-      this.loadTodayClients(); 
-    }else{
-      this.loadClients();  
+    this.setDefaultOneMonthFilter();
+
+    if (this.isViewOnly) {
+      this.loadTodayClients();
+    } else {
+      this.loadClients();
     }
-   
+
+  }
+
+  setDefaultOneMonthFilter() {
+    const today = new Date();
+
+    this.toDate = new Date(today);
+    this.fromDate = new Date(today);
+    this.fromDate.setMonth(this.fromDate.getMonth() - 1);
+
+    this.fromDate.setHours(0, 0, 0, 0);
+    this.toDate.setHours(23, 59, 59, 999);
   }
 
   ngAfterViewInit() {
@@ -65,7 +79,13 @@ export class BookingsComponent implements OnInit, AfterViewInit {
   }
 
   loadClients() {
-    this.bookingRepo.getBookingList().subscribe({
+    if (!this.fromDate || !this.toDate) {
+      return;
+    }
+
+    const from = this.formatDateTime(this.fromDate, 0, 0, 0);
+    const to = this.formatDateTime(this.toDate, 23, 59, 59)
+    this.bookingRepo.getBookingList(from, to).subscribe({
       next: (res: any[]) => {
         this.dataSource.data = res;
       },
@@ -75,7 +95,17 @@ export class BookingsComponent implements OnInit, AfterViewInit {
     });
   }
 
-  loadTodayClients(){
+  private formatDateTime(date: Date, h: number, m: number, s: number): string {
+    const d = new Date(date);
+    d.setHours(h, m, s, 0);
+
+    const pad = (n: number) => n.toString().padStart(2, '0');
+
+    return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ` +
+      `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+  }
+
+  loadTodayClients() {
     this.bookingRepo.getTodayBookingList().subscribe({
       next: (res: any[]) => {
         this.dataSource.data = res;
@@ -172,4 +202,8 @@ export class BookingsComponent implements OnInit, AfterViewInit {
     this.billPrintPage?.printBill(booking?.bookingId);
   }
 
+  resetFilters() {
+    this.setDefaultOneMonthFilter();
+    this.loadClients();
+  }
 }

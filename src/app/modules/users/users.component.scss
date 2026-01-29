@@ -189,3 +189,25 @@
 .booking-actions-menu .mat-mdc-menu-item + .mat-mdc-menu-item {
     border-top: 1px solid #eee;
 }
+
+.filter-bar {
+    display: flex;
+    gap: 12px;
+    background-color: #fff;
+    padding: 20px 1px 0 20px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+.date-filter {
+    width: 50%;
+    display: flex;
+    gap: 12px;
+}
+.search-btns {
+    width: 49%;
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 20px;
+}

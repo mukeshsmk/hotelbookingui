@@ -24,20 +24,6 @@ export class GstReportComponent {
     this.repo.getBillingDetails(this.fromDate, this.toDate).subscribe((data: any) => {
       this.reportData = data;
     });
-    this.calculateGrandTotal(this.reportData)
-  }
-
-  calculateGrandTotal(rows: any[]) {
-    this.grandTotals = rows.reduce(
-      (acc, row) => {
-        acc.basePrice += row.basePrice || 0;
-        acc.gst += row.gst || 0;
-        acc.sgst += row.sgst || 0;
-        acc.total += row.total || 0;
-        return acc;
-      },
-      { basePrice: 0, gst: 0, sgst: 0, total: 0 }
-    );
   }
 
   resetFilters() {

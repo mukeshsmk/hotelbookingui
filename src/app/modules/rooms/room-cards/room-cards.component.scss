@@ -151,3 +151,21 @@
         gap: 8px;
     }
 }
+.hidden-for-screen {
+    display: none;
+}
+:host ::ng-deep .room-dropdown .mat-mdc-form-field-infix {
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+    min-height: 34px !important;
+}
+
+:host ::ng-deep .room-dropdown .mat-mdc-form-field-subscript-wrapper {
+    display: none !important;
+}
+:host ::ng-deep .room-dropdown .mdc-text-field--outlined .mdc-floating-label {
+    font-size: 14px;
+}
+:host ::ng-deep .room-dropdown .mat-mdc-select-value-text {
+    font-size: 14px;
+}

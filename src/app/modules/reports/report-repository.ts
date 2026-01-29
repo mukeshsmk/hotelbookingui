@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { formatDate } from '@angular/common';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ReportRepository {
 
-    private baseUrl = 'http://localhost:8080';
+    private baseUrl = environment.apiUrl;
 
     constructor(private http: HttpClient) { }
 

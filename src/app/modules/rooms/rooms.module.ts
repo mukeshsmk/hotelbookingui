@@ -11,6 +11,7 @@ import { RoomBookingDialogComponent } from './room-booking-dialog/room-booking-d
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ViewBookingDialogComponent } from './view-booking-dialog/view-booking-dialog.component';
 import { CheckoutDialogComponent } from './checkout-dialog/checkout-dialog.component';
+import { BookingsModule } from '../bookings/bookings.module';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { CheckoutDialogComponent } from './checkout-dialog/checkout-dialog.compo
     ReactiveFormsModule,
     RoomsRoutingModule,
     HttpClientModule,
-    MaterialCollectionModule
+    MaterialCollectionModule,
+    BookingsModule
   ],
   exports:[RoomBookingDialogComponent],
   providers: [RoomsRepository]

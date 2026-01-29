@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { RoomCard } from './room-card';
 import { RoomBookingDialogComponent } from '../room-booking-dialog/room-booking-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ViewBookingDialogComponent } from '../view-booking-dialog/view-booking-dialog.component';
 import { RoomsRepository } from '../rooms-repository';
 import { CheckoutDialogComponent } from '../checkout-dialog/checkout-dialog.component';
+import { BillPrintComponent } from '../../bookings/bill-print/bill-print.component';
 
 
 @Component({
@@ -13,13 +14,14 @@ import { CheckoutDialogComponent } from '../checkout-dialog/checkout-dialog.comp
   styleUrls: ['./room-cards.component.scss']
 })
 export class RoomCardsComponent {
+  @ViewChild('billPrintPage') billPrintPage: BillPrintComponent | undefined;
   rooms: any;
   isLoading: boolean = false;
   // selected date (normalized to midnight)
   selectedDate: Date | null = (() => { const d = new Date(); d.setHours(0, 0, 0, 0); return d; })();
   // minimum allowed date (today at midnight)
   minDate: Date = (() => { const d = new Date(); d.setHours(0, 0, 0, 0); return d; })();
-  roomsType: any;
+  roomsType: string = 'all';
   constructor(private dialog: MatDialog, private repository: RoomsRepository) { }
   ngOnInit() {
     // Load rooms for the selected date by default
@@ -85,6 +87,7 @@ export class RoomCardsComponent {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
+        this.billPrintPage?.printBill(data?.bookingId);
         this.fetchRoomDetails();
       }
     });
