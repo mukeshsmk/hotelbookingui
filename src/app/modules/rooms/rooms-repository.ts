@@ -52,4 +52,8 @@ export class RoomsRepository {
         return this.http.get(`${this.baseUrl}/getBillingDetailsById`, { headers });
     }
 
+    saveOrders(payload: any): Observable<any> {
+        return this.http.post(`${this.baseUrl}/addGuestOrders`, payload);
+    }
+
 }

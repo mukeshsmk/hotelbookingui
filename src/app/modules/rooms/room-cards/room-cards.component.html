@@ -27,8 +27,8 @@
     </mat-form-field>
 
     <mat-form-field class="room-dropdown" appearance="outline">
-        <mat-label>Rooms</mat-label>
-        <mat-select [(ngModel)]="roomsType">
+        <mat-label>Rooms Filters</mat-label>
+        <mat-select [(ngModel)]="roomsType" (selectionChange)="roomFilter($event.value)">
             <mat-option value="all">All Rooms</mat-option>
             <mat-option value="available">Available Rooms</mat-option>
             <mat-option value="booked">Booked Rooms</mat-option>
@@ -60,9 +60,13 @@
             <button class="custom-btn btn-primary" *ngIf="room.statusName === 'Checked-in'" (click)="viewDetails(room)">
                 <mat-icon matSuffix>visibility</mat-icon> View Guest
             </button>
+            <button class="custom-btn btn-primary mar-lft-10" *ngIf="room.statusName === 'Checked-in'"
+                (click)="addExtraItems(room)">
+                <mat-icon matSuffix>add</mat-icon> Orders
+            </button>
             <button class="custom-btn btn-secondary mar-lft-10" *ngIf="room.statusName === 'Checked-in'"
                 (click)="checkOut(room)">
-                <mat-icon matSuffix>person</mat-icon> Check Out
+                <mat-icon matSuffix>logout</mat-icon> Check Out
             </button>
         </div>
 
@@ -70,3 +74,42 @@
 </div>
 
 <app-bill-print #billPrintPage class="hidden-for-screen"></app-bill-print>
+
+<ng-template #ordersDialog let-dialogRef="dialogRef">
+    <h2 mat-dialog-title>Guest Orders</h2>
+
+    <mat-dialog-content>
+        <div>
+            <div class="two-cols">
+                <div class="view-field">
+                    <span class="label">First Name</span>
+                    <span class="value">{{ roomDetails?.firstName || '-' }} {{ roomDetails?.lastName || '-' }}</span>
+                </div>
+
+                <div class="view-field">
+                    <span class="label">Room Number</span>
+                    <span class="value">{{ roomDetails?.roomNumber || '-' }}</span>
+                </div>
+            </div>
+            <div class="two-cols mar-top-10">
+                <mat-form-field appearance="outline">
+                    <mat-label>Item</mat-label>
+                    <input matInput [(ngModel)]="orderName" name="orderName" />
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Value</mat-label>
+                    <input matInput [(ngModel)]="orderValue" name="orderValue" />
+                </mat-form-field>
+            </div>
+        </div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+        <button mat-stroked-button (click)="dialogRef.close()">Cancel</button>
+        <button mat-raised-button color="primary" [disabled]="!orderName && !orderValue"
+            (click)="saveOrders(dialogRef)">
+            Save
+        </button>
+    </mat-dialog-actions>
+</ng-template>

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { RoomCard } from './room-card';
 import { RoomBookingDialogComponent } from '../room-booking-dialog/room-booking-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -6,6 +6,7 @@ import { ViewBookingDialogComponent } from '../view-booking-dialog/view-booking-
 import { RoomsRepository } from '../rooms-repository';
 import { CheckoutDialogComponent } from '../checkout-dialog/checkout-dialog.component';
 import { BillPrintComponent } from '../../bookings/bill-print/bill-print.component';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -15,14 +16,20 @@ import { BillPrintComponent } from '../../bookings/bill-print/bill-print.compone
 })
 export class RoomCardsComponent {
   @ViewChild('billPrintPage') billPrintPage: BillPrintComponent | undefined;
+  @ViewChild('ordersDialog') ordersDialog!: TemplateRef<any>;
   rooms: any;
+  ordersDialogRef: any;
   isLoading: boolean = false;
   // selected date (normalized to midnight)
   selectedDate: Date | null = (() => { const d = new Date(); d.setHours(0, 0, 0, 0); return d; })();
   // minimum allowed date (today at midnight)
   minDate: Date = (() => { const d = new Date(); d.setHours(0, 0, 0, 0); return d; })();
   roomsType: string = 'all';
-  constructor(private dialog: MatDialog, private repository: RoomsRepository) { }
+  allRooms: any[] = [];
+  orderName: string | undefined;
+  orderValue: string | undefined;
+  roomDetails: any;
+  constructor(private dialog: MatDialog, private repository: RoomsRepository, private toastr: ToastrService) { }
   ngOnInit() {
     // Load rooms for the selected date by default
     this.applyDateFilter();
@@ -38,6 +45,7 @@ export class RoomCardsComponent {
         next: (res: any[]) => {
           this.isLoading = false;
           this.rooms = res;
+          this.allRooms = res;
         },
         error: (err) => {
           this.isLoading = false;
@@ -80,6 +88,67 @@ export class RoomCardsComponent {
       }
     });
   }
+
+  addExtraItems(event: any) {
+    this.roomDetails = event
+    this.ordersDialogRef = this.dialog.open(this.ordersDialog, {
+      width: '400px',
+      panelClass: 'custom-upload-modalbox',
+    });
+  }
+
+  roomFilter(value: string) {
+    console.log('Selected filter:', value);
+
+    switch (value) {
+      case 'available':
+        this.rooms = this.allRooms.filter(
+          room => room.statusName === 'Available'
+        );
+        break;
+
+      case 'booked':
+        this.rooms = this.allRooms.filter(
+          room => room.statusName === 'Checked-in'
+        );
+        break;
+
+      case 'all':
+      default:
+        this.rooms = this.allRooms;
+        break;
+    }
+  }
+
+  saveOrders(event: any) {
+    const payload = {
+      "id": 0,
+      "bookingId": this.roomDetails.bookingId,
+      "orderName": this.orderName,
+      "orderValue": this.orderValue,
+      "status": 0
+    }
+    this.repository.saveOrders(payload).subscribe({
+      next: (data) => {
+        if (data?.status === 'Success') {
+          this.toastr.success('Order saved successfully', 'Success');
+          this.ordersDialogRef.close(true);
+        } else {
+          this.toastr.error(
+            data?.message || 'Order saved failed',
+            'Error'
+          );
+        }
+      },
+      error: (err) => {
+        this.toastr.error(
+          err?.error?.message || 'Something went wrong. Please try again.',
+          'Error'
+        );
+      }
+    });
+  }
+
   checkOut(data: any) {
     const dialogRef = this.dialog.open(CheckoutDialogComponent, {
       width: '600px',
@@ -104,6 +173,7 @@ export class RoomCardsComponent {
 
   applyDateFilter() {
     this.fetchRoomDetails(this.selectedDate);
+    this.roomsType = 'all';
   }
 
   onSelectedDateChange(val: Date | null) {

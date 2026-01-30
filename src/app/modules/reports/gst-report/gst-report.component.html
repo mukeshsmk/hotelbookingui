@@ -60,7 +60,7 @@
                 <tr>
                     <th>S.No</th>
                     <th>Bill No</th>
-                    <th>Customer Name</th>
+                    <th>Customer Name (GSTIN NO)</th>
                     <th>Room No</th>
                     <th>Base Price</th>
                     <th>GST</th>
@@ -73,7 +73,7 @@
                 <tr *ngFor="let row of reportData?.bookingDTOList; index as i">
                     <td>{{ i + 1 }}</td>
                     <td>{{ row.billingNumber }}</td>
-                    <td>{{ row.firstName }} {{row.lastName}}</td>
+                    <td>{{ row.firstName }} {{row.lastName}} <span *ngIf="row.gstInNo"> ({{ row.gstInNo }})</span></td>
                     <td>{{ row.roomNumber }} ({{row.roomTypeName}})</td>
                     <td>₹ {{ row.baseFare }}</td>
                     <td>₹ {{ row.cgst }}</td>

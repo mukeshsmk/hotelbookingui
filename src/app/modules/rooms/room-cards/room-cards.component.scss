@@ -169,3 +169,36 @@
 :host ::ng-deep .room-dropdown .mat-mdc-select-value-text {
     font-size: 14px;
 }
+
+.two-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.view-field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px;
+}
+
+.view-field .label {
+    font-size: 12px;
+    color: #777;
+}
+
+.view-field .value {
+    font-size: 15px;
+    font-weight: 500;
+    color: #000000;
+}
+
+:host ::ng-deep .room-input .mat-mdc-form-field-subscript-wrapper {
+    display: none !important;
+}
+:host ::ng-deep .room-input .mdc-text-field--outlined .mdc-floating-label {
+    font-size: 14px;
+}
+:host ::ng-deep .room-input .mat-mdc-select-value-text {
+    font-size: 14px;
+}

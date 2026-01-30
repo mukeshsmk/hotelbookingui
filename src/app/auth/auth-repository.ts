@@ -16,6 +16,6 @@ export class AuthRepository {
       'password': password
     });
 
-    return this.http.get(this.apiUrl, { headers });
+    return this.http.get(`${this.apiUrl}/login`, { headers });
   }
 }
