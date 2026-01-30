@@ -73,7 +73,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
     const from = this.formatDateTime(this.fromDate, 0, 0, 0);
     const to = this.formatDateTime(this.toDate, 23, 59, 59)
-    this.bookingRepo.getBookingList(from, to).subscribe({
+    this.bookingRepo.getClientList(from, to).subscribe({
       next: (res: any[]) => {
         this.isLoading = false;
         this.dataSource.data = res;

@@ -16,8 +16,9 @@ export class BookingsRepository {
         return this.http.post(`${this.baseUrl}/addClient`, formData);
     }
 
-    getClientList(): Observable<any[]> {
-        return this.http.get<any[]>(`${this.baseUrl}/getClientList`);
+    getClientList(fromDate: string, toDate: string): Observable<any[]> {
+        const headers = new HttpHeaders({ 'fromDate': fromDate , 'toDate': toDate });
+        return this.http.get<any[]>(`${this.baseUrl}/getClientList`, { headers });
     }
 
     getBookingList(fromDate: string, toDate: string): Observable<any[]> {
