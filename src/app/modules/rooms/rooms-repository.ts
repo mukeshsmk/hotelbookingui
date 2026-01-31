@@ -56,4 +56,9 @@ export class RoomsRepository {
         return this.http.post(`${this.baseUrl}/addGuestOrders`, payload);
     }
 
+    getRoomService(bookingId: string): Observable<any> {
+        const headers = new HttpHeaders({ 'bookingId': bookingId });
+        return this.http.get(`${this.baseUrl}/getRoomServiceOrders`, { headers });
+    }
+
 }

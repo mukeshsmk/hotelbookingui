@@ -35,24 +35,26 @@
     <div class="two-cols">
         <div class="view-field">
             <span class="label">Total Amount</span>
-            <span class="value">{{ data?.totalAmount }}</span>
+            <span class="value">{{ data?.totalAmount | currency:'INR'}}</span>
         </div>
         <div class="view-field">
             <span class="label">Amount Paid</span>
-            <span class="value">{{ data?.amountPaid }}</span>
+            <span class="value">{{ data?.amountPaid | currency:'INR'}}</span>
         </div>
     </div>
     <div class="two-cols full">
+        <div *ngIf="data?.miscellaneousCharge > 0" class="view-field">
+            <span class="label">Order Amount</span>
+            <span class="order-icon" style="margin-top: -10px;">{{data?.miscellaneousCharge | currency:'INR'}} <mat-icon
+                    (click)="openOrdersDialog()">info</mat-icon></span>
+        </div>
         <div class="view-field">
             <span class="label">Remaining Amount</span>
-            <span class="value" [ngClass]="{'warning-text': data?.totalAmount !== data?.amountPaid}">{{ data?.amountRemaining }}</span>
+            <span class="value" [ngClass]="{'warning-text': data?.totalAmount !== data?.amountPaid}">
+                {{
+                ((data?.amountRemaining ?? 0) + (data?.miscellaneousCharge ?? 0)) | currency:'INR'
+                }}</span>
         </div>
-        <!-- <div *ngIf="data?.totalAmount === data?.amountRemaining" class="view-field">
-            <mat-form-field appearance="outline">
-                <mat-label>Amount</mat-label>
-                <input matInput type="number" [(ngModel)]="amount" name="amount" required>
-            </mat-form-field>
-        </div> -->
     </div>
 
 </div>
@@ -62,3 +64,39 @@
         Checkout
     </button>
 </div>
+
+
+<ng-template #ordersDialog let-dialogRef="dialogRef">
+    <h2 class="mar-btm-1 pad-lft-20 pad-btm-1 pad-top-10">Order Charges</h2>
+
+    <mat-dialog-content class="pad-top-10 pad-btm-8">
+        <div>
+            <table cellpadding="8">
+                <thead>
+                    <tr class="table-header">
+                        <th>Order Name</th>
+                        <th>Order Value</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let order of orderDetails">
+                        <td>{{ order.orderName }}</td>
+                        <td>{{ order.orderValue }}</td>
+                    </tr>
+
+                    <!-- Grand Total Row -->
+                    <tr class="table-header">
+                        <td>Grand Total</td>
+                        <td>{{ grandTotal }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end" class="mar-rgt-18">
+        <button class="close-btn" color="btn-secondary" (click)="dialogRef.close()">Close</button>
+    </mat-dialog-actions>
+</ng-template>

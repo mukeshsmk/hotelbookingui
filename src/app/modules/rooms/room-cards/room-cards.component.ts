@@ -133,6 +133,9 @@ export class RoomCardsComponent {
         if (data?.status === 'Success') {
           this.toastr.success('Order saved successfully', 'Success');
           this.ordersDialogRef.close(true);
+          this.fetchRoomDetails();
+          this.orderName = '';
+          this.orderValue = '';
         } else {
           this.toastr.error(
             data?.message || 'Order saved failed',
