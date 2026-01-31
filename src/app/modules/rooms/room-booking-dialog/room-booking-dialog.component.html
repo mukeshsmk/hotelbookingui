@@ -100,7 +100,7 @@
                     <mat-form-field appearance="outline">
                         <mat-label>Check-in</mat-label>
                         <input matInput [matDatepicker]="inPicker" [(ngModel)]="model.bookingObject.checkinDts"
-                            name="checkinDts" [min]="today" [max]="model.bookingObject.checkoutDts"
+                            name="checkinDts" [min]="today"
                             (dateChange)="onCheckinChange($event.value)">
                         <mat-datepicker-toggle matSuffix [for]="inPicker"></mat-datepicker-toggle>
                         <mat-datepicker #inPicker></mat-datepicker>
