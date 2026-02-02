@@ -95,6 +95,10 @@ export class RoomCardsComponent {
       width: '400px',
       panelClass: 'custom-upload-modalbox',
     });
+    this.ordersDialogRef.afterClosed().subscribe(() => {
+    this.orderName = '';
+    this.orderValue = '';
+  });
   }
 
   roomFilter(value: string) {

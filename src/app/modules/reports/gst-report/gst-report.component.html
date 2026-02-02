@@ -16,7 +16,7 @@
         <!-- From Date -->
         <mat-form-field appearance="outline">
             <mat-label>From Date</mat-label>
-            <input matInput [matDatepicker]="fromPicker" [(ngModel)]="fromDate">
+            <input matInput [matDatepicker]="fromPicker" [(ngModel)]="fromDate" (dateChange)="onDateChange()">
             <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
             <mat-datepicker #fromPicker></mat-datepicker>
         </mat-form-field>
@@ -24,12 +24,12 @@
         <!-- To Date -->
         <mat-form-field appearance="outline">
             <mat-label>To Date</mat-label>
-            <input matInput [matDatepicker]="toPicker" [(ngModel)]="toDate">
+            <input matInput [matDatepicker]="toPicker" [(ngModel)]="toDate" (dateChange)="onDateChange()">
             <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
             <mat-datepicker #toPicker></mat-datepicker>
         </mat-form-field>
 
-        <button mat-raised-button color="primary" (click)="loadReport()" [disabled]="!reportType">
+        <button mat-raised-button color="primary" (click)="loadReport()" [disabled]="!reportType && !fromDate && !toDate">
             Generate
         </button>
 
@@ -53,48 +53,56 @@
             <p class="hotel-address">6/1, 8/1, South Car Street, Sankarankovil - 627 756</p>
         </div>
 
-        <h3 class="print-title">{{ reportTitle }}</h3>
+        <h3 class="print-title no-print">{{ reportTitle }}</h3>
 
-        <table class="gst-table">
-            <thead>
-                <tr>
-                    <th>S.No</th>
-                    <th>Bill No</th>
-                    <th>Bill Date</th>
-                    <th>Customer Name (GSTIN NO)</th>
-                    <th>Room No</th>
-                    <th>Base Price</th>
-                    <th>GST</th>
-                    <th>SGST</th>
-                    <th>Total Amount</th>
-                </tr>
-            </thead>
+        <h3 class="print-title print">{{ reportTitle }} ({{ fromDate | date:'dd-MM-yyyy' }} to {{ toDate | date:'dd-MM-yyyy' }})</h3>
+ 
+        <div class="table-wrapper table-container">
+            <table class="gst-table">
+                <thead>
+                    <tr>
+                        <th class="width-8">S.No</th>
+                        <th class="width-10">Bill No</th>
+                        <th class="width-10">Bill Date</th>
+                        <th>Customer Name (GSTIN NO)</th>
+                        <th>Room No</th>
+                        <th>Base Price</th>
+                        <th class="width-8">GST</th>
+                        <th class="width-8">SGST</th>
+                        <th>Total Amount</th>
+                    </tr>
+                </thead>
 
-            <tbody class="scroll-body">
-                <tr *ngFor="let row of reportData?.bookingDTOList; index as i">
-                    <td>{{ i + 1 }}</td>
-                    <td>{{ row.billingNumber }}</td>
-                    <td>{{ row.billedDts | date : 'dd-MM-yyyy' }}</td>
-                    <td>{{ row.firstName }} {{row.lastName}} <span *ngIf="row.gstInNo"> ({{ row.gstInNo }})</span></td>
-                    <td>{{ row.roomNumber }} ({{row.roomTypeName}})</td>
-                    <td>₹ {{ row.baseFare }}</td>
-                    <td>₹ {{ row.cgst }}</td>
-                    <td>₹ {{ row.sgst }}</td>
-                    <td class="total">₹ {{ row.totalAmount }}</td>
-                </tr>
-            </tbody>
-            <!-- ✅ GRAND TOTAL -->
-            <tfoot *ngIf="reportData?.bookingDTOList?.length">
-                <tr class="grand-total">
-                    <td colspan="4" style="text-align: right;padding: 0 30px;">Grand Total</td>
-                    <td>{{ reportData?.baseFareTotal | number:'1.2-2' }}</td>
-                    <td>{{ reportData?.cgstTotal | number:'1.2-2' }}</td>
-                    <td>{{ reportData?.sgstTotal | number:'1.2-2' }}</td>
-                    <td>{{ reportData?.grantTotal | number:'1.2-2' }}</td>
-                </tr>
-            </tfoot>
+                <tbody>
+                    <tr *ngFor="let row of reportData?.bookingDTOList; index as i">
+                        <td class="width-10">{{ i + 1 }}</td>
+                        <td class="width-10">{{ row.billingNumber }}</td>
+                        <td class="width-8">{{ row.billedDts | date:'dd-MM-yyyy' }}</td>
+                        <td>
+                            {{ row.firstName }} {{ row.lastName }}
+                            <span *ngIf="row.gstInNo">({{ row.gstInNo }})</span>
+                        </td>
+                        <td>{{ row.roomNumber }} ({{ row.roomTypeName }})</td>
+                        <td>₹ {{ row.baseFare }}</td>
+                        <td class="width-8">₹ {{ row.cgst }}</td>
+                        <td class="width-8">₹ {{ row.sgst }}</td>
+                        <td class="total">₹ {{ row.totalAmount }}</td>
+                    </tr>
+                </tbody>
 
-        </table>
+                <tfoot *ngIf="reportData?.bookingDTOList?.length">
+                    <tr class="grand-total">
+                        <td colspan="5" style="text-align:right;padding:0 30px;">Grand Total</td>
+                        <td>{{ reportData?.baseFareTotal | number:'1.2-2' }}</td>
+                        <td>{{ reportData?.cgstTotal | number:'1.2-2' }}</td>
+                        <td>{{ reportData?.sgstTotal | number:'1.2-2' }}</td>
+                        <td>{{ reportData?.grantTotal | number:'1.2-2' }}</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+
         <div class="no-data" *ngIf="!reportData?.bookingDTOList?.length">
             No records found
         </div>

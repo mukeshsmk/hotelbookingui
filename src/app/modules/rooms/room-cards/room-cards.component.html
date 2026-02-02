@@ -83,12 +83,12 @@
             <div class="two-cols">
                 <div class="view-field">
                     <span class="label">First Name</span>
-                    <span class="value">{{ roomDetails?.firstName || '-' }} {{ roomDetails?.lastName || '-' }}</span>
+                    <span class="value">{{ roomDetails?.firstName }} {{ roomDetails?.lastName }}</span>
                 </div>
 
                 <div class="view-field">
                     <span class="label">Room Number</span>
-                    <span class="value">{{ roomDetails?.roomNumber || '-' }}</span>
+                    <span class="value">{{ roomDetails?.roomNumber }}</span>
                 </div>
             </div>
             <div class="two-cols mar-top-10">
@@ -107,7 +107,7 @@
 
     <mat-dialog-actions align="end">
         <button mat-stroked-button (click)="dialogRef.close()">Cancel</button>
-        <button mat-raised-button color="primary" [disabled]="!orderName && !orderValue"
+        <button mat-raised-button color="primary" [disabled]="!orderName || !orderValue"
             (click)="saveOrders(dialogRef)">
             Save
         </button>
