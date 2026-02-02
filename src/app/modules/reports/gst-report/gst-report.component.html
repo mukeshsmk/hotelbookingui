@@ -6,7 +6,7 @@
         <!-- Report Type -->
         <mat-form-field appearance="outline">
             <mat-label>Report Type</mat-label>
-            <mat-select [(ngModel)]="reportType">
+            <mat-select [(ngModel)]="reportType" (selectionChange)="onReportTypeChange()">
                 <mat-option value="monthly">Monthly</mat-option>
                 <mat-option value="quarterly">Quarterly</mat-option>
                 <mat-option value="yearly">Yearly</mat-option>
@@ -29,7 +29,7 @@
             <mat-datepicker #toPicker></mat-datepicker>
         </mat-form-field>
 
-        <button mat-raised-button color="primary" (click)="loadReport()">
+        <button mat-raised-button color="primary" (click)="loadReport()" [disabled]="!reportType">
             Generate
         </button>
 
@@ -60,6 +60,7 @@
                 <tr>
                     <th>S.No</th>
                     <th>Bill No</th>
+                    <th>Bill Date</th>
                     <th>Customer Name (GSTIN NO)</th>
                     <th>Room No</th>
                     <th>Base Price</th>
@@ -69,10 +70,11 @@
                 </tr>
             </thead>
 
-            <tbody>
+            <tbody class="scroll-body">
                 <tr *ngFor="let row of reportData?.bookingDTOList; index as i">
                     <td>{{ i + 1 }}</td>
                     <td>{{ row.billingNumber }}</td>
+                    <td>{{ row.billedDts | date : 'dd-MM-yyyy' }}</td>
                     <td>{{ row.firstName }} {{row.lastName}} <span *ngIf="row.gstInNo"> ({{ row.gstInNo }})</span></td>
                     <td>{{ row.roomNumber }} ({{row.roomTypeName}})</td>
                     <td>₹ {{ row.baseFare }}</td>
@@ -80,16 +82,17 @@
                     <td>₹ {{ row.sgst }}</td>
                     <td class="total">₹ {{ row.totalAmount }}</td>
                 </tr>
-
-                <!-- ✅ GRAND TOTAL -->
-                <tr class="grand-total" *ngIf="reportData?.bookingDTOList.length">
+            </tbody>
+            <!-- ✅ GRAND TOTAL -->
+            <tfoot *ngIf="reportData?.bookingDTOList?.length">
+                <tr class="grand-total">
                     <td colspan="4" style="text-align: right;padding: 0 30px;">Grand Total</td>
                     <td>{{ reportData?.baseFareTotal | number:'1.2-2' }}</td>
                     <td>{{ reportData?.cgstTotal | number:'1.2-2' }}</td>
                     <td>{{ reportData?.sgstTotal | number:'1.2-2' }}</td>
                     <td>{{ reportData?.grantTotal | number:'1.2-2' }}</td>
                 </tr>
-            </tbody>
+            </tfoot>
 
         </table>
         <div class="no-data" *ngIf="!reportData?.bookingDTOList?.length">

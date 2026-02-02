@@ -79,5 +79,45 @@ export class GstReportComponent {
     return 'GST Report';
   }
 
+  onReportTypeChange() {
+    const today = new Date();
+
+    // Last month end date
+    const lastMonthEnd = new Date(today.getFullYear(), today.getMonth(), 0);
+
+    if (this.reportType === 'monthly') {
+
+      // Last month start date
+      this.fromDate = new Date(
+        lastMonthEnd.getFullYear(),
+        lastMonthEnd.getMonth(),
+        1
+      );
+
+      this.toDate = lastMonthEnd;
+
+    } else if (this.reportType === 'quarterly') {
+
+      // Start date = 3 months ago (1st day)
+      this.fromDate = new Date(
+        lastMonthEnd.getFullYear(),
+        lastMonthEnd.getMonth() - 2,
+        1
+      );
+
+      this.toDate = lastMonthEnd;
+
+    }else if (this.reportType === 'yearly') {
+
+    // ✅ Last 1 year (12 months)
+    this.fromDate = new Date(
+      lastMonthEnd.getFullYear(),
+      lastMonthEnd.getMonth() - 11,
+      1
+    );
+
+    this.toDate = lastMonthEnd;
+  }
+  }
 
 }
