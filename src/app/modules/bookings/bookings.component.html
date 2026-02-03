@@ -128,6 +128,10 @@
                             <span>View</span>
                         </button>
 
+                        <button *ngIf="!isViewOnly && row.statusName === 'Checked-in'" mat-menu-item (click)="checkOut(row)">
+                            <mat-icon>logout</mat-icon>
+                            <span>Check Out</span>
+                        </button>
                         <!-- <button *ngIf="isViewOnly" mat-menu-item (click)="editClient(row)">
                             <mat-icon>edit</mat-icon>
                             <span>Edit</span>

@@ -38,9 +38,14 @@
                     <div class="two-cols">
                         <mat-form-field appearance="outline">
                             <mat-label>Phone Number</mat-label>
-                            <input type="number" matInput [(ngModel)]="model.clientObject.mobileNumber"
-                                name="mobileNumber" required />
+                            <input matInput type="tel" maxlength="10" pattern="^[6-9][0-9]{9}$"
+                                [(ngModel)]="model.clientObject.mobileNumber" name="mobileNumber" required
+                                #mobileNumberRef="ngModel" />
                             <mat-icon matSuffix>phone</mat-icon>
+                            <mat-error
+                                *ngIf="mobileNumberRef.invalid && (mobileNumberRef.touched || mobileNumberRef.dirty)">
+                                Enter a valid 10-digit phone number
+                            </mat-error>
                         </mat-form-field>
 
                         <mat-form-field appearance="outline">
@@ -100,8 +105,7 @@
                     <mat-form-field appearance="outline">
                         <mat-label>Check-in</mat-label>
                         <input matInput [matDatepicker]="inPicker" [(ngModel)]="model.bookingObject.checkinDts"
-                            name="checkinDts" [min]="today"
-                            (dateChange)="onCheckinChange($event.value)">
+                            name="checkinDts" [min]="today" (dateChange)="onCheckinChange($event.value)">
                         <mat-datepicker-toggle matSuffix [for]="inPicker"></mat-datepicker-toggle>
                         <mat-datepicker #inPicker></mat-datepicker>
                     </mat-form-field>
@@ -234,7 +238,8 @@
         Back
     </button>
 
-    <button class="next-btn" mat-raised-button color="primary" (click)="nextTab()" *ngIf="selectedTabIndex < totalTabs - 1">
+    <button class="next-btn" mat-raised-button color="primary" (click)="nextTab()"
+        *ngIf="selectedTabIndex < totalTabs - 1">
         Next
     </button>
 

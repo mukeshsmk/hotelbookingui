@@ -134,6 +134,7 @@ export class RoomBookingDialogComponent {
       this.model.bookingObject.roomType = this.data.data.roomType;
     }
     this.fetchRoomDetails();
+    this.model.bookingObject.paymentType = 'cash'
   }
 
   onDropdownOpen(opened: boolean) {
@@ -166,23 +167,21 @@ export class RoomBookingDialogComponent {
     return `${year}-${month}-${day}`;   // yyyy-MM-dd
   }
 
-  isFormValid() {
+  isFormValid(): boolean {
     const client = this.model.clientObject;
     const booking = this.model.bookingObject;
 
+    const isValidMobile =
+      !!client.mobileNumber &&
+      /^[6-9][0-9]{9}$/.test(String(client.mobileNumber));
+
     return (
-      client.firstName &&
-      // client.lastName &&
-      client.mobileNumber &&
-      // client.idNumber &&
-      // client.address1 &&
-      booking.checkinDts &&
-      booking.checkoutDts &&
-      // booking.adultCount &&
-      booking.roomType &&
-      booking.roomNumber
-      // booking.paymentType &&
-      // booking.amountPaid
+      !!client.firstName &&
+      isValidMobile &&
+      !!booking.checkinDts &&
+      !!booking.checkoutDts &&
+      !!booking.roomType &&
+      !!booking.roomNumber
     );
   }
 
@@ -191,22 +190,19 @@ export class RoomBookingDialogComponent {
 
     const checkout = new Date(checkinDate);
     checkout.setDate(checkout.getDate() + 1);
-
-    const formatLocalDateTime = (d: Date) => {
-      const yyyy = d.getFullYear();
-      const mm = String(d.getMonth() + 1).padStart(2, '0');
-      const dd = String(d.getDate()).padStart(2, '0');
-      const hh = String(d.getHours()).padStart(2, '0');
-      const min = String(d.getMinutes()).padStart(2, '0');
-      const ss = String(d.getSeconds()).padStart(2, '0');
-      const ms = String(d.getMilliseconds()).padStart(3, '0');
-      return `${yyyy}-${mm}-${dd}T${hh}:${min}:${ss}.${ms}`;
-    };
-
-    this.model.bookingObject.checkinDts = formatLocalDateTime(checkinDate);
-    this.model.bookingObject.checkoutDts = formatLocalDateTime(checkout);
+    this.model.bookingObject.checkoutDts = checkout;
   }
 
+  private formatLocalDateTime(d: Date): string {
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    const hh = String(d.getHours()).padStart(2, '0');
+    const min = String(d.getMinutes()).padStart(2, '0');
+    const ss = String(d.getSeconds()).padStart(2, '0');
+    const ms = String(d.getMilliseconds()).padStart(3, '0');
+    return `${yyyy}-${mm}-${dd}T${hh}:${min}:${ss}.${ms}`;
+  }
 
   close() {
     this.dialogRef.close();
@@ -221,7 +217,8 @@ export class RoomBookingDialogComponent {
     } else {
       formData.append('files', new Blob([]));
     }
-
+    this.model.bookingObject.checkinDts = this.formatLocalDateTime(this.model.bookingObject.checkinDts);
+    this.model.bookingObject.checkoutDts = this.formatLocalDateTime(this.model.bookingObject.checkoutDts);
     formData.append(
       'clientObject',
       new Blob(

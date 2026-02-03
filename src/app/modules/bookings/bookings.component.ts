@@ -11,6 +11,7 @@ import { RoomBookingDialogComponent } from '../rooms/room-booking-dialog/room-bo
 import { MatMenuTrigger } from '@angular/material/menu';
 import { ViewBookingDialogComponent } from '../rooms/view-booking-dialog/view-booking-dialog.component';
 import { BillPrintComponent } from './bill-print/bill-print.component';
+import { CheckoutDialogComponent } from '../rooms/checkout-dialog/checkout-dialog.component';
 
 
 @Component({
@@ -137,6 +138,19 @@ export class BookingsComponent implements OnInit, AfterViewInit {
     });
   }
 
+  checkOut(data: any) {
+      const dialogRef = this.dialog.open(CheckoutDialogComponent, {
+        width: '600px',
+        data: data
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result === true) {
+          this.billPrintPage?.printBill(data?.bookingId);
+          this.loadClients()
+        }
+      });
+    }
+    
   viewClient(row: any) {
     console.log('View:', row);
   }
