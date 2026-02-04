@@ -5,6 +5,8 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialCollectionModule } from '../shared/material-collection.module';
+import { AuthRepository } from './auth-repository';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -14,8 +16,10 @@ import { MaterialCollectionModule } from '../shared/material-collection.module';
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    HttpClientModule,
     MaterialCollectionModule,
     AuthRoutingModule
-  ]
+  ],
+  providers: [AuthRepository]
 })
 export class AuthModule { }

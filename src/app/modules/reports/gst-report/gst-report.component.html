@@ -1,0 +1,113 @@
+<div class="gst-report-container">
+
+    <!-- Filters -->
+    <div class="filter-bar mat-elevation-z2 no-print">
+
+        <!-- Report Type -->
+        <mat-form-field appearance="outline">
+            <mat-label>Report Type</mat-label>
+            <mat-select [(ngModel)]="reportType" (selectionChange)="onReportTypeChange()">
+                <mat-option value="monthly">Monthly</mat-option>
+                <mat-option value="quarterly">Quarterly</mat-option>
+                <mat-option value="yearly">Yearly</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <!-- From Date -->
+        <mat-form-field appearance="outline">
+            <mat-label>From Date</mat-label>
+            <input matInput [matDatepicker]="fromPicker" [(ngModel)]="fromDate" (dateChange)="onDateChange()">
+            <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+            <mat-datepicker #fromPicker></mat-datepicker>
+        </mat-form-field>
+
+        <!-- To Date -->
+        <mat-form-field appearance="outline">
+            <mat-label>To Date</mat-label>
+            <input matInput [matDatepicker]="toPicker" [(ngModel)]="toDate" (dateChange)="onDateChange()">
+            <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+            <mat-datepicker #toPicker></mat-datepicker>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" (click)="loadReport()" [disabled]="!reportType && !fromDate && !toDate">
+            Generate
+        </button>
+
+        <button mat-stroked-button color="secondary" (click)="resetFilters()">
+            Reset
+        </button>
+
+        <button mat-raised-button color="primary" (click)="printReport()"
+            [disabled]="!reportData?.bookingDTOList?.length">
+            Print
+        </button>
+
+    </div>
+
+
+    <!-- Printable Area -->
+    <div id="print-section" class="table-wrapper mat-elevation-z2">
+
+        <div class="print">
+            <h3 class="hotel-name">Sri Sudharsana Residency</h3>
+            <p class="hotel-address">6/1, 8/1, South Car Street, Sankarankovil - 627 756</p>
+        </div>
+
+        <h3 class="print-title no-print">{{ reportTitle }}</h3>
+
+        <h3 class="print-title print">{{ reportTitle }} ({{ fromDate | date:'dd-MM-yyyy' }} to {{ toDate | date:'dd-MM-yyyy' }})</h3>
+ 
+        <div class="table-wrapper table-container">
+            <table class="gst-table">
+                <thead>
+                    <tr>
+                        <th class="width-8">S.No</th>
+                        <th class="width-10">Bill No</th>
+                        <th class="width-10">Bill Date</th>
+                        <th>Customer Name (GSTIN NO)</th>
+                        <th>Room No</th>
+                        <th>Base Price</th>
+                        <th class="width-8">GST</th>
+                        <th class="width-8">SGST</th>
+                        <th>Total Amount</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let row of reportData?.bookingDTOList; index as i">
+                        <td class="width-10">{{ i + 1 }}</td>
+                        <td class="width-10">{{ row.billingNumber }}</td>
+                        <td class="width-8">{{ row.billedDts | date:'dd-MM-yyyy' }}</td>
+                        <td>
+                            {{ row.firstName }} {{ row.lastName }}
+                            <span *ngIf="row.gstInNo">({{ row.gstInNo }})</span>
+                        </td>
+                        <td>{{ row.roomNumber }} ({{ row.roomTypeName }})</td>
+                        <td>₹ {{ row.baseFare }}</td>
+                        <td class="width-8">₹ {{ row.cgst }}</td>
+                        <td class="width-8">₹ {{ row.sgst }}</td>
+                        <td class="total">₹ {{ row.totalAmount }}</td>
+                    </tr>
+                </tbody>
+
+                <tfoot *ngIf="reportData?.bookingDTOList?.length">
+                    <tr class="grand-total">
+                        <td colspan="5" style="text-align:right;padding:0 30px;">Grand Total</td>
+                        <td>{{ reportData?.baseFareTotal | number:'1.2-2' }}</td>
+                        <td>{{ reportData?.cgstTotal | number:'1.2-2' }}</td>
+                        <td>{{ reportData?.sgstTotal | number:'1.2-2' }}</td>
+                        <td>{{ reportData?.grantTotal | number:'1.2-2' }}</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+
+        <div class="no-data" *ngIf="!reportData?.bookingDTOList?.length">
+            No records found
+        </div>
+    </div>
+
+
+
+</div>

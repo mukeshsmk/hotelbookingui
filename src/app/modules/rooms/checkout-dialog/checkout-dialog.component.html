@@ -1,0 +1,102 @@
+<div class="dialog-header">
+    <div>
+        <h3>Check Out</h3>
+    </div>
+
+    <button mat-icon-button (click)="close()">
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+
+<div class="dialog-body">
+
+    <div class="two-cols">
+        <div class="view-field">
+            <span class="label">Name</span>
+            <span class="value">{{ data?.firstName }} {{ data?.lastName }}</span>
+        </div>
+
+        <div class="view-field">
+            <span class="label">Room Number</span>
+            <span class="value">{{ data?.roomNumber }}</span>
+        </div>
+    </div>
+    <div class="two-cols">
+        <div class="view-field">
+            <span class="label">Checkin Date</span>
+            <span class="value">{{ data?.checkinDts | date: 'dd-MM-yyyy' }}</span>
+        </div>
+
+        <div class="view-field">
+            <span class="label">Checkout Date</span>
+            <span class="value">{{ data?.checkoutDts | date: 'dd-MM-yyyy' }}</span>
+        </div>
+    </div>
+    <div class="two-cols">
+        <div class="view-field">
+            <span class="label">Total Amount</span>
+            <span class="value">{{ data?.totalAmount | currency:'INR'}}</span>
+        </div>
+        <div class="view-field">
+            <span class="label">Amount Paid</span>
+            <span class="value">{{ data?.amountPaid | currency:'INR'}}</span>
+        </div>
+    </div>
+    <div class="two-cols full">
+        <div *ngIf="data?.miscellaneousCharge > 0" class="view-field">
+            <span class="label">Order Amount</span>
+            <span class="order-icon" style="margin-top: -10px;">{{data?.miscellaneousCharge | currency:'INR'}} <mat-icon
+                    (click)="openOrdersDialog()">info</mat-icon></span>
+        </div>
+        <div class="view-field">
+            <span class="label">Remaining Amount</span>
+            <span class="value" [ngClass]="{'warning-text': data?.totalAmount !== data?.amountPaid}">
+                {{
+                ((data?.amountRemaining ?? 0) + (data?.miscellaneousCharge ?? 0)) | currency:'INR'
+                }}</span>
+        </div>
+    </div>
+
+</div>
+<div class="dialog-footer">
+    <button mat-button (click)="close()">Cancel</button>
+    <button class="custom-btn btn-secondary mar-lft-10" (click)="checkout()">
+        Checkout
+    </button>
+</div>
+
+
+<ng-template #ordersDialog let-dialogRef="dialogRef">
+    <h2 class="mar-btm-1 pad-lft-20 pad-btm-1 pad-top-10">Order Charges</h2>
+
+    <mat-dialog-content class="pad-top-10 pad-btm-8">
+        <div>
+            <table cellpadding="8">
+                <thead>
+                    <tr class="table-header">
+                        <th>Order Name</th>
+                        <th>Order Value</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let order of orderDetails">
+                        <td>{{ order.orderName }}</td>
+                        <td>{{ order.orderValue }}</td>
+                    </tr>
+
+                    <!-- Grand Total Row -->
+                    <tr class="table-header">
+                        <td>Grand Total</td>
+                        <td>{{ grandTotal }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end" class="mar-rgt-18">
+        <button class="close-btn" color="btn-secondary" (click)="dialogRef.close()">Close</button>
+    </mat-dialog-actions>
+</ng-template>

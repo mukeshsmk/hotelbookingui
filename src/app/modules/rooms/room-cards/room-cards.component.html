@@ -1,0 +1,115 @@
+<div class="ft-container-spinner" *ngIf="isLoading">
+    <mat-spinner></mat-spinner>
+</div>
+
+<div class="date-controls">
+    <button mat-icon-button (click)="previousDay()" [disabled]="isPrevDisabled()">
+        <mat-icon>chevron_left</mat-icon>
+    </button>
+
+    <div class="date-text">
+        {{ selectedDate | date:'MMMM d, yyyy' }}
+    </div>
+
+    <button mat-icon-button (click)="nextDay()">
+        <mat-icon>chevron_right</mat-icon>
+    </button>
+
+    <button class="custom-btn btn-primary" (click)="goToday()">
+        Today
+    </button>
+
+    <mat-form-field appearance="outline" class="date-picker">
+        <input matInput [matDatepicker]="picker" [(ngModel)]="selectedDate"
+            (ngModelChange)="onSelectedDateChange($event)" [min]="minDate" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="room-dropdown" appearance="outline">
+        <mat-label>Rooms Filters</mat-label>
+        <mat-select [(ngModel)]="roomsType" (selectionChange)="roomFilter($event.value)">
+            <mat-option value="all">All Rooms</mat-option>
+            <mat-option value="available">Available Rooms</mat-option>
+            <mat-option value="booked">Booked Rooms</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+</div>
+
+<div class="rooms-grid">
+    <div class="room-card" *ngFor="let room of rooms">
+
+        <div class="room-header" [ngClass]="getStatusClass(room.statusName)">
+            <div>
+                <small>{{ room.floorName }}</small>
+                <h2>Room {{ room.roomNumber }}</h2>
+                <div class="people-details">
+                    <mat-icon matSuffix>bed</mat-icon> {{ room.roomTypeName }}
+                </div>
+            </div>
+            <span class="status-badge" [ngClass]="getStatusClass(room.statusName)">
+                {{ room.statusName }}
+            </span>
+        </div>
+
+        <div class="room-footer">
+            <button class="custom-btn btn-primary" *ngIf="room.statusName === 'Available'" (click)="addGuest(room)">
+                <mat-icon matSuffix>person</mat-icon> Check In
+            </button>
+            <button class="custom-btn btn-primary" *ngIf="room.statusName === 'Checked-in'" (click)="viewDetails(room)">
+                <mat-icon matSuffix>visibility</mat-icon> View Guest
+            </button>
+            <button class="custom-btn btn-primary mar-lft-10" *ngIf="room.statusName === 'Checked-in'"
+                (click)="addExtraItems(room)">
+                <mat-icon matSuffix>add</mat-icon> Orders
+            </button>
+            <button class="custom-btn btn-secondary mar-lft-10" *ngIf="room.statusName === 'Checked-in'"
+                (click)="checkOut(room)">
+                <mat-icon matSuffix>logout</mat-icon> Check Out
+            </button>
+        </div>
+
+    </div>
+</div>
+
+<app-bill-print #billPrintPage class="hidden-for-screen"></app-bill-print>
+
+<ng-template #ordersDialog let-dialogRef="dialogRef">
+    <h2 mat-dialog-title>Guest Orders</h2>
+
+    <mat-dialog-content>
+        <div>
+            <div class="two-cols">
+                <div class="view-field">
+                    <span class="label">First Name</span>
+                    <span class="value">{{ roomDetails?.firstName }} {{ roomDetails?.lastName }}</span>
+                </div>
+
+                <div class="view-field">
+                    <span class="label">Room Number</span>
+                    <span class="value">{{ roomDetails?.roomNumber }}</span>
+                </div>
+            </div>
+            <div class="two-cols mar-top-10">
+                <mat-form-field appearance="outline">
+                    <mat-label>Item</mat-label>
+                    <input matInput [(ngModel)]="orderName" name="orderName" />
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Value</mat-label>
+                    <input matInput [(ngModel)]="orderValue" name="orderValue" />
+                </mat-form-field>
+            </div>
+        </div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+        <button mat-stroked-button (click)="dialogRef.close()">Cancel</button>
+        <button mat-raised-button color="primary" [disabled]="!orderName || !orderValue"
+            (click)="saveOrders(dialogRef)">
+            Save
+        </button>
+    </mat-dialog-actions>
+</ng-template>

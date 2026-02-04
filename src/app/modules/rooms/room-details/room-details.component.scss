@@ -8,18 +8,18 @@
 }
 
 /* Dark semi-transparent overlay */
-.room-card:hover {
+/* .room-card:hover {
     background: rgba(0, 0, 0, 0.5) !important;
-}
+} */
 
 /* Fade card content */
-.room-card:hover .room-header,
+/* .room-card:hover .room-header,
 .room-card:hover .room-body {
     opacity: 0.1;
-}
+} */
 
 /* Overlay container */
-.hover-overlay {
+/* .hover-overlay {
     position: absolute;
     inset: 0;
     display: flex;
@@ -28,7 +28,7 @@
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
-}
+} */
 
 /* Show overlay on hover */
 .room-card:hover .hover-overlay {
@@ -144,4 +144,45 @@
 .sub-text {
     font-size: 14px;
     color: #777;
+}
+
+.room-footer {
+    padding: 12px 16px;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+}
+
+.room-footer button {
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.room-footer button:first-child {
+    background: #f0f4ff;
+}
+
+.room-footer button:last-child {
+    background: #eefcf0;
+}
+.add-btn {
+    background-color: #795369 !important;
+}
+.view-btn {
+    background: #494bd6 !important;
+}
+.custom-btn {
+    border-radius: 6px;
+    font-weight: 500;
+    text-transform: none;
+    padding: 7px 10px;
+    box-shadow: 0 4px 12px #0000001a;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+    font-size: 12px;
 }

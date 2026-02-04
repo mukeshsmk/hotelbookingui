@@ -1,0 +1,164 @@
+<div class="dialog-header">
+    <div>
+        <h3 *ngIf="!isFromUser">View Booking</h3>
+        <h3 *ngIf="isFromUser">View Customers</h3>
+    </div>
+
+    <button mat-icon-button (click)="close()">
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+<div class="dialog-body">
+    <mat-tab-group class="custom-mat-group">
+
+        <!-- PERSONAL -->
+        <mat-tab label="Personal Information">
+            <div class="tab-body">
+
+                <h4 class="section-title">
+                    <mat-icon>person</mat-icon>
+                    Personal Details
+                </h4>
+
+                <div class="two-cols">
+                    <div class="view-field">
+                        <span class="label">First Name</span>
+                        <span class="value">{{ bookingDetails?.firstName || '-' }}</span>
+                    </div>
+
+                    <div class="view-field">
+                        <span class="label">Last Name</span>
+                        <span class="value">{{ bookingDetails?.lastName || '-' }}</span>
+                    </div>
+                </div>
+
+                <div class="two-cols">
+                    <div class="view-field">
+                        <span class="label">Phone Number</span>
+                        <span class="value">{{ bookingDetails?.mobileNumber || '-' }}</span>
+                    </div>
+
+                    <div class="view-field">
+                        <span class="label">Email</span>
+                        <span class="value">{{ bookingDetails?.email || '-' }}</span>
+                    </div>
+                </div>
+
+                <div class="two-cols">
+                    <div class="view-field">
+                        <span class="label">ID Number</span>
+                        <span class="value">{{ bookingDetails?.idNumber || '-' }}</span>
+                    </div>
+
+                    <div class="view-field">
+                        <span class="label">GSTIN Number</span>
+                        <span class="value">{{ bookingDetails?.gstInNo || '-' }}</span>
+                    </div>
+                </div>
+
+
+                <div class="two-cols">
+                    <div class="view-field">
+                        <span class="label">City</span>
+                        <span class="value">{{ bookingDetails?.city || '-' }}</span>
+                    </div>
+
+                    <div class="view-field">
+                        <span class="label">State</span>
+                        <span class="value">{{ bookingDetails?.state || '-' }}</span>
+                    </div>
+                </div>
+
+                <div class="view-field">
+                    <span class="label">Address</span>
+                    <span class="value">{{ bookingDetails?.address1 || '-' }}</span>
+                </div>
+
+            </div>
+        </mat-tab>
+
+        <!-- RESERVATION -->
+        <mat-tab label="Reservation Details">
+            <div class="tab-body">
+
+                <h4 class="section-title">
+                    <mat-icon>event</mat-icon>
+                    Reservation Details
+                </h4>
+
+                <div class="two-cols">
+                    <div class="view-field">
+                        <span class="label">Check-in</span>
+                        <span class="value">{{( bookingDetails?.checkinDts | date: 'dd-MM-yyyy') || '-' }}</span>
+                    </div>
+
+                    <div class="view-field">
+                        <span class="label">Check-out</span>
+                        <span class="value">{{ (bookingDetails?.checkoutDts | date: 'dd-MM-yyyy') || '-' }}</span>
+                    </div>
+                </div>
+
+                <div class="two-cols">
+                    <div class="view-field">
+                        <span class="label">Adults</span>
+                        <span class="value">{{ bookingDetails?.adultCount || '-' }}</span>
+                    </div>
+
+                    <div class="view-field">
+                        <span class="label">Children</span>
+                        <span class="value">{{ bookingDetails?.childrenCount || '-' }}</span>
+                    </div>
+                </div>
+
+                <div class="two-cols">
+                    <div class="view-field">
+                        <span class="label">Room Type</span>
+                        <span class="value">{{ bookingDetails?.roomTypeName || '-' }}</span>
+                    </div>
+
+                    <div class="view-field">
+                        <span class="label">Room Number</span>
+                        <span class="value">{{ bookingDetails?.roomNumber || '-' }}</span>
+                    </div>
+
+                </div>
+
+                <div class="two-cols">
+                    <div class="view-field">
+                        <span class="label">Payment Type</span>
+                        <span class="value">{{ bookingDetails?.paymentType || '-' }}</span>
+                    </div>
+
+                    <div class="view-field">
+                        <span class="label">Amount Paid</span>
+                        <span class="value">{{ bookingDetails?.amountPaid || '-' }}</span>
+                    </div>
+                </div>
+
+            </div>
+        </mat-tab>
+
+        <!-- ADDITIONAL -->
+        <mat-tab label="Additional Details">
+            <div class="tab-body">
+
+                <h4 class="section-title">
+                    <mat-icon>info</mat-icon>
+                    Additional Notes
+                </h4>
+
+                <div class="view-field full">
+                    <span class="label">Notes</span>
+                    <span class="value">{{ bookingDetails?.comments || '-' }}</span>
+                </div>
+
+            </div>
+        </mat-tab>
+
+    </mat-tab-group>
+</div>
+
+<div class="dialog-footer">
+    <span class="spacer"></span>
+    <button mat-flat-button color="primary" mat-dialog-close>Close</button>
+</div>

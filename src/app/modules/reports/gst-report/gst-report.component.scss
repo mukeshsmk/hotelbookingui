@@ -1,0 +1,165 @@
+.gst-report-container {
+  padding: 16px;
+}
+
+/* Filters */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: baseline;
+  background-color: #fff;
+  padding: 20px 1px 0 20px;
+  border-radius: 6px;
+}
+
+mat-form-field {
+  width: 180px;
+}
+
+/* Table */
+.table-wrapper {
+  overflow-x: auto;
+  background: #fff;
+  border-radius: 6px;
+  margin-top: 20px;
+}
+
+.gst-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.gst-table th,
+.gst-table td {
+  border: 1px solid #ccc;
+  padding: 4px 8px;
+  text-align: left;
+  width: 100px;
+  font-size: 13px;
+}
+
+.gst-table th:first-child,
+.gst-table td:first-child,
+.gst-table td:nth-child(2),
+.gst-table td:nth-child(3) {
+  text-align: left;
+}
+
+.grand-total {
+  font-weight: 700;
+  background: #f5f5f5;
+}
+
+.total {
+  // font-weight: 700;
+}
+
+.no-data {
+  text-align: center;
+  padding: 20px;
+  color: #888;
+}
+
+.print-title {
+  text-align: left;
+  font-weight: 600;
+  margin: 15px 10px 10px;
+}
+
+.print {
+  display: none;
+}
+.hotel-name {
+  text-align: center;
+  font-size: 24px;
+  color: #e32913;
+  margin: 0;
+}
+.hotel-address {
+  text-align: center;
+}
+/* Hide elements during print */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  .print {
+    display: block !important;
+  }
+
+  body {
+    margin: 0;
+  }
+
+  table {
+    width: 100%;
+    font-size: 12px;
+  }
+  /* remove scroll */
+  .table-wrapper {
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  /* safety: no sticky during print */
+  thead th,
+  tfoot td {
+    position: static !important;
+  }
+
+  /* optional: page break handling */
+  table {
+    page-break-inside: auto;
+  }
+
+  tr {
+    page-break-inside: avoid;
+    page-break-after: auto;
+  }
+  .gst-table thead th {
+    color: #000 !important;
+  }
+  .gst-table tfoot td {
+    position: static !important;   /* disable sticky */
+    background: #cbcbcb !important;
+  }
+
+  /* show footer only once at the end */
+  .gst-table tfoot {
+    display: table-row-group;
+  }
+}
+.table-wrapper {
+  max-height: 800px;
+  overflow-y: auto; /* scrollbar here */
+}
+.table-container {
+  max-height: 680px !important;
+  margin: 0 !important;
+}
+.gst-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* sticky header & footer */
+.gst-table thead th {
+  position: sticky;
+  top: -1px;
+  background: #fff;
+  z-index: 3;
+  color: #fff;
+  background: #3f51b5;
+  padding: 15px 10px;
+  font-size: 14px;
+}
+
+.gst-table tfoot td {
+  position: sticky;
+  bottom: 0;
+  background: #cbcbcb;
+  z-index: 3;
+}

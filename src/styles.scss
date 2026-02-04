@@ -1,4 +1,35 @@
-/* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  src: url("assets/fonts/roboto/Roboto-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  src: url("assets/fonts/roboto/Roboto-Medium.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Material Icons";
+  font-style: normal;
+  font-weight: 400;
+  src: url("assets/fonts/material-icons/MaterialIcons-Regular.ttf") format("truetype");
+}
+
+.material-icons {
+  font-family: "Material Icons";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  display: inline-block;
+  white-space: nowrap;
+  direction: ltr;
+}
+
 
 html,
 body {
@@ -9,50 +40,193 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+.float-left {
+    float: left;
+}
+.float-right {
+    float: right;
+}
+/* Set of Margins and Paddings */
+@for $i from 1 through 100 {
+    .mar-rgt-#{$i} {
+        margin-right: $i + px !important;
+    }
+    .mar-btm-#{$i} {
+        margin-bottom: $i + px !important;
+    }
+    .mar-top-#{$i} {
+        margin-top: $i + px !important;
+    }
+    .mar-lft-#{$i} {
+        margin-left: $i + px !important;
+    }
+    .mar-all-#{$i} {
+        margin: $i + px !important;
+    }
+
+    .pad-rgt-#{$i} {
+        padding-right: $i + px !important;
+    }
+    .pad-btm-#{$i} {
+        padding-bottom: $i + px !important;
+    }
+    .pad-top-#{$i} {
+        padding-top: $i + px !important;
+    }
+    .pad-lft-#{$i} {
+        padding-left: $i + px !important;
+    }
+    .pad-all-#{$i} {
+        padding: $i + px !important;
+    }
+    .line-height-#{$i} {
+        line-height: $i + px !important;
+    }
+    .grid-row-gap-#{$i} {
+        grid-row-gap: $i + px !important;
+    }
+}
+
+@for $i from 1 through 100 {
+    .mar-rgt-#{$i} {
+        margin-right: $i + px !important;
+    }
+    .mar-btm-#{$i} {
+        margin-bottom: $i + px !important;
+    }
+    .mar-top-#{$i} {
+        margin-top: $i + px !important;
+    }
+    .mar-lft-#{$i} {
+        margin-left: $i + px !important;
+    }
+    .mar-all-#{$i} {
+        margin: $i + px !important;
+    }
+
+    .pad-rgt-#{$i} {
+        padding-right: $i + px !important;
+    }
+    .pad-btm-#{$i} {
+        padding-bottom: $i + px !important;
+    }
+    .pad-top-#{$i} {
+        padding-top: $i + px !important;
+    }
+    .pad-lft-#{$i} {
+        padding-left: $i + px !important;
+    }
+    .pad-all-#{$i} {
+        padding: $i + px !important;
+    }
+    .line-height-#{$i} {
+        line-height: $i + px !important;
+    }
+    .grid-column-gap-#{$i} {
+        grid-column-gap: $i + px !important;
+    }
+}
+
+.p-0 {
+    padding: 0 !important;
+}
+.m-0 {
+    margin: 0 !important;
+}
+
+/* Width from 1 to 100 */
+@for $i from 1 through 100 {
+    .width-#{$i} {
+        width: $i * 1% !important;
+    }
+}
+
+@for $i from 1 through 100 {
+    .min-width-#{$i} {
+        min-width: $i * 1rem !important;
+    }
+}
+
 .custom-context-menu {
-    min-width: 140px;
-    margin-top: 12px;
     .mat-mdc-menu-content {
-        padding: 0px !important;
-        min-width: 135px;
-    }
-    .mat-mdc-menu-item {
-        line-height: 38px;
-    }
-    .mat-mdc-menu-item-text {
         padding-top: 0px !important;
         padding-bottom: 0px !important;
+    }
+    .mat-mdc-menu-item-text {
         font-size: 14px !important;
     }
-    .context-matmenu-item {
+    .mat-mdc-menu-item {
         font-weight: 400;
-        font-size: 14px;
+        font-size: 14px !important;
         line-height: 16px;
         display: flex;
         align-items: center;
         height: auto;
-        padding: 0px 10px !important;
+        padding: 6px 10px !important;
         margin-bottom: 0;
         color: #474747 !important;
-        min-height: 34px;
-        i {
-            margin-right: 7px;
-            font-size: 20px;
-            position: relative;
-            top: 5px;
-        }
+        min-height: 38px;
+
         &:last-child {
             margin-bottom: 0;
         }
-        em {
-            margin-right: 7px;
-            font-size: 20px;
+
+        .mat-icon {
+            margin-right: 0;
+            font-size: 18px;
             position: relative;
-            top: 5px;
+            top: 2px;
         }
+
         &:hover {
-            color: #489ba3 !important;
+            color: #3f51b5 !important;
             background: transparent !important;
         }
     }
+    .mat-mdc-menu-item:hover .mat-icon {
+        color: #3f51b5 !important;
+    }
+}
+
+.custom-disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.ft-container-spinner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100000;
+    background: rgba(0, 0, 0, 0.1);
+    mat-spinner {
+        margin: 0 auto;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        -webkit-transform: translateY(-50%);
+    }
+}
+.dialog-body {
+    max-height: calc(100vh - 240px);
+    overflow: auto;
+}
+
+.date-picker {
+    height: 38px !important;
+    .mat-mdc-text-field-wrapper {
+        height: 38px !important;
+    }
+    .mat-mdc-form-field-flex {
+        height: 38px !important;
+    }
+    .mat-mdc-form-field-infix {
+        padding-top: 8px !important;
+        padding-bottom: 8px !important;
+    }
+}
+.cursor-pointer {
+    cursor: pointer;
 }

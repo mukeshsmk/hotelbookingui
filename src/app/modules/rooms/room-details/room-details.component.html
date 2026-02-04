@@ -1,11 +1,11 @@
 <mat-card class="room-card" (click)="onSelectRoom()" [ngClass]="getCardClass(room.status)">
 
     <div class="room-header">
-        <h3 class="room-title">Room {{ room.number }}</h3>
+        <h3 class="room-title">Room {{ room.roomNumber }}</h3>
 
         <!-- STATUS BADGE -->
-        <span class="status-badge" [ngClass]="getStatusClass(room.status)">
-            {{ room.status }}
+        <span class="status-badge" [ngClass]="getStatusClass('Available')">
+            Available
         </span>
     </div>
 
@@ -17,14 +17,25 @@
             Check-out: {{ room.checkOut | date:'dd/MM/yyyy' }}
         </p>
 
-        <p class="sub-text" *ngIf="room.note">
-            {{ room.note }}
+        <p class="sub-text" *ngIf="room.roomType">
+            {{ room.roomType }}
         </p>
+
+        <!-- <div class="room-footer">
+            <button class="custom-btn add-btn" *ngIf="room.status === 'Available'" (click)="addGuest(room)">
+                Add Guest
+            </button>
+            <button class="custom-btn view-btn" *ngIf="room.status === 'Occupied'" (click)="viewDetails(room)">
+                View Guest
+            </button>
+            <button *ngIf="room.status !== 'Available' && room.status !== 'Occupied'" disabled>
+                {{ room.status }}
+            </button>
+        </div> -->
     </div>
 
     <!-- ⭐ HOVER OVERLAY BUTTON ⭐ -->
-    <div class="hover-overlay">
-
+    <!-- <div class="hover-overlay">
         <button mat-flat-button class="hover-btn" [ngClass]="getButtonClass(room.status)"
             (click)="onRoomAction(room); $event.stopPropagation()">
             <ng-container [ngSwitch]="room.status">
@@ -36,7 +47,7 @@
             </ng-container>
         </button>
 
-    </div>
+    </div> -->
 
 
 </mat-card>

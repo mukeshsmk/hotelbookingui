@@ -7,7 +7,7 @@ import { MaterialCollectionModule } from './material-collection.module';
 @NgModule({
   declarations: [
     SidebarComponent,
-    NavbarComponent
+    NavbarComponent,
   ],
   imports: [
     CommonModule,

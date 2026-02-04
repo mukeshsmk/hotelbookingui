@@ -8,9 +8,9 @@
 
     <!-- User Profile -->
     <div class="user-profile">
-        <img src="assets/user.jpg" alt="User" class="avatar" />
-        <h4>John Doe</h4>
-        <p>The Grand Hotel</p>
+        <!-- <img src="assets/user.jpg" alt="User" class="avatar" /> -->
+        <h4>{{curentUser | titlecase }}</h4>
+        <p>Sri Sudharsana Residency</p>
     </div>
 
     <!-- Menu -->
@@ -34,12 +34,18 @@
             <mat-icon>analytics</mat-icon>
             <span>Reports</span>
         </a>
+
+        <a routerLink="/customers" routerLinkActive="active">
+            <mat-icon>person</mat-icon>
+            <span>Customers</span>
+        </a>
+
     </nav>
 
     <!-- Bottom Settings -->
-    <a class="settings" routerLink="/settings" routerLinkActive="active">
+    <!-- <a class="settings" routerLink="/settings" routerLinkActive="active">
         <mat-icon>settings</mat-icon>
         <span>Settings</span>
-    </a>
+    </a> -->
 
 </aside>
