@@ -50,7 +50,7 @@ export class EditUsersDialogComponent {
       this.isEditMode = true;
       this.model = {
         clientObject: {
-          id: this.data.data.clientId,
+          id: this.data.data.id,
           firstName: this.data.data.firstName,
           lastName: this.data.data.lastName,
           email: this.data.data.email,
@@ -60,6 +60,7 @@ export class EditUsersDialogComponent {
           state: this.data.data.state,
           address1: this.data.data.address1,
           clientId: this.data.data.clientId,
+          gstInNo: this.data.data.gstInNo
         }
       }
     }
@@ -74,7 +75,7 @@ export class EditUsersDialogComponent {
 
     return (
       client.firstName &&
-      client.lastName &&
+      // client.lastName &&
       client.mobileNumber
     );
   }
