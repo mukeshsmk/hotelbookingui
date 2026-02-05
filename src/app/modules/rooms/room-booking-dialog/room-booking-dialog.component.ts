@@ -159,6 +159,10 @@ export class RoomBookingDialogComponent {
     });
   }
 
+  onTabChange(index: number) {
+    this.selectedTabIndex = index;
+  }
+
   formatDateForApi(date: any): string {
     const d = new Date(date);
     const year = d.getFullYear();
@@ -194,13 +198,14 @@ export class RoomBookingDialogComponent {
   }
 
   private formatLocalDateTime(d: Date): string {
-    const yyyy = d.getFullYear();
-    const mm = String(d.getMonth() + 1).padStart(2, '0');
-    const dd = String(d.getDate()).padStart(2, '0');
-    const hh = String(d.getHours()).padStart(2, '0');
-    const min = String(d.getMinutes()).padStart(2, '0');
-    const ss = String(d.getSeconds()).padStart(2, '0');
-    const ms = String(d.getMilliseconds()).padStart(3, '0');
+    const date = (typeof d === 'string') ? new Date(d) : d;
+    const yyyy = date.getFullYear();
+    const mm = String(date.getMonth() + 1).padStart(2, '0');
+    const dd = String(date.getDate()).padStart(2, '0');
+    const hh = String(date.getHours()).padStart(2, '0');
+    const min = String(date.getMinutes()).padStart(2, '0');
+    const ss = String(date.getSeconds()).padStart(2, '0');
+    const ms = String(date.getMilliseconds()).padStart(3, '0');
     return `${yyyy}-${mm}-${dd}T${hh}:${min}:${ss}.${ms}`;
   }
 
