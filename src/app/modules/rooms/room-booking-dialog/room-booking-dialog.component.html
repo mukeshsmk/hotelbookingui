@@ -119,7 +119,7 @@
                     </mat-form-field>
                 </div>
 
-                <div class="two-cols">
+                <div class="two-cols"  [ngClass]="{ 'custom-disabled': isEditMode }">
                     <mat-form-field appearance="outline">
                         <mat-label>Adults</mat-label>
                         <input matInput type="number" [(ngModel)]="model.bookingObject.adultCount" name="adults">
@@ -132,7 +132,7 @@
                 </div>
 
                 <div class="two-cols">
-                    <mat-form-field appearance="outline" class="w-full">
+                    <mat-form-field appearance="outline" class="w-full"  [ngClass]="{ 'custom-disabled': isEditMode }">
                         <mat-label>Room Type</mat-label>
 
                         <mat-select [(ngModel)]="model.bookingObject.roomType" name="roomType" required

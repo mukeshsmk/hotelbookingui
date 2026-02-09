@@ -256,6 +256,7 @@ export class BookingsComponent implements OnInit, AfterViewInit {
         if (data?.status === 'Success') {
           this.toastr.success('Order saved successfully', 'Success');
           this.ordersDialogRef.close(true);
+          this.loadClients();
           this.orderName = '';
           this.orderValue = '';
         } else {
