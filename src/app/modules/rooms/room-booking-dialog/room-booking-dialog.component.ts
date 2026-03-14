@@ -128,7 +128,11 @@ export class RoomBookingDialogComponent {
       }
     } else if (this.data?.mode === 'booking') {
       this.isNewBooking = true;
-      this.model.bookingObject.paymentType = 'cash'
+      this.model.bookingObject.checkinDts = this.data.data.checkinDate;
+      const checkoutDate = new Date(this.data.data.checkinDate);
+      checkoutDate.setDate(checkoutDate.getDate() + 1);
+      this.model.bookingObject.checkoutDts = checkoutDate;
+      this.model.bookingObject.paymentType = 'cash';
       this.model.bookingObject.roomNumber = this.data.data.roomNumber;
       this.model.bookingObject.roomId = this.data.data.roomId;
       this.model.bookingObject.roomType = this.data.data.roomType;

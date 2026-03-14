@@ -66,6 +66,7 @@ export class RoomCardsComponent {
   }
 
   addGuest(item: any) {
+    item.checkinDate = this.selectedDate;
     const dialogRef = this.dialog.open(RoomBookingDialogComponent, {
       width: '950px',
       data: {
