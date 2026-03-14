@@ -1,12 +1,17 @@
 {
   "name": "hotel-dashboard",
   "version": "0.0.0",
+  "main": "main.js",
+
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.conf.json --port 4300",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "electron": "ng build --base-href ./ && electron .",
+    "electron:dev": "electron .",
+    "electron:build": "ng build --configuration production && electron-builder"
   },
   "private": true,
   "dependencies": {
@@ -33,6 +38,7 @@
     "@angular/cli": "~16.0.3",
     "@angular/compiler-cli": "^16.0.0",
     "@types/jasmine": "~4.3.0",
+    "electron": "^41.0.2",
     "jasmine-core": "~4.6.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
