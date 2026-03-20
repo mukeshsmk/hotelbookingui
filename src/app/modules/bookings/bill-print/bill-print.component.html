@@ -46,10 +46,10 @@
 
             <div class="info-row">
                 <div class="left">
-                    <p><strong>Checkin Date:</strong> {{ billData?.checkinDts | date : 'dd-MM-yyyy' }}</p>
+                    <p><strong>Checkin Date:</strong> {{ billData?.checkinDts | date : 'dd-MM-yyyy hh:mm a' }}</p>
                 </div>
                 <div class="right">
-                    <p><strong>Checkin Out:</strong> {{ billData?.checkoutDts | date : 'dd-MM-yyyy' }}</p>
+                    <p><strong>Checkin Out:</strong> {{ billData?.checkoutDts | date : 'dd-MM-yyyy hh:mm a' }}</p>
                 </div>
             </div>
 
@@ -83,11 +83,11 @@
                     <td class="right-align">{{ billData?.baseFare | number:'1.2-2' }}</td>
                 </tr>
                 <tr>
-                    <td>CGST</td>
+                    <td>CGST (2.5%)</td>
                     <td class="right-align">{{ billData?.cgst ? billData?.cgst : 0 | number:'1.2-2' }}</td>
                 </tr>
                 <tr>
-                    <td>SGST</td>
+                    <td>SGST (2.5%)</td>
                     <td class="right-align">{{ billData?.sgst ? billData?.sgst : 0 | number:'1.2-2' }}</td>
                 </tr>
                 <tr>

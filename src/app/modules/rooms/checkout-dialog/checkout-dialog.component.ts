@@ -21,12 +21,27 @@ export class CheckoutDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: any, private toastr: ToastrService
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
 
+  // ── Formats Date to yyyy-MM-ddTHH:mm:ss.mmm ───────────────────────────────
+  private formatLocalDateTime(d: Date): string {
+    const yyyy = d.getFullYear();
+    const mm   = String(d.getMonth() + 1).padStart(2, '0');
+    const dd   = String(d.getDate()).padStart(2, '0');
+    const hh   = String(d.getHours()).padStart(2, '0');
+    const min  = String(d.getMinutes()).padStart(2, '0');
+    const ss   = String(d.getSeconds()).padStart(2, '0');
+    const ms   = String(d.getMilliseconds()).padStart(3, '0');
+    return `${yyyy}-${mm}-${dd}T${hh}:${min}:${ss}.${ms}`;
   }
 
   checkout() {
-    this.data.amountPaid = this.data?.amountPaid + this.data?.amountRemaining;
+    // ── Set current date & time as actual checkout time ────────────────────
+    const now = new Date();
+    this.data.checkoutDts = this.formatLocalDateTime(now);
+
+    // ── Settle remaining amount ────────────────────────────────────────────
+    this.data.amountPaid      = (this.data?.amountPaid ?? 0) + (this.data?.amountRemaining ?? 0);
     this.data.amountRemaining = 0;
     this.repository
       .getCheckOut(this.data.bookingId, this.data)
@@ -79,7 +94,7 @@ export class CheckoutDialogComponent {
 
   get grandTotal(): number {
     return this.orderDetails
-      ?.reduce((sum: any, item: { orderValue: any; }) => sum + item.orderValue, 0);
+      ?.reduce((sum: any, item: { orderValue: any }) => sum + item.orderValue, 0);
   }
 
 }

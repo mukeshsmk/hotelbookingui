@@ -42,6 +42,14 @@ export class RoomBookingDialogComponent {
   MAX_SIZE = 1 * 1024 * 1024; // 1MB
   room = this.data;
   today = new Date();
+
+  // Helper: checkout default = tomorrow, same time as now
+  private get defaultCheckout(): Date {
+    const d = new Date();
+    d.setDate(d.getDate() + 1);
+    return d;
+  }
+
   model: any = {
     clientObject: {
       firstName: '',
@@ -69,8 +77,8 @@ export class RoomBookingDialogComponent {
       childrenCount: 0,
       paymentType: 1,
       transactionStatus: 22,
-      checkinDts: new Date(),
-      checkoutDts: new Date(new Date().setDate(new Date().getDate() + 1)),
+      checkinDts: new Date(),                // ✅ current date + current time
+      checkoutDts: this.defaultCheckout,     // ✅ tomorrow  + current time
       comments: '',
       status: 1
     },
@@ -80,6 +88,8 @@ export class RoomBookingDialogComponent {
   rooms = [
     { id: 1, name: 'AC' },
     { id: 2, name: 'Non AC' },
+    { id: 3, name: 'Single AC' },
+    { id: 4, name: 'Single Non AC' },
   ];
   loading: boolean = false;
   isEditMode: boolean = false;
@@ -93,6 +103,7 @@ export class RoomBookingDialogComponent {
   ) { }
 
   ngOnInit(): void {
+    const now = new Date(); // capture current time once for consistency
     if (this.data?.mode === 'edit') {
       this.isEditMode = true;
       this.selectedTabIndex = 1;
@@ -128,17 +139,31 @@ export class RoomBookingDialogComponent {
       }
     } else if (this.data?.mode === 'booking') {
       this.isNewBooking = true;
-      this.model.bookingObject.checkinDts = this.data.data.checkinDate;
-      const checkoutDate = new Date(this.data.data.checkinDate);
-      checkoutDate.setDate(checkoutDate.getDate() + 1);
-      this.model.bookingObject.checkoutDts = checkoutDate;
+      // checkin: use the date from data but apply current time
+      const checkin = new Date(this.data.data.checkinDate);
+      checkin.setHours(now.getHours(), now.getMinutes(), now.getSeconds(), now.getMilliseconds());
+      this.model.bookingObject.checkinDts = checkin;
+
+      // checkout: next day from checkin, same current time
+      const checkout = new Date(checkin);
+      checkout.setDate(checkout.getDate() + 1);
+      this.model.bookingObject.checkoutDts = checkout;
       this.model.bookingObject.paymentType = 'cash';
       this.model.bookingObject.roomNumber = this.data.data.roomNumber;
       this.model.bookingObject.roomId = this.data.data.roomId;
       this.model.bookingObject.roomType = this.data.data.roomType;
+
+    } else {
+      // New booking: both dates already have current time from model defaults
+      // Just ensure checkout is tomorrow with current time
+      const checkout = new Date(now);
+      checkout.setDate(checkout.getDate() + 1);
+      this.model.bookingObject.checkinDts = new Date(now);
+      this.model.bookingObject.checkoutDts = checkout;
     }
+
+    this.model.bookingObject.paymentType = 'cash';
     this.fetchRoomDetails();
-    this.model.bookingObject.paymentType = 'cash'
   }
 
   onDropdownOpen(opened: boolean) {
@@ -196,7 +221,15 @@ export class RoomBookingDialogComponent {
   onCheckinChange(checkinDate: Date) {
     if (!checkinDate) return;
 
-    const checkout = new Date(checkinDate);
+    const now = new Date();
+
+    // Apply current time to the selected checkin date
+    const checkin = new Date(checkinDate);
+    checkin.setHours(now.getHours(), now.getMinutes(), now.getSeconds(), now.getMilliseconds());
+    this.model.bookingObject.checkinDts = checkin;
+
+    // Checkout = next day with same current time
+    const checkout = new Date(checkin);
     checkout.setDate(checkout.getDate() + 1);
     this.model.bookingObject.checkoutDts = checkout;
   }
@@ -270,7 +303,7 @@ export class RoomBookingDialogComponent {
 
   onRoomSelect(selectedRoomNumber: string) {
     this.model.bookingObject.roomNumber = selectedRoomNumber;
-    const room = this.roomDetails.find((r: { roomNumber: string; }) => r.roomNumber === selectedRoomNumber);
+    const room = this.roomDetails.find((r: { roomNumber: string }) => r.roomNumber === selectedRoomNumber);
     if (room) {
       this.model.bookingObject.roomId = room.id;
     }
@@ -295,7 +328,6 @@ export class RoomBookingDialogComponent {
   onDrop(event: DragEvent) {
     event.preventDefault();
     this.isDragging = false;
-
     const file = event.dataTransfer?.files[0];
     if (file) {
       this.validateAndSetFile(file);
@@ -324,7 +356,6 @@ export class RoomBookingDialogComponent {
 
     this.selectedFile = file;
 
-    // Preview
     const reader = new FileReader();
     reader.onload = () => (this.previewUrl = reader.result);
     reader.readAsDataURL(file);
@@ -333,8 +364,6 @@ export class RoomBookingDialogComponent {
   removeFile() {
     this.selectedFile = null as any;
     this.previewUrl = null;
-
-    // Clear input value (IMPORTANT)
     if (this.fileInput) {
       this.fileInput.nativeElement.value = '';
     }
@@ -351,5 +380,4 @@ export class RoomBookingDialogComponent {
       this.selectedTabIndex--;
     }
   }
-
 }
