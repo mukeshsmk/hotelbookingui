@@ -45,7 +45,7 @@ if (!gotTheLock) {
 
     // ✅ Load app
     if (isDev) {
-      mainWindow.loadURL('http://localhost:4200');
+      mainWindow.loadURL('http://localhost:4300');
       mainWindow.webContents.openDevTools();
     } else {
       mainWindow.loadURL(url.format({
