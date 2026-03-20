@@ -85,12 +85,7 @@ export class RoomBookingDialogComponent {
     files: ''
   };
 
-  rooms = [
-    { id: 1, name: 'AC' },
-    { id: 2, name: 'Non AC' },
-    { id: 3, name: 'Single AC' },
-    { id: 4, name: 'Single Non AC' },
-  ];
+  rooms: any;
   loading: boolean = false;
   isEditMode: boolean = false;
   isNewBooking: boolean = false;
@@ -164,6 +159,16 @@ export class RoomBookingDialogComponent {
 
     this.model.bookingObject.paymentType = 'cash';
     this.fetchRoomDetails();
+    this.loadRoomTypes();
+  }
+
+  loadRoomTypes() {
+    this.repository.getRoomTypes().subscribe({
+      next: (data) => {
+        this.rooms = data;
+      },
+      error: () => console.error('Failed to load room types')
+    });
   }
 
   onDropdownOpen(opened: boolean) {
@@ -308,11 +313,11 @@ export class RoomBookingDialogComponent {
       this.model.bookingObject.roomId = room.id;
     }
   }
-  selectRoomType(item: any) {
-    console.log("item", item)
-    this.model.bookingObject.roomType = item;
+  selectRoomType(event: any) {
+    const item = event.value;
     if (item) {
-      this.model.bookingObject.totalAmount = (item === 1 ? 1500 : 1300);
+      this.model.bookingObject.roomType = item.id;
+      this.model.bookingObject.totalAmount = item.amount;
     }
   }
   onDragOver(event: DragEvent) {

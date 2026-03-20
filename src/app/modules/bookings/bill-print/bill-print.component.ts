@@ -119,6 +119,9 @@ export class BillPrintComponent implements OnInit {
                     margin: 0;
                 }
             }
+            .header-para p{
+                margin: 5px;
+            }
 
             .bill-info-rows {
                 display: flex;

@@ -135,11 +135,11 @@
                     <mat-form-field appearance="outline" class="w-full"  [ngClass]="{ 'custom-disabled': isEditMode }">
                         <mat-label>Room Type</mat-label>
 
-                        <mat-select [(ngModel)]="model.bookingObject.roomType" name="roomType" required
-                            (selectionChange)="selectRoomType($event.value)">
+                        <mat-select [(ngModel)]="model.bookingObject.selectedRoom" name="roomType" required
+                            (selectionChange)="selectRoomType($event)">
                             <mat-option value="" disabled>Select a room</mat-option>
-                            <mat-option *ngFor="let r of rooms" [value]="r.id">
-                                {{ r.name }}
+                            <mat-option *ngFor="let r of rooms" [value]="r">
+                                {{ r.roomType }}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
