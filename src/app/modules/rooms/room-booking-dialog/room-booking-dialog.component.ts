@@ -166,6 +166,17 @@ export class RoomBookingDialogComponent {
     this.repository.getRoomTypes().subscribe({
       next: (data) => {
         this.rooms = data;
+
+        // 🔥 Fix for edit mode
+        if (this.model.bookingObject.roomType) {
+          const selected = this.rooms.find(
+            (r: any) => r.id === this.model.bookingObject.roomType
+          );
+
+          if (selected) {
+            this.model.bookingObject.selectedRoom = selected;
+          }
+        }
       },
       error: () => console.error('Failed to load room types')
     });
@@ -274,7 +285,6 @@ export class RoomBookingDialogComponent {
       )
     );
     this.model.bookingObject.amountRemaining = this.model.bookingObject.totalAmount - this.model.bookingObject.amountPaid;
-    this.model.bookingObject.totalAmount = this.model.bookingObject.roomType === 1 ? 1500 : 1300;
     formData.append(
       'bookingObject',
       new Blob(
