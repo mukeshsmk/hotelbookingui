@@ -250,6 +250,21 @@ export class RoomBookingDialogComponent {
     this.model.bookingObject.checkoutDts = checkout;
   }
 
+  onCheckOutChange(checkoutDate: Date) {
+    if (!checkoutDate) return;
+
+    const now = new Date();
+
+    // Apply current time to the selected checkin date
+    const checkin = new Date(checkoutDate);
+    checkin.setHours(now.getHours(), now.getMinutes(), now.getSeconds(), now.getMilliseconds());
+
+    // Checkout = next day with same current time
+    const checkout = new Date(checkin);
+    checkout.setDate(checkout.getDate());
+    this.model.bookingObject.checkoutDts = checkout;
+  }
+
   private formatLocalDateTime(d: Date): string {
     const date = (typeof d === 'string') ? new Date(d) : d;
     const yyyy = date.getFullYear();
@@ -261,6 +276,8 @@ export class RoomBookingDialogComponent {
     const ms = String(date.getMilliseconds()).padStart(3, '0');
     return `${yyyy}-${mm}-${dd}T${hh}:${min}:${ss}.${ms}`;
   }
+
+  
 
   close() {
     this.dialogRef.close();

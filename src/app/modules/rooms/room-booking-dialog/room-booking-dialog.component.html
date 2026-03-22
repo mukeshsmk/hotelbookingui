@@ -105,7 +105,7 @@
                     <mat-form-field appearance="outline">
                         <mat-label>Check-in</mat-label>
                         <input matInput [matDatepicker]="inPicker" [(ngModel)]="model.bookingObject.checkinDts"
-                            name="checkinDts" [disabled]="data?.mode === 'booking'" [min]="today" (dateChange)="onCheckinChange($event.value)">
+                            name="checkinDts" [disabled]="data?.mode === 'booking' || data?.mode === 'edit'" [min]="today" (dateChange)="onCheckinChange($event.value)">
                         <mat-datepicker-toggle matSuffix [for]="inPicker"></mat-datepicker-toggle>
                         <mat-datepicker #inPicker></mat-datepicker>
                     </mat-form-field>
@@ -113,7 +113,7 @@
                     <mat-form-field appearance="outline">
                         <mat-label>Check-out</mat-label>
                         <input matInput [matDatepicker]="outPicker" [(ngModel)]="model.bookingObject.checkoutDts"
-                            name="checkoutDts" [min]="today">
+                            name="checkoutDts" [min]="today" (dateChange)="onCheckOutChange($event.value)">
                         <mat-datepicker-toggle matSuffix [for]="outPicker"></mat-datepicker-toggle>
                         <mat-datepicker #outPicker></mat-datepicker>
                     </mat-form-field>
