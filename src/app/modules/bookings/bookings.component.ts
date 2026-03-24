@@ -28,6 +28,7 @@ export class BookingsComponent implements OnInit, AfterViewInit {
     'name',
     'mobileNumber',
     'room',
+    'roomTypeName',
     'checkinDts',
     'checkoutDts',
     'billingNumber',
