@@ -10,6 +10,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class CheckoutDialogComponent {
   amount: any;
+  discountAmount:any = 0;
+  gstEnabled:boolean = true;
   @ViewChild('ordersDialog') ordersDialog!: TemplateRef<any>;
   ordersDialogRef: any;
   loading: boolean = false;
@@ -43,6 +45,8 @@ export class CheckoutDialogComponent {
     // ── Settle remaining amount ────────────────────────────────────────────
     this.data.amountPaid      = (this.data?.amountPaid ?? 0) + (this.data?.amountRemaining ?? 0);
     this.data.amountRemaining = 0;
+    this.data.discountAmount = this.discountAmount;
+    this.data.gstEnabled = this.gstEnabled;
     this.repository
       .getCheckOut(this.data.bookingId, this.data)
       .subscribe({

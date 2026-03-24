@@ -29,7 +29,17 @@
             <mat-datepicker #toPicker></mat-datepicker>
         </mat-form-field>
 
-        <button mat-raised-button color="primary" (click)="loadReport()" [disabled]="!reportType && !fromDate && !toDate">
+         <!-- Report Type -->
+        <mat-form-field appearance="outline">
+            <mat-label>Invoice Type</mat-label>
+            <mat-select [(ngModel)]="gstType">
+                <mat-option value="3">All</mat-option>
+                <mat-option value="1">GST</mat-option>
+                <mat-option value="2">Non GST</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" (click)="loadReport()" [disabled]="!reportType && !fromDate && !toDate && !gstType">
             Generate
         </button>
 

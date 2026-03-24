@@ -77,6 +77,9 @@ export class RoomBookingDialogComponent {
       childrenCount: 0,
       paymentType: 1,
       transactionStatus: 22,
+      discountAmount: 0,
+      discountPercentage: 0,
+      gstEnabled: true,
       checkinDts: new Date(),                // ✅ current date + current time
       checkoutDts: this.defaultCheckout,     // ✅ tomorrow  + current time
       comments: '',
@@ -302,6 +305,10 @@ export class RoomBookingDialogComponent {
       )
     );
     this.model.bookingObject.amountRemaining = this.model.bookingObject.totalAmount - this.model.bookingObject.amountPaid;
+    this.model.bookingObject.discountAmount = 0
+    this.model.bookingObject.discountPercentage = 0
+    this.model.bookingObject.gstEnabled = true;
+    
     formData.append(
       'bookingObject',
       new Blob(
