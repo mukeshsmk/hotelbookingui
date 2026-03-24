@@ -59,14 +59,17 @@ export class BillPrintComponent implements OnInit {
         popup!.document.write(`
     <html>
         <head>
-            <title>Cash Bill</title>
-
+        
             <style>
+             @page {
+            margin: 0;   /* ← This removes about:blank and timestamp */
+            size: A4;
+          }
                 .bill-container {
                     font-family: Arial;
-                    width: 210mm;
+                    width: 200mm;
                     /* A4 width */
-                margin: 0 auto;
+                margin: 0;
             }
 
             .bill-header {
@@ -98,7 +101,6 @@ export class BillPrintComponent implements OnInit {
 
             .title {
                 text-align: center;
-                margin-top: -45px;
 
                 h2 {
                     color: #e32913;
