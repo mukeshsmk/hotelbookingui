@@ -100,7 +100,7 @@
 
         <div class="totals">
             <!-- <p><strong>Advance:</strong> {{ billData?.amountPaid }}</p> -->
-            <p><strong>Total:</strong> {{ billData?.totalAmount }}</p>
+            <p><strong>Total:</strong> {{ billData?.totalAmount| number:'1.2-2' }}</p>
             <!-- <p><strong>Balance:</strong> {{ billData?.amountRemaining }}</p> -->
         </div>
 

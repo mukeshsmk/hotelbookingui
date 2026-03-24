@@ -10,7 +10,7 @@ import { ReportRepository } from '../report-repository';
 export class GstReportComponent {
 
   reportType: 'monthly' | 'quarterly' | 'yearly' | null = null;
-  gstType: '3' | '2' | '1' | null = null;
+  gstType: '3' | '2' | '1' | null = '1';
   fromDate!: Date | null;
   toDate!: Date | null;
   grandTotals = {
