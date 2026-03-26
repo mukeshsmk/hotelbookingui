@@ -62,7 +62,8 @@ export class RoomBookingDialogComponent {
       state: '',
       status: 1,
       address2: '',
-      address1: ''
+      address1: '',
+      id: ''
     },
     bookingObject: {
       id: '',
@@ -163,6 +164,40 @@ export class RoomBookingDialogComponent {
     this.model.bookingObject.paymentType = 'cash';
     this.fetchRoomDetails();
     this.loadRoomTypes();
+  }
+
+  onMobileBlur() {
+    const mobile = this.model.clientObject.mobileNumber;
+
+    // Validate before API call
+    if (!mobile || !/^[6-9][0-9]{9}$/.test(mobile)) {
+      return;
+    }
+
+    this.repository.getClientByMobile(mobile).subscribe({
+      next: (res: any) => {
+        if (res) {
+          // 🔥 Auto-fill form
+          this.model.clientObject.firstName = res.firstName || '';
+          this.model.clientObject.lastName = res.lastName || '';
+          this.model.clientObject.email = res.email || '';
+          this.model.clientObject.gstInNo = res.gstInNo || '';
+          this.model.clientObject.idNumber = res.idNumber || '';
+          this.model.clientObject.city = res.city || '';
+          this.model.clientObject.state = res.state || '';
+          this.model.clientObject.address1 = res.address1 || '';
+          this.model.clientObject.id = res.id || '';
+          
+        }
+      },
+      error: (err) => {
+        if (err.status === 404) {
+          console.log('New customer. Please enter details');
+        } else {
+          console.log('Failed to fetch customer');
+        }
+      }
+    });
   }
 
   loadRoomTypes() {

@@ -65,4 +65,9 @@ export class RoomsRepository {
         return this.http.get(`${this.baseUrl}/getRoomServiceOrders`, { headers });
     }
 
+    getClientByMobile(mobile: string): Observable<any> {
+        const headers = new HttpHeaders({ 'mobileNumber': mobile });
+        return this.http.get(`${this.baseUrl}/getClientByMobileNumber`, { headers });
+    }
+
 }
