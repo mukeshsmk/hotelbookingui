@@ -95,6 +95,7 @@ export class RoomBookingDialogComponent {
   isNewBooking: boolean = false;
   roomDetails: any;
   selectedTabIndex = 0;
+  stateLists:any;
   totalTabs = 3;
   constructor(
     private dialogRef: MatDialogRef<RoomBookingDialogComponent>, private repository: RoomsRepository,
@@ -164,6 +165,7 @@ export class RoomBookingDialogComponent {
     this.model.bookingObject.paymentType = 'cash';
     this.fetchRoomDetails();
     this.loadRoomTypes();
+    this.loadStates();
   }
 
   onMobileBlur() {
@@ -200,6 +202,14 @@ export class RoomBookingDialogComponent {
     });
   }
 
+  loadStates(){
+    this.repository.getStateList().subscribe({
+      next: (data) => {
+        this.stateLists = data;
+      },
+      error: () => console.error('Failed to State Lists')
+    });
+  }
   loadRoomTypes() {
     this.repository.getRoomTypes().subscribe({
       next: (data) => {

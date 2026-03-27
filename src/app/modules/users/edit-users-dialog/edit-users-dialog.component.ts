@@ -40,6 +40,7 @@ export class EditUsersDialogComponent {
   isEditMode: boolean = false;
   isNewBooking: boolean = false;
   roomDetails: any;
+  stateLists:any;
   constructor(
     private dialogRef: MatDialogRef<EditUsersDialogComponent>, private repository: RoomsRepository,
     @Inject(MAT_DIALOG_DATA) public data: any, private toastr: ToastrService
@@ -64,6 +65,16 @@ export class EditUsersDialogComponent {
         }
       }
     }
+    this.loadStates()
+  }
+
+  loadStates(){
+    this.repository.getStateList().subscribe({
+      next: (data) => {
+        this.stateLists = data;
+      },
+      error: () => console.error('Failed to State Lists')
+    });
   }
 
   get statusClass() {

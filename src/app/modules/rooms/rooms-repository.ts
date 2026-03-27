@@ -56,6 +56,10 @@ export class RoomsRepository {
         return this.http.get(`${this.baseUrl}/getRoomTypeList`);
     }
 
+    getStateList(): Observable<any> {
+        return this.http.get(`${this.baseUrl}/getStateList`);
+    }
+
     saveOrders(payload: any): Observable<any> {
         return this.http.post(`${this.baseUrl}/addGuestOrders`, payload);
     }
