@@ -9,8 +9,9 @@
 
 .table-card {
   padding: 10px 15px;
-  background: #fff;
+  background: var(--clr-surface);
   border-radius: 10px;
+  color: var(--clr-text);
 }
 
 .table-header {
@@ -150,7 +151,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 15px 24px;
-  background: linear-gradient(135deg, #2c3563 0%, #4a6cf7 100%);
+  background: linear-gradient(135deg, var(--clr-darkest) 0%, var(--clr-primary) 100%);
   border-radius: 10px 10px 0 0;
   h3 {
     margin: 0;
@@ -233,7 +234,7 @@
 .filter-bar {
   display: flex;
   gap: 12px;
-  background-color: #fff;
+  background-color: var(--clr-surface);
   padding: 20px 1px 0 20px;
   border-radius: 6px;
   margin-bottom: 20px;

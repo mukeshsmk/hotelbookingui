@@ -10,7 +10,7 @@
 }
 
 .bed-icon {
-    color: #7c9ef8;
+    color: var(--clr-light);
     font-size: 32px;
     width: 32px;
     height: 32px;
@@ -80,7 +80,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: #f8f9ff;
+    background: var(--clr-bg);
 
     @media (max-width: 900px) {
         padding: 30px;
@@ -97,7 +97,7 @@
     letter-spacing: -0.5px;
 
     span {
-        color: #5b7def;
+        color: var(--clr-primary);
     }
 }
 
@@ -126,7 +126,7 @@ h2 {
     margin-top: 10px;
 
     a {
-        color: #5b7def;
+        color: var(--clr-primary);
         text-decoration: none;
         font-size: 14px;
 
@@ -143,7 +143,7 @@ h2 {
     font-size: 15px;
     font-weight: 600;
     border-radius: 10px;
-    background: linear-gradient(135deg, #5b7def 0%, #7c9ef8 100%) !important;
+    background: linear-gradient(135deg, var(--clr-darkest) 0%, var(--clr-light) 100%) !important;
     letter-spacing: 0.3px;
 }
 

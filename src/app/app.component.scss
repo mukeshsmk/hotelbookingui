@@ -9,7 +9,7 @@
 .main {
   margin-left: 185px;
   flex: 1;
-  background: #f0f2f8;
+  background: var(--clr-bg);
   display: flex;
   flex-direction: column;
   overflow: hidden;

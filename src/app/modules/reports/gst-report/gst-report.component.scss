@@ -2,13 +2,38 @@
   padding: 16px;
 }
 
+.table-card {
+  background: var(--clr-surface);
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--clr-border);
+  box-shadow: 0 4px 20px rgba(var(--clr-dark-rgb), 0.08);
+  margin-top: 16px;
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 24px;
+  background: linear-gradient(135deg, var(--clr-darkest) 0%, var(--clr-primary) 100%);
+  border-radius: 12px 12px 0 0;
+  h3 {
+    margin: 0;
+    color: #fff;
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+  }
+}
+
 /* Filters */
 .filter-bar {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
   align-items: baseline;
-  background-color: #fff;
+  background-color: var(--clr-surface);
   padding: 20px 1px 0 20px;
   border-radius: 6px;
 }
@@ -20,9 +45,7 @@ mat-form-field {
 /* Table */
 .table-wrapper {
   overflow-x: auto;
-  background: #fff;
-  border-radius: 6px;
-  margin-top: 20px;
+  background: var(--clr-surface);
 }
 
 .gst-table {
@@ -149,12 +172,13 @@ mat-form-field {
 .gst-table thead th {
   position: sticky;
   top: -1px;
-  background: #fff;
   z-index: 3;
-  color: #fff;
-  background: #3f51b5;
-  padding: 15px 10px;
-  font-size: 14px;
+  color: var(--clr-text);
+  background: var(--clr-soft);
+  border-bottom: 2px solid var(--clr-border);
+  padding: 10px 8px;
+  font-size: 13px;
+  font-weight: 600;
 }
 
 .gst-table tfoot td {

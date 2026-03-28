@@ -56,14 +56,17 @@
 
 
     <!-- Printable Area -->
-    <div id="print-section" class="table-wrapper mat-elevation-z2">
+    <div id="print-section" class="table-card mat-elevation-z2">
 
         <div class="print">
             <h3 class="hotel-name">Sri Sudharsana Residency</h3>
             <p class="hotel-address">6/1, 8/1, South Car Street, Sankarankovil - 627 756</p>
         </div>
 
-        <h3 class="print-title no-print">{{ reportTitle }}</h3>
+        <!-- Gradient header bar (like bookings table) -->
+        <div class="table-header no-print">
+            <h3>{{ reportTitle }}</h3>
+        </div>
 
         <h3 class="print-title print">{{ reportTitle }} ({{ fromDate | date:'dd-MM-yyyy' }} to {{ toDate | date:'dd-MM-yyyy' }})</h3>
  

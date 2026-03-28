@@ -1,10 +1,10 @@
 .card {
-    background: #ffffff;
+    background: var(--clr-surface);
     border-radius: 14px;
     position: relative;
     margin-bottom: 5px;
-    border: 1px solid #e8ecf4;
-    box-shadow: 0 4px 16px rgba(26, 31, 54, 0.07);
+    border: 1px solid var(--clr-border);
+    box-shadow: 0 4px 16px rgba(var(--clr-dark-rgb), 0.07);
     padding: 18px 20px;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     overflow: hidden;
@@ -16,13 +16,13 @@
         left: 0;
         right: 0;
         height: 3px;
-        background: var(--card-accent, #7c9ef8);
+        background: var(--card-accent, var(--clr-primary));
         border-radius: 14px 14px 0 0;
     }
 
     &:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 24px rgba(26, 31, 54, 0.12);
+        box-shadow: 0 8px 24px rgba(var(--clr-dark-rgb), 0.12);
     }
 }
 
@@ -58,7 +58,7 @@
 .info p {
     margin: 0 0 4px;
     font-size: 12px;
-    color: #8892a4;
+    color: var(--clr-text-muted);
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -68,13 +68,13 @@
     margin: 0;
     font-size: 26px;
     font-weight: 700;
-    color: #1a1f36;
+    color: var(--clr-text);
     line-height: 1;
 }
 
 .progress-bar {
     height: 5px;
-    background: #f0f2f8;
+    background: var(--clr-soft);
     border-radius: 3px;
     margin-top: 14px;
 }

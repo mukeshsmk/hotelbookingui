@@ -5,8 +5,9 @@
 
 .table-card {
     padding: 10px 15px;
-    background: #fff;
+    background: var(--clr-surface);
     border-radius: 10px;
+    color: var(--clr-text);
 }
 .pos-relative {
     position: relative;
@@ -16,13 +17,13 @@
     justify-content: space-between;
     align-items: center;
     padding: 15px 24px 15px 24px;
-    background: #3f51b5;
+    background: linear-gradient(135deg, var(--clr-darkest) 0%, var(--clr-primary) 100%);
     border-radius: 10px 10px 0 0;
     h3 {
         margin: 0;
         color: #fff;
-        font-size: 18px;
-        font-weight: 500;
+        font-size: 17px;
+        font-weight: 600;
     }
 }
 
@@ -193,7 +194,7 @@
 .filter-bar {
     display: flex;
     gap: 12px;
-    background-color: #fff;
+    background-color: var(--clr-surface);
     padding: 20px 1px 0 20px;
     border-radius: 6px;
     margin-bottom: 20px;
