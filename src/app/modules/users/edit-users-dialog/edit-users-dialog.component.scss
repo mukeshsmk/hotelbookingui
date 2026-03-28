@@ -42,7 +42,7 @@
     margin-bottom: 10px;
     font-weight: 500;
     .mat-icon {
-        color: #3f51b5;
+        color: var(--clr-primary);
     }
 }
 
@@ -91,16 +91,16 @@
 
     mat-icon {
         font-size: 18px;
-        color: #3f51b5;
+        color: var(--clr-primary);
     }
 
     &:hover {
-        border-color: #3f51b5;
+        border-color: var(--clr-primary);
         background: #f4f6ff;
     }
 
     &.dragging {
-        border-color: #3f51b5;
+        border-color: var(--clr-primary);
         background: #e8eaf6;
     }
 }
@@ -140,3 +140,4 @@
         font-size: 16px;
     }
 }
+

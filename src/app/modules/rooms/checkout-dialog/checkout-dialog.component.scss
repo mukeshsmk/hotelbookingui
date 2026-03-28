@@ -86,8 +86,8 @@
 
 .btn-primary {
     background: #ffffff;
-    border: 1px solid #4a6cf7;
-    color: #4a6cf7;
+    border: 1px solid var(--clr-primary);
+    color: var(--clr-primary);
 }
 
 .btn-secondary {
@@ -142,10 +142,10 @@ td {
     min-height: 40px;
 }
 :host ::ng-deep .mdc-checkbox .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background {
-    border-color: #0055d9 !important;
-    background-color: #0055d9 !important;
+    border-color: var(--clr-primary) !important;
+    background-color: var(--clr-primary) !important;
 }
 :host ::ng-deep .mdc-checkbox:not(:disabled):active .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background{
-    border-color: #0055d9 !important;
-    background-color: #0055d9 !important;
+    border-color: var(--clr-primary) !important;
+    background-color: var(--clr-primary) !important;
 }

@@ -54,7 +54,7 @@
   color: #4caf50;
 }
 .icon.mail {
-  color: #3f51b5;
+  color: var(--clr-primary);
 }
 
 .chip {
@@ -334,3 +334,4 @@
   top: 10px;
   left: 2px;
 }
+
