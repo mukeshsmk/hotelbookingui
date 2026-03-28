@@ -1,100 +1,53 @@
+/* ─── Summary Cards ─────────────────────────────── */
 .dashboard-cards {
-  display: flex;
-  flex-wrap: wrap; // allow wrapping on smaller screens
-  gap: 20px;
-  padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
 }
 
-/* DESKTOP: 5 cards per row */
-.summary-card {
-  flex: 1 1 calc(20% - 20px); // 5 cards per row
-  min-width: 200px; // prevent too small shrinking
-}
-
-/* TABLET: 3 cards per row */
-@media (max-width: 1024px) {
-  .summary-card {
-    flex: 1 1 calc(20% - 20px); // 5 cards per row
-    min-width: 200px; // prevent too small shrinking
-  }
-}
-
-/* MOBILE LARGE: 2 cards per row */
-@media (max-width: 768px) {
-  .summary-card {
-    flex: 1 1 calc(20% - 20px); // 5 cards per row
-    min-width: 200px; // prevent too small shrinking
-  }
-}
-
-/* MOBILE SMALL: 1 card per row */
-@media (max-width: 480px) {
-  .summary-card {
-    flex: 1 1 100%;
-  }
-}
-
-.dashboard-cards::-webkit-scrollbar {
-  height: 6px;
-}
-
-.dashboard-cards::-webkit-scrollbar-thumb {
-  background: #c7c7c7;
-  border-radius: 4px;
-}
-
-/* MOBILE BREAKPOINT */
-@media (max-width: 900px) {
+/* Large laptop / small monitor */
+@media (max-width: 1280px) {
   .dashboard-cards {
-    flex-wrap: wrap;
-    overflow-x: hidden;
-  }
-
-  .summary-card {
-    flex: 1 1 100%;
-    min-width: 100%;
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
-.dashboard-charts {
-  display: flex;
-  gap: 16px; 
-  flex-wrap: wrap;
-  align-items: stretch;
-}
-
-.dashboard-charts .left,
-.dashboard-charts .right {
-  display: flex;
-  flex-direction: column; 
-}
-
-.dashboard-charts .left {
-  flex: 1 1 320px;
-  min-width: 260px;
-}
-
-.dashboard-charts .right {
-  flex: 2 1 520px;
-  min-width: 320px;
-}
-
+/* Tablet landscape */
 @media (max-width: 1024px) {
-  .dashboard-charts .left,
-  .dashboard-charts .right {
-    flex-basis: 100%;
-    min-width: 100%;
+  .dashboard-cards {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
+/* Tablet portrait */
 @media (max-width: 768px) {
-  .dashboard-charts {
-    flex-direction: column;
-    align-items: stretch;
+  .dashboard-cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
   }
+}
 
-  .dashboard-charts .left,
-  .dashboard-charts .right {
-    flex: 0 0 100%;
+/* Mobile */
+@media (max-width: 480px) {
+  .dashboard-cards {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
+
+/* ─── Charts Section ─────────────────────────────── */
+.dashboard-charts {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+  align-items: start;
+}
+
+/* Tablet portrait and below — stack vertically */
+@media (max-width: 1024px) {
+  .dashboard-charts {
+    grid-template-columns: 1fr;
   }
 }

@@ -93,6 +93,19 @@ mat-icon[class*="keyboard_arrow"] {
     height: 20px;
 }
 
+@media (max-width: 600px) {
+    .topbar {
+        padding: 0 12px;
+    }
+    .username {
+        display: none;
+    }
+    .avatar-button-wrapper {
+        padding: 4px 6px;
+        gap: 6px;
+    }
+}
+
 .theme-toggle {
     background: var(--clr-soft);
     border: 1px solid var(--clr-border);

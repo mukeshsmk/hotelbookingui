@@ -83,3 +83,16 @@
     height: 5px;
     border-radius: 3px;
 }
+
+@media (max-width: 480px) {
+    .card {
+        padding: 14px 16px;
+    }
+    .info h2 {
+        font-size: 22px;
+    }
+    .icon {
+        width: 40px;
+        height: 40px;
+    }
+}

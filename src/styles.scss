@@ -305,3 +305,49 @@ body {
 .mat-mdc-mini-fab.mat-primary {
     --mdc-fab-container-color: var(--clr-primary);
 }
+
+/* ================================================
+   GLOBAL RESPONSIVE UTILITIES
+   ================================================ */
+
+/* Tables always scrollable horizontally */
+.table-wrapper,
+.mat-mdc-table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Mat table min-width so columns don't collapse */
+.mat-mdc-table {
+    min-width: 600px;
+}
+
+/* Dialogs full-width on mobile */
+@media (max-width: 600px) {
+    .mat-mdc-dialog-container {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        margin: 0 !important;
+        border-radius: 0 !important;
+    }
+
+    .dialog-body {
+        max-height: calc(100vh - 160px);
+    }
+
+    /* Stack two-column grids */
+    .two-cols {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* Navbar padding on mobile */
+@media (max-width: 600px) {
+    .topbar {
+        padding: 0 12px;
+    }
+
+    .username {
+        display: none;
+    }
+}
