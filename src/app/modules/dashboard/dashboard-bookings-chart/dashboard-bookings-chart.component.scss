@@ -1,7 +1,21 @@
 .chart-card {
   background: #fff;
-  border-radius: 8px;
-  padding: 12px;
+  border-radius: 14px;
+  padding: 20px;
+  border: 1px solid #e8ecf4;
+  box-shadow: 0 4px 16px rgba(26, 31, 54, 0.07);
+  height: 100%;
 }
-.chart-header h4 { margin: 0 0 8px 0; }
-.chart-body { height: 350px; }
+
+.chart-header {
+  h4 {
+    margin: 0 0 16px 0;
+    font-size: 15px;
+    font-weight: 700;
+    color: #1a1f36;
+  }
+}
+
+.chart-body {
+  height: 320px;
+}

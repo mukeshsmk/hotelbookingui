@@ -34,7 +34,6 @@
             <mat-option value="booked">Booked Rooms</mat-option>
         </mat-select>
     </mat-form-field>
-
 </div>
 
 <div class="rooms-grid">
@@ -62,7 +61,6 @@
                 {{ room.statusName }}
             </span>
         </div>
-
 
         <div class="room-footer">
             <button class="custom-btn btn-primary" *ngIf="room.statusName === 'Available'" (click)="addGuest(room)">

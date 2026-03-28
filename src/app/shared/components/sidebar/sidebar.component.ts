@@ -10,9 +10,9 @@ import { AuthService } from 'src/app/auth/auth-service';
 export class SidebarComponent implements OnInit {
 
   isSidebarOpen = false;
-  curentUser: any;
+  currentUser: any;
   constructor(private router: Router, private authService: AuthService) {
-    this.curentUser = this.authService.getUserName();
+    this.currentUser = this.authService.getUserName() || 'User';
   }
 
   ngOnInit() {

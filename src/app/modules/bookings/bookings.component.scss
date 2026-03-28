@@ -1,3 +1,7 @@
+.table-container {
+  display: block;
+}
+
 .filters {
   text-align: end;
   margin-bottom: 15px;
@@ -131,9 +135,12 @@
 }
 
 .table-card {
-  padding: 10px 15px;
+  padding: 0;
   background: #fff;
-  border-radius: 10px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(26, 31, 54, 0.08);
+  overflow: hidden;
+  border: 1px solid #e8ecf4;
 }
 .pos-relative {
   position: relative;
@@ -142,14 +149,15 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 24px 15px 24px;
-  background: #3f51b5;
+  padding: 15px 24px;
+  background: linear-gradient(135deg, #2c3563 0%, #4a6cf7 100%);
   border-radius: 10px 10px 0 0;
   h3 {
     margin: 0;
     color: #fff;
-    font-size: 18px;
-    font-weight: 500;
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
   }
 }
 

@@ -234,10 +234,35 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 43px 15px;
+    padding: 18px 20px;
     color: #fff;
-    background-color: #3f51b5;
+    background: linear-gradient(135deg, #2c3563 0%, #4a6cf7 100%);
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
     margin-bottom: 15px !important;
+}
+
+/* Page section title */
+.page-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a1f36;
+    margin: 0 0 20px;
+}
+
+/* Accent button style matching the new theme */
+.btn-accent {
+    background: linear-gradient(135deg, #5b7def 0%, #7c9ef8 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 18px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 14px;
+    transition: opacity 0.2s;
+
+    &:hover {
+        opacity: 0.9;
+    }
 }

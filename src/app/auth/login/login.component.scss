@@ -10,12 +10,15 @@
 }
 
 .bed-icon {
-    color: #1976d2;
-    color: #1976d2;
-    font-size: 40px;
-    width: 40px;
+    color: #7c9ef8;
+    font-size: 32px;
+    width: 32px;
     height: 32px;
+    margin-right: 4px;
+    position: relative;
+    top: 6px;
 }
+
 /* LEFT SIDE */
 .left-panel {
     flex: 55%;
@@ -25,7 +28,7 @@
     .overlay {
         position: absolute;
         inset: 0;
-        background: rgba(0, 0, 0, 0.45);
+        background: linear-gradient(135deg, rgba(26, 31, 54, 0.75) 0%, rgba(44, 53, 99, 0.6) 100%);
         padding: 60px;
         display: flex;
         flex-direction: column;
@@ -37,20 +40,24 @@
         display: none;
     }
 }
+
 .login-section {
-    width: 60%;
+    width: 70%;
+    max-width: 420px;
+
     @media (max-width: 900px) {
         width: 100%;
+        max-width: 100%;
     }
 }
 
 .left-panel .overlay {
     position: absolute;
-   top: 20%;
+    top: 20%;
     left: 10%;
     right: 10%;
     color: white;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 .left-panel h1 {
@@ -62,6 +69,7 @@
 .left-panel p {
     margin-top: 10px;
     font-size: 16px;
+    opacity: 0.85;
 }
 
 /* RIGHT SIDE */
@@ -71,31 +79,39 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+    background: #f8f9ff;
+
     @media (max-width: 900px) {
         padding: 30px;
     }
 }
 
 .logo {
-    font-size: 32px;
-    font-weight: 700;
-    color: #222;
-    margin-bottom: 35px;
+    display: flex;
+    align-items: center;
+    font-size: 28px;
+    font-weight: 800;
+    color: #1a1f36;
+    margin-bottom: 32px;
+    letter-spacing: -0.5px;
 
     span {
-        color: #1976d2;
+        color: #5b7def;
     }
 }
 
 h2 {
-    font-size: 28px;
-    margin-bottom: 5px;
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: #1a1f36;
 }
 
 .subtitle {
-    color: #666;
-    margin-bottom: 35px;
-    font-size: 15px;
+    color: #8892a4;
+    margin-bottom: 32px;
+    font-size: 14px;
 }
 
 /* FORM */
@@ -110,20 +126,30 @@ h2 {
     margin-top: 10px;
 
     a {
-        color: #1976d2;
+        color: #5b7def;
         text-decoration: none;
+        font-size: 14px;
+
+        &:hover {
+            text-decoration: underline;
+        }
     }
 }
 
 .login-btn {
     width: 100%;
-    margin-top: 25px;
-    height: 45px;
-    font-size: 16px;
+    margin-top: 20px;
+    height: 48px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #5b7def 0%, #7c9ef8 100%) !important;
+    letter-spacing: 0.3px;
 }
 
 footer {
-    margin-top: 50px;
-    font-size: 13px;
-    color: #aaa;
+    margin-top: 40px;
+    font-size: 12px;
+    color: #b0b8cc;
+    text-align: center;
 }

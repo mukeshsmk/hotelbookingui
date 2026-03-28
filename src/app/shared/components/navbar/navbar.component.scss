@@ -2,18 +2,23 @@
 .topbar {
     height: 60px;
     background: #ffffff;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #e8ecf4;
+    box-shadow: 0 2px 8px rgba(26, 31, 54, 0.06);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 20px;
+    padding: 0 24px;
     font-size: 15px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 .logout-section {
-    right: 40px;
-    width: 10% !important;
+    display: flex;
+    align-items: center;
 }
+
 .actions {
     display: flex;
     flex-direction: row;
@@ -21,51 +26,68 @@
     align-items: center;
     margin: 0;
     padding: 0;
-    margin-left: 1rem;
     li {
         margin: 0;
         list-style-type: none;
-        color: #1b5174;
         a {
-            color: #1b5174;
+            color: #1a1f36;
         }
     }
 }
-.actions li a:hover {
-    background: transparent !important;
-    --mat-mdc-button-persistent-ripple-color: transparent !important;
-}
-.actions li a:focus {
-    background: transparent !important;
-    --mat-mdc-button-persistent-ripple-color: transparent !important;
-}
+
+.actions li a:hover,
+.actions li a:focus,
 .actions li a:active {
     background: transparent !important;
     --mat-mdc-button-persistent-ripple-color: transparent !important;
 }
+
 .avatar-button-wrapper {
     display: flex;
     align-items: center;
-    gap: 8px; /* space between initial and name */
+    gap: 10px;
+    padding: 6px 10px;
+    border-radius: 30px;
+    border: 1px solid #e8ecf4;
+    transition: background 0.2s;
+
+    &:hover {
+        background: #f4f6fb;
+    }
 }
+
 .profile-name {
-    background-color: #959595;
-    width: 35px;
-    height: 35px;
+    background: linear-gradient(135deg, #7c9ef8, #5b7def);
+    width: 34px;
+    height: 34px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     color: #fff;
+    font-size: 14px;
+    font-weight: 700;
 }
+
 .username {
     font-size: 14px;
     font-weight: 500;
+    color: #1a1f36;
     white-space: nowrap;
 }
+
 .nav-action-btn:active {
     background: none !important;
 }
+
 .username-container {
     background: none !important;
+    padding: 0 !important;
+}
+
+mat-icon[class*="keyboard_arrow"] {
+    color: #888;
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
 }

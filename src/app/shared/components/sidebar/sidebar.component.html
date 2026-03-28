@@ -6,11 +6,12 @@
 
 <aside class="sidebar" [class.open]="isSidebarOpen">
 
-    <!-- User Profile -->
+    <!-- Brand Header -->
     <div class="user-profile">
-        <!-- <img src="assets/user.jpg" alt="User" class="avatar" /> -->
-        <h4>{{curentUser | titlecase }}</h4>
-        <p>Sri Sudharsana Residency</p>
+        <div class="brand-logo">
+            <mat-icon>bed</mat-icon>
+            <span class="brand-name">Sri Sudharsana<span> Residency</span></span>
+        </div>
     </div>
 
     <!-- Menu -->
@@ -43,9 +44,9 @@
     </nav>
 
     <!-- Bottom Settings -->
-    <!-- <a class="settings" routerLink="/settings" routerLinkActive="active">
+    <a class="settings" routerLink="/settings" routerLinkActive="active">
         <mat-icon>settings</mat-icon>
         <span>Settings</span>
-    </a> -->
+    </a>
 
 </aside>

@@ -2,14 +2,14 @@
 .layout {
   display: flex;
   height: 100vh;
-  font-family: Arial, sans-serif;
+  font-family: 'Roboto', 'Helvetica Neue', sans-serif;
 }
 
 /* Main area */
 .main {
-  margin-left: 220px;
+  margin-left: 185px;
   flex: 1;
-  background: #f3f4f6;
+  background: #f0f2f8;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -18,7 +18,7 @@
 
 /* Routed content area */
 .content {
-  padding: 20px;
+  padding: 24px;
   overflow-y: auto;
   height: calc(100vh - 60px);
 }
@@ -31,8 +31,8 @@
 }
 
 .main-content {
-  margin-left: 260px;
-  width: calc(100% - 260px);
+  margin-left: 185px;
+  width: calc(100% - 185px);
   padding: 20px;
 
   @media (max-width: 992px) {
