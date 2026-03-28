@@ -88,8 +88,8 @@ export class BillPrintComponent implements OnInit {
 
             .cash-bill {
                 margin: 0;
-                background: #e32913;
-                color: #fff;
+             
+                color: #000;
                 padding: 5px 5px;
                 display: inline-block;
                 border-radius: 4px;
@@ -103,7 +103,7 @@ export class BillPrintComponent implements OnInit {
                 text-align: center;
 
                 h2 {
-                    color: #e32913;
+                    color: #000;
                     font-size: 24px;
                     font-weight: 500;
                     margin: 0;
@@ -112,13 +112,14 @@ export class BillPrintComponent implements OnInit {
                 h3 {
                     font-size: 19px;
                     font-weight: 500;
-                    color: #4d4949;
+                    color: #000;
                     margin: 0;
                 }
 
                 p {
                     font-size: 12px;
                     margin: 0;
+                    color: #000;
                 }
             }
             .header-para p{
