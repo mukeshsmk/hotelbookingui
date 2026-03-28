@@ -36,26 +36,47 @@ export class DashboardBookingsChartComponent implements AfterViewInit, OnDestroy
                     {
                         label: 'Check-ins',
                         data: [],
-                        backgroundColor: '#27ae6070',
+                        backgroundColor: '#27ae6066',
                         borderColor: '#27ae60',
-                        borderWidth: 2
+                        borderWidth: 2,
+                        borderRadius: 6,
+                        borderSkipped: false
                     },
                     {
                         label: 'Check-outs',
                         data: [],
-                        backgroundColor: '#e73c3c57',
+                        backgroundColor: '#e74c3c66',
                         borderColor: '#e74c3c',
-                        borderWidth: 2
+                        borderWidth: 2,
+                        borderRadius: 6,
+                        borderSkipped: false
                     }
                 ]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                plugins: { legend: { display: true, position: 'bottom' } },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'bottom',
+                        labels: {
+                            padding: 20,
+                            font: { size: 13, weight: '500' },
+                            usePointStyle: true
+                        }
+                    }
+                },
                 scales: {
-                    x: { grid: { display: false } },
-                    y: { beginAtZero: true, ticks: { stepSize: 1 } }
+                    x: {
+                        grid: { display: false },
+                        ticks: { font: { size: 12 } }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: { stepSize: 1, font: { size: 12 } },
+                        grid: { color: 'rgba(0,0,0,0.05)' }
+                    }
                 }
             }
         });
