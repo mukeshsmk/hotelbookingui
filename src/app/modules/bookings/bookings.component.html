@@ -133,6 +133,10 @@
                             <mat-icon>visibility</mat-icon>
                             <span>View</span>
                         </button>
+                        <button *ngIf="getPaymentStatus(row) === 'Unpaid' && row.billingNumber" mat-menu-item (click)="addPayment(row)">
+                            <mat-icon>edit</mat-icon>
+                            <span>Add Payment</span>
+                        </button>
                         <button *ngIf="!isViewOnly && row.statusName === 'Checked-in'" mat-menu-item (click)="editClient(row)">
                             <mat-icon>edit</mat-icon>
                             <span>Edit</span>

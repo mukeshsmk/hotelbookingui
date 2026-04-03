@@ -14,6 +14,7 @@ import { BillPrintComponent } from './bill-print/bill-print.component';
 import { CheckoutDialogComponent } from '../rooms/checkout-dialog/checkout-dialog.component';
 import { RoomsRepository } from '../rooms/rooms-repository';
 import { ToastrService } from 'ngx-toastr';
+import { AddPaymentDialogComponent } from './checkout-dialog/add-payment-dialog.component';
 
 
 @Component({
@@ -182,6 +183,17 @@ export class BookingsComponent implements OnInit, AfterViewInit {
     });
   }
 
+  addPayment(row: any){
+    const dialogRef = this.dialog.open(AddPaymentDialogComponent, {
+      width: '600px',
+      data: row
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        this.loadClients()
+      }
+    });
+  }
 
   deleteClient(row: any) {
     if (confirm('Are you sure you want to delete?')) {
