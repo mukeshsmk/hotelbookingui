@@ -75,7 +75,7 @@
             <thead>
                 <tr>
                     <th>Description</th>
-                    <th style="text-align:right">Amount</th>
+                    <th style="text-align:right">Amount(₹)</th>
                 </tr>
             </thead>
             <tbody>
@@ -93,16 +93,46 @@
                 </tr>
                 <tr>
                     <td>Miscellaneous Charge</td>
-                    <td class="right-align">{{ billData?.miscellaneousCharge ? billData?.miscellaneousCharge : 0 | number:'1.2-2' }}</td>
+                    <td class="right-align">{{ billData?.miscellaneousCharge ? billData?.miscellaneousCharge : 0 |
+                        number:'1.2-2' }}</td>
                 </tr>
             </tbody>
         </table>
 
-        <div class="totals">
-            <!-- <p><strong>Advance:</strong> {{ billData?.amountPaid }}</p> -->
-            <p><strong>Total:</strong> {{ billData?.totalAmount| number:'1.2-2' }}</p>
-            <!-- <p><strong>Balance:</strong> {{ billData?.amountRemaining }}</p> -->
-        </div>
+        <table class="totals-table">
+            <tr>
+                <td>
+                    <div class="totals-columns">
+                        <div>
+                            <span>Paid Amount</span>
+                        </div>
+                        <div>
+                            {{ (billData?.amountPaid || 0) | number:'1.2-2' }}
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="totals-columns">
+                        <div>
+                            <span>Balance Amount</span>
+                        </div>
+                        <div>
+                            {{ (billData?.amountRemaining || 0) | number:'1.2-2' }}
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="totals-columns">
+                        <div>
+                            <span>Grand Total</span>
+                        </div>
+                        <div>
+                            {{ (billData?.totalAmount || 0) | number:'1.2-2' }}
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
 
         <p class="words">
             <strong>Amount in words:</strong> {{ billData?.totalAmountInWords | titlecase }} Rupees

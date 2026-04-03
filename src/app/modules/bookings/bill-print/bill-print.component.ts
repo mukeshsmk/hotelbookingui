@@ -46,7 +46,7 @@ export class BillPrintComponent implements OnInit {
         const diffTime = checkout.getTime() - checkin.getTime();
         const diffDays = diffTime / (1000 * 60 * 60 * 24);
 
-        return Math.max(diffDays, 0) ==0? 1 : Math.max(diffDays, 0);
+        return Math.max(diffDays, 0) == 0 ? 1 : Math.max(diffDays, 0);
     }
 
 
@@ -172,11 +172,23 @@ export class BillPrintComponent implements OnInit {
             .bill-table td {
                 padding: 6px 4px;
             }
-
-            .totals {
-                text-align: right;
+            .totals-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 10px;
             }
 
+            .totals-table td {
+                border: 1px solid #000;
+                padding: 8px;
+            }
+            .totals-columns{
+                display: flex;
+                justify-content: space-between;
+                span{
+                    font-weight: bold;
+                }
+            }
             .words {
                 border: 1px solid #000;
                 padding: 5px;
