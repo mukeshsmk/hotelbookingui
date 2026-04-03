@@ -41,7 +41,7 @@
                         titlecase }}</p>
                 </div>
                 <div class="right">
-                    <p><strong>No. of Days Stayed:</strong> {{numberOfDayes}} days</p>
+                    <p><strong>No. of Days Stayed:</strong> {{billData?.noOfDaysSpend}} days</p>
                 </div>
             </div>
 
@@ -59,7 +59,7 @@
                     <p><strong>Room No:</strong> {{ billData?.roomNumber }}</p>
                 </div>
                 <div class="right">
-                    <p><strong>Rate/day:</strong>  {{ billData?.totalAmount - billData?.miscellaneousCharge / (numberOfDayes || 1) | number:'1.2-2' }} </p>
+                    <p><strong>Rate/day:</strong>  {{ billData?.totalAmount - billData?.miscellaneousCharge / (billData?.noOfDaysSpend || 1) | number:'1.2-2' }} </p>
                 </div>
             </div>
 
