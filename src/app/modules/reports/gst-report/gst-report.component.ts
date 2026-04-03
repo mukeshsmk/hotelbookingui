@@ -132,7 +132,7 @@ export class GstReportComponent {
             .hotel-name {
                 text-align: center;
                 font-size: 24px;
-                color: #e32913;
+                color: #000;
                 margin: 0;
             }
 
