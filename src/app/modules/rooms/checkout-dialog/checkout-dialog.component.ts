@@ -10,8 +10,9 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class CheckoutDialogComponent {
   amount: any;
-  discountAmount:any = 0;
-  gstEnabled:boolean = true;
+  discountAmount: any = 0;
+  gstEnabled: boolean = true;
+  amountPaid: number = 0;
   @ViewChild('ordersDialog') ordersDialog!: TemplateRef<any>;
   ordersDialogRef: any;
   loading: boolean = false;
@@ -23,7 +24,26 @@ export class CheckoutDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: any, private toastr: ToastrService
   ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // this.payingAmount = (this.data?.amountRemaining ?? 0) + (this.data?.miscellaneousCharge ?? 0);
+  }
+
+  get totalRemaining(): number {
+    return (this.data?.amountRemaining ?? 0) + (this.data?.miscellaneousCharge ?? 0);
+  }
+
+  get balanceAfterPayment(): number {
+    return this.totalRemaining - (this.amountPaid ?? 0);
+  }
+
+  onPayingAmountChange() {
+    if (this.amountPaid > this.totalRemaining) {
+      this.amountPaid = this.totalRemaining;
+    }
+    if (this.amountPaid < 0) {
+      this.amountPaid = 0;
+    }
+  }
 
   // ── Formats Date to yyyy-MM-ddTHH:mm:ss.mmm ───────────────────────────────
   private formatLocalDateTime(d: Date): string {
@@ -42,11 +62,18 @@ export class CheckoutDialogComponent {
     const now = new Date();
     this.data.checkoutDts = this.formatLocalDateTime(now);
 
-    // ── Settle remaining amount ────────────────────────────────────────────
-    this.data.amountPaid      = (this.data?.amountPaid ?? 0) + (this.data?.amountRemaining ?? 0);
-    this.data.amountRemaining = 0;
-    this.data.discountAmount = this.discountAmount;
-    this.data.gstEnabled = this.gstEnabled;
+    // ── Validate paying amount ─────────────────────────────────────────────
+    const paying = this.amountPaid ?? 0;
+    if (paying < 0 || paying > this.totalRemaining) {
+      this.toastr.error(`Enter an amount between 0 and ${this.totalRemaining}`, 'Invalid Amount');
+      return;
+    }
+
+    // ── Apply partial or full payment ──────────────────────────────────────
+    this.data.amountPaid      = (this.data?.amountPaid ?? 0) + paying;
+    this.data.amountRemaining = this.totalRemaining - paying;
+    this.data.discountAmount  = this.discountAmount;
+    this.data.gstEnabled      = this.gstEnabled;
     this.repository
       .getCheckOut(this.data.bookingId, this.data)
       .subscribe({

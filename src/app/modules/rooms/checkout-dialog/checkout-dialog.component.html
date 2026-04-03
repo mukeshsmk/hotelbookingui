@@ -56,18 +56,38 @@
                 }}</span>
         </div>
     </div>
-    <div class="two-cols full">
 
+    <div class="two-cols full">
+        <div class="view-field">
+            <span class="label">Paying Amount</span>
+            <mat-form-field appearance="outline">
+                <input matInput type="number" [(ngModel)]="amountPaid" name="amountPaid"
+                    min="0" [max]="totalRemaining"
+                    (input)="onPayingAmountChange()">
+                <mat-error *ngIf="amountPaid > totalRemaining">
+                    Cannot exceed {{ totalRemaining | currency:'INR' }}
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="view-field mar-top-15">
+            <span class="label">Balance Due After Checkout</span>
+            <span class="value" [ngClass]="{'warning-text': balanceAfterPayment > 0}">
+                {{ balanceAfterPayment | currency:'INR' }}
+            </span>
+        </div>
+    </div>
+
+    <div class="two-cols full">
         <div class="view-field">
             <span class="label">Discount Amount</span>
             <mat-form-field appearance="outline">
-                <input matInput type="number" [(ngModel)]="discountAmount" name="children">
+                <input matInput type="number" [(ngModel)]="discountAmount" name="discountAmount">
             </mat-form-field>
         </div>
         <div class="view-field">
             <span class="value" style="margin-top: 18px;">
                 <div class="form-options">
-                    <mat-checkbox [(ngModel)]="gstEnabled" >GST Enabled</mat-checkbox>
+                    <mat-checkbox [(ngModel)]="gstEnabled">GST Enabled</mat-checkbox>
                 </div>
             </span>
         </div>
