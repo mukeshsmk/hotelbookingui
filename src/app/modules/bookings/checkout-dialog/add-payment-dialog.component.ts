@@ -70,8 +70,8 @@ export class AddPaymentDialogComponent {
     }
 
     // ── Apply partial or full payment ──────────────────────────────────────
-    this.data.amountPaid      = (this.data?.amountPaid ?? 0) + paying;
-    this.data.amountRemaining = this.totalRemaining - paying;
+    this.data.amountPaid      = paying;
+    this.data.amountRemaining = this.totalRemaining;
     this.repository
       .addPayment(this.data.bookingId, this.data)
       .subscribe({
