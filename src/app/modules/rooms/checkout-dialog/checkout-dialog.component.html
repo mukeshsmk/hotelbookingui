@@ -62,8 +62,7 @@
             <span class="label">Paying Amount</span>
             <mat-form-field appearance="outline">
                 <input matInput type="number" [(ngModel)]="amountPaid" name="amountPaid"
-                    min="0" [max]="totalRemaining"
-                    (input)="onPayingAmountChange()">
+                    min="0" [max]="totalRemaining">
                 <mat-error *ngIf="amountPaid > totalRemaining">
                     Cannot exceed {{ totalRemaining | currency:'INR' }}
                 </mat-error>
@@ -92,11 +91,10 @@
             </span>
         </div>
     </div>
-
 </div>
 <div class="dialog-footer">
     <button mat-button (click)="close()">Cancel</button>
-    <button class="custom-btn btn-secondary mar-lft-10" (click)="checkout()">
+    <button [ngClass]="{'disabled-btn': amountPaid > ((data?.amountRemaining) + (data?.miscellaneousCharge)) }" class="custom-btn btn-secondary mar-lft-10" (click)="checkout()">
         Checkout
     </button>
 </div>

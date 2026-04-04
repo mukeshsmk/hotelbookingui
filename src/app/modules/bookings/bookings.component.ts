@@ -202,11 +202,8 @@ export class BookingsComponent implements OnInit, AfterViewInit {
   }
 
   getPaymentStatus(row: any): string {
-    const total = Number(row.totalAmount) || 0;
-    const paid = Number(row.amountPaid) || 0;
-    if (paid === 0) return 'Unpaid';
-    if (paid < total) return 'Unpaid';
-    return 'Paid';
+    const remaining = Number(row.amountRemaining) || 0;
+    return remaining > 0 ? 'Unpaid' : 'Paid';
   }
 
   view(data: any) {

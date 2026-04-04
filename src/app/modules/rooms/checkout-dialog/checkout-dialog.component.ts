@@ -37,12 +37,18 @@ export class CheckoutDialogComponent {
   }
 
   onPayingAmountChange() {
-    if (this.amountPaid > this.totalRemaining) {
+    /* if (this.amountPaid > this.totalRemaining) {
       this.amountPaid = this.totalRemaining;
     }
     if (this.amountPaid < 0) {
       this.amountPaid = 0;
-    }
+    } */
+  }
+
+  get isOverPaid(): boolean {
+    const remaining = (this.data?.amountRemaining ?? 0);
+    const misc = (this.data?.miscellaneousCharge ?? 0);
+    return this.amountPaid > (remaining + misc);
   }
 
   // ── Formats Date to yyyy-MM-ddTHH:mm:ss.mmm ───────────────────────────────
