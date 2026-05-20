@@ -1,5 +1,7 @@
-import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, OnDestroy, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Subject } from 'rxjs';
+import { exhaustMap, takeUntil } from 'rxjs/operators';
 import { RoomsRepository } from '../rooms-repository';
 import { ToastrService } from 'ngx-toastr';
 import { DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter } from '@angular/material/core';
@@ -33,13 +35,17 @@ export const MY_DATE_FORMATS = {
   ]
 })
 
-export class RoomBookingDialogComponent {
+export class RoomBookingDialogComponent implements OnDestroy {
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
   isDragging = false;
+  isSaving = false;
   selectedFile!: File;
   previewUrl: string | ArrayBuffer | null = null;
   roomsLoaded = false;
   MAX_SIZE = 1 * 1024 * 1024; // 1MB
+
+  private saveClick$ = new Subject<void>();
+  private destroy$ = new Subject<void>();
   room = this.data;
   today = new Date();
 
@@ -100,7 +106,37 @@ export class RoomBookingDialogComponent {
   constructor(
     private dialogRef: MatDialogRef<RoomBookingDialogComponent>, private repository: RoomsRepository,
     @Inject(MAT_DIALOG_DATA) public data: any, private toastr: ToastrService
-  ) { }
+  ) {
+    this.saveClick$.pipe(
+      exhaustMap(() => this.isEditMode
+        ? this.repository.updateBooking(this.buildJsonPayload())
+        : this.repository.addBooking(this.buildFormData())
+      ),
+      takeUntil(this.destroy$)
+    ).subscribe({
+      next: (res: any) => {
+        if (res?.status === '200 OK' || res.message === 'Success') {
+          const message = this.isEditMode ? 'Booking updated successfully' : 'Booking added successfully';
+          this.toastr.success(message, 'Success');
+          this.dialogRef.close(true);
+        } else {
+          this.toastr.error('Booking failed', 'Error');
+          this.isSaving = false;
+        }
+      },
+      error: (err) => {
+        console.error('Booking failed', err);
+        this.isSaving = false;
+        if (err.status === 400) {
+          this.toastr.warning('Invalid booking data', 'Warning');
+        } else if (err.status === 500) {
+          this.toastr.error('Server error. Try again later', 'Error');
+        } else {
+          this.toastr.error('Something went wrong', 'Error');
+        }
+      }
+    });
+  }
 
   ngOnInit(): void {
     const now = new Date(); // capture current time once for consistency
@@ -327,12 +363,22 @@ export class RoomBookingDialogComponent {
 
   
 
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
   close() {
     this.dialogRef.close();
   }
 
   save() {
+    if (this.isSaving) return;
+    this.isSaving = true;
+    this.saveClick$.next();
+  }
 
+  private buildFormData(): FormData {
     const formData = new FormData();
     this.model.bookingObject.paymentType = this.model.bookingObject.paymentType === 'cash' ? 1 : 2;
     if (this.selectedFile) {
@@ -344,45 +390,31 @@ export class RoomBookingDialogComponent {
     this.model.bookingObject.checkoutDts = this.formatLocalDateTime(this.model.bookingObject.checkoutDts);
     formData.append(
       'clientObject',
-      new Blob(
-        [JSON.stringify(this.model.clientObject)],
-        { type: 'application/json' }
-      )
+      new Blob([JSON.stringify(this.model.clientObject)], { type: 'application/json' })
     );
     this.model.bookingObject.amountRemaining = this.model.bookingObject.totalAmount - this.model.bookingObject.amountPaid;
-    this.model.bookingObject.discountAmount = 0
-    this.model.bookingObject.discountPercentage = 0
+    this.model.bookingObject.discountAmount = 0;
+    this.model.bookingObject.discountPercentage = 0;
     this.model.bookingObject.gstEnabled = true;
-    
     formData.append(
       'bookingObject',
-      new Blob(
-        [JSON.stringify(this.model.bookingObject)],
-        { type: 'application/json' }
-      )
+      new Blob([JSON.stringify(this.model.bookingObject)], { type: 'application/json' })
     );
+    return formData;
+  }
 
-    this.repository.addBooking(formData).subscribe({
-      next: (res: any) => {
-        if (res?.status === '200 OK' || res.message === 'Success') {
-          const message = this.isEditMode ? 'Booking updated successfully' : 'Booking added successfully';
-          this.toastr.success(message, 'Success');
-          this.dialogRef.close(true);
-        } else {
-          this.toastr.error('Booking failed', 'Error');
-        }
-      },
-      error: (err) => {
-        console.error('Booking failed', err);
-        if (err.status === 400) {
-          this.toastr.warning('Invalid booking data', 'Warning');
-        } else if (err.status === 500) {
-          this.toastr.error('Server error. Try again later', 'Error');
-        } else {
-          this.toastr.error('Something went wrong', 'Error');
-        }
-      }
-    });
+  private buildJsonPayload(): any {
+    this.model.bookingObject.paymentType = this.model.bookingObject.paymentType === 'cash' ? 1 : 2;
+    this.model.bookingObject.checkinDts = this.formatLocalDateTime(this.model.bookingObject.checkinDts);
+    this.model.bookingObject.checkoutDts = this.formatLocalDateTime(this.model.bookingObject.checkoutDts);
+    this.model.bookingObject.amountRemaining = this.model.bookingObject.totalAmount - this.model.bookingObject.amountPaid;
+    this.model.bookingObject.discountAmount = 0;
+    this.model.bookingObject.discountPercentage = 0;
+    this.model.bookingObject.gstEnabled = true;
+    return {
+      clientObject: this.model.clientObject,
+      bookingObject: this.model.bookingObject
+    };
   }
 
   onRoomSelect(selectedRoomNumber: string) {

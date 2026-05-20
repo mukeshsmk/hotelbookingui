@@ -25,6 +25,10 @@ export class RoomsRepository {
         return this.http.post(`${this.baseUrl}/createClientAndBooking`, formData);
     }
 
+    updateBooking(payload: any): Observable<any> {
+        return this.http.post(`${this.baseUrl}/addBooking`, payload);
+    }
+
     getBookingDetails(id: string): Observable<any> {
         const headers = new HttpHeaders({ id: id });
         return this.http.get(`${this.baseUrl}/getBookingDetailsById`, { headers });

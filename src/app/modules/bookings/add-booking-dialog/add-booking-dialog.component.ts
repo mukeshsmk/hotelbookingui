@@ -1,5 +1,7 @@
-import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, OnDestroy, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Subject } from 'rxjs';
+import { exhaustMap, takeUntil } from 'rxjs/operators';
 import { BookingsRepository } from '../bookings-repository';
 import { ToastrService } from 'ngx-toastr';
 
@@ -8,7 +10,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './add-booking-dialog.component.html',
   styleUrls: ['./add-booking-dialog.component.scss']
 })
-export class AddBookingDialogComponent {
+export class AddBookingDialogComponent implements OnDestroy {
 
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
@@ -25,7 +27,6 @@ export class AddBookingDialogComponent {
     idNumber: '',
   };
 
-
   isDragging = false;
   isSaving = false;
   selectedFile!: File;
@@ -33,30 +34,29 @@ export class AddBookingDialogComponent {
 
   MAX_SIZE = 1 * 1024 * 1024; // 1MB
 
-  constructor(private dialogRef: MatDialogRef<AddBookingDialogComponent>, private bookingRepo: BookingsRepository, private toastr: ToastrService,@Inject(MAT_DIALOG_DATA) public data: any) { }
+  private saveClick$ = new Subject<void>();
+  private destroy$ = new Subject<void>();
 
-  ngOnInit() {
-    if (this.data?.mode === 'edit') {
-      this.newBooking = { ...this.data.client };
-    }
-  }
-
-  saveBooking() {
-    if (this.isSaving) return;
-    this.isSaving = true;
-
-    const formData = new FormData();
-
-    if (this.selectedFile) {
-      formData.append('files', this.selectedFile);
-    }
-
-    formData.append(
-      'clientObject',
-      new Blob([JSON.stringify(this.newBooking)], { type: 'application/json' })
-    );
-
-    this.bookingRepo.addClient(formData).subscribe({
+  constructor(
+    private dialogRef: MatDialogRef<AddBookingDialogComponent>,
+    private bookingRepo: BookingsRepository,
+    private toastr: ToastrService,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
+    this.saveClick$.pipe(
+      exhaustMap(() => {
+        const formData = new FormData();
+        if (this.selectedFile) {
+          formData.append('files', this.selectedFile);
+        }
+        formData.append(
+          'clientObject',
+          new Blob([JSON.stringify(this.newBooking)], { type: 'application/json' })
+        );
+        return this.bookingRepo.addClient(formData);
+      }),
+      takeUntil(this.destroy$)
+    ).subscribe({
       next: (res: any) => {
         if (res?.statusCode === 'OK' || res?.statusCodeValue === 200) {
           this.toastr.success('Booking added successfully', 'Success');
@@ -79,7 +79,23 @@ export class AddBookingDialogComponent {
         }
       }
     });
+  }
 
+  ngOnInit() {
+    if (this.data?.mode === 'edit') {
+      this.newBooking = { ...this.data.client };
+    }
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  saveBooking() {
+    if (this.isSaving) return;
+    this.isSaving = true;
+    this.saveClick$.next();
   }
 
   onDragOver(event: DragEvent) {
@@ -124,7 +140,6 @@ export class AddBookingDialogComponent {
 
     this.selectedFile = file;
 
-    // Preview
     const reader = new FileReader();
     reader.onload = () => (this.previewUrl = reader.result);
     reader.readAsDataURL(file);
@@ -134,7 +149,6 @@ export class AddBookingDialogComponent {
     this.selectedFile = null as any;
     this.previewUrl = null;
 
-    // Clear input value (IMPORTANT)
     if (this.fileInput) {
       this.fileInput.nativeElement.value = '';
     }

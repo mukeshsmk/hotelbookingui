@@ -85,7 +85,13 @@
 
 <div class="action-btn" mat-dialog-actions align="end">
     <button mat-stroked-button (click)="close()">Cancel</button>
-    <button mat-raised-button color="primary" (click)="saveBooking()" [disabled]="bookingForm.invalid || isSaving">Save</button>
+    <button type="button" mat-raised-button color="primary" (click)="saveBooking()"
+      [disabled]="bookingForm.invalid || isSaving"
+      [ngClass]="{'btn-saving': isSaving}"
+      class="save-btn">
+      <mat-spinner *ngIf="isSaving" diameter="18"></mat-spinner>
+      <span>{{ isSaving ? 'Saving...' : 'Save' }}</span>
+    </button>
 </div>
 
 

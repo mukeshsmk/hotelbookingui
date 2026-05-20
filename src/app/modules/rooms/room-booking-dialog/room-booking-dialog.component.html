@@ -214,7 +214,7 @@
                     Attachments
                 </h3>
 
-                <div>
+                <div [ngClass]="{ 'custom-disabled': isEditMode }">
                     <div class="upload-line" (click)="fileInput.click()" (dragover)="onDragOver($event)"
                         (dragleave)="onDragLeave($event)" (drop)="onDrop($event)" [class.dragging]="isDragging">
                         <mat-icon>upload</mat-icon>
@@ -253,7 +253,11 @@
         Next
     </button>
 
-    <button mat-flat-button color="primary" [disabled]="!isFormValid()" (click)="save()">
-        Save
+    <button type="button" mat-flat-button color="primary"
+        [disabled]="!isFormValid() || isSaving"
+        [ngClass]="{'btn-saving': isSaving}"
+        (click)="save()">
+        <mat-spinner *ngIf="isSaving" diameter="18"></mat-spinner>
+        <span>{{ isSaving ? 'Saving...' : 'Save' }}</span>
     </button>
 </div>
